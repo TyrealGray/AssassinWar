@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssassinWar", "AssassinWar.vcxproj", "{8D06FC57-FB33-430B-98BA-637EB8A16A7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8D06FC57-FB33-430B-98BA-637EB8A16A7A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8D06FC57-FB33-430B-98BA-637EB8A16A7A}.Debug|Win32.Build.0 = Debug|Win32
+		{8D06FC57-FB33-430B-98BA-637EB8A16A7A}.Release|Win32.ActiveCfg = Release|Win32
+		{8D06FC57-FB33-430B-98BA-637EB8A16A7A}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
