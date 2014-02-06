@@ -66,6 +66,9 @@
     <ClInclude Include="GeneratedFiles\ui_AssassinWar.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="CommentLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AssassinWar.rc" />

@@ -3,12 +3,10 @@
 
 #include <QList>
 
-#include "maploader_global.h"
-
 class QLabel;
 class QString;
 class QWidget;
-class MAPLOADER_EXPORT MapLoader
+class MapLoader
 {
 public:
     MapLoader();
