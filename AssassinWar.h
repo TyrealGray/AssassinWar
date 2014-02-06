@@ -6,14 +6,17 @@
 
 class AssassinWar : public QMainWindow
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	AssassinWar(QWidget *parent = 0, Qt::WFlags flags = 0);
-	~AssassinWar();
+    AssassinWar(QWidget *parent = 0, Qt::WFlags flags = 0);
+    ~AssassinWar();
+
+protected:
+    void paintEvent(QPaintEvent *PaintEvent);
 
 private:
-	Ui::AssassinWarClass ui;
+    Ui::AssassinWarClass ui;
 };
 
 #endif // ASSASSINWAR_H

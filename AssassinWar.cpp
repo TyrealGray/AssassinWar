@@ -1,3 +1,5 @@
+#include <QPainter>
+
 #include "CommentLib.h"
 
 #include "AssassinWar.h"
@@ -15,4 +17,12 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags): QMainWindow(parent,
 AssassinWar::~AssassinWar()
 {
 
+}
+
+void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
+{
+    QPainter painter(this);
+    painter.begin(this);
+    painter.drawLine(0.0, 0.0, 15.0, 25.0);// drawing code
+    painter.end();
 }
