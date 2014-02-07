@@ -17,6 +17,10 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags): QMainWindow(parent,
     QTimer *timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(repaint()));
     timer->start(300);
+
+    showFullScreen();
+
+    ui.mainToolBar->hide();
 }
 
 AssassinWar::~AssassinWar()
