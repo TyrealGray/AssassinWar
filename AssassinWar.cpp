@@ -22,7 +22,7 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
 
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-    m_pRepaintTimer->start(240);
+    m_pRepaintTimer->start(300);
 }
 
 AssassinWar::~AssassinWar()
