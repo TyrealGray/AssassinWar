@@ -12,17 +12,13 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
 {
     ui.setupUi(this);
 
-    //MapLoader mapLoader;
-    //QWidget* pMapWidget =  mapLoader.LoadMap("./map/map1.ui");
-    //mapLoader.LoadMapTerrain(*pMapWidget);
-
-    showFullScreen();
-
-    ui.mainToolBar->hide();
+    MapLoader mapLoader;
+    QWidget* pMapWidget =  mapLoader.LoadMap("./map/map1.ui");
+    mapLoader.LoadMapTerrain(*pMapWidget);
 
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-    m_pRepaintTimer->start(260);
+    m_pRepaintTimer->start(100);
 }
 
 AssassinWar::~AssassinWar()
