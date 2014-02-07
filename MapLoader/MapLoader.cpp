@@ -20,8 +20,16 @@ QWidget* MapLoader::LoadMap(const QString& strMapPath)
 {
     QUiLoader loader;
     QFile file(strMapPath);
-    file.open(QFile::ReadOnly);
-    QWidget *mapWidget = loader.load(&file);
+    QWidget *mapWidget = NULL;
+
+    if(file.open(QFile::ReadOnly))
+    {
+        mapWidget = loader.load(&file);
+    }
+    else
+    {
+    }
+
     file.close();
 
     return mapWidget;
