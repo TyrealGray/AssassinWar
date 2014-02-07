@@ -4,6 +4,7 @@
 #include <QtGui/QMainWindow>
 #include "ui_AssassinWar.h"
 
+class QTimer;
 class AssassinWar : public QMainWindow
 {
     Q_OBJECT
@@ -16,6 +17,8 @@ protected:
     void paintEvent(QPaintEvent *PaintEvent);
 
 private:
+    QTimer* m_pRepaintTimer;
+
     Ui::AssassinWarClass ui;
 };
 

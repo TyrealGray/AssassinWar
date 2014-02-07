@@ -6,7 +6,9 @@
 #include "AssassinWar.h"
 #include "MapLoader.h"
 
-AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags): QMainWindow(parent, flags)
+AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
+    : QMainWindow(parent, flags),
+      m_pRepaintTimer(NULL)
 {
     ui.setupUi(this);
 
@@ -14,18 +16,14 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags): QMainWindow(parent,
     //QWidget* pMapWidget =  mapLoader.LoadMap("./map/map1.ui");
     //mapLoader.LoadMapTerrain(*pMapWidget);
 
-    QTimer *timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(repaint()));
-    timer->start(300);
-
-    showFullScreen();
-
-    ui.mainToolBar->hide();
+    m_pRepaintTimer = new QTimer(this);
+    connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
+    m_pRepaintTimer->start(260);
 }
 
 AssassinWar::~AssassinWar()
 {
-
+    m_pRepaintTimer->stop();
 }
 
 void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
