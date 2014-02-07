@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QTimer>
 
 #include "CommentLib.h"
 
@@ -12,6 +13,10 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags): QMainWindow(parent,
     //MapLoader mapLoader;
     //QWidget* pMapWidget =  mapLoader.LoadMap("./map/map1.ui");
     //mapLoader.LoadMapTerrain(*pMapWidget);
+
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(repaint()));
+    timer->start(300);
 }
 
 AssassinWar::~AssassinWar()
@@ -21,8 +26,13 @@ AssassinWar::~AssassinWar()
 
 void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
 {
+    static float a = 0.0f;
+
+    if(60 < a)
+    {
+        a = 0.0f;
+    }
+
     QPainter painter(this);
-    painter.begin(this);
-    painter.drawLine(0.0, 0.0, 15.0, 25.0);// drawing code
-    painter.end();
+    painter.drawLine(++a, 0.0, 15.0, 25.0);// drawing code
 }

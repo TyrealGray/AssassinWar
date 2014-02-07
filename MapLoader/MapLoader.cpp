@@ -20,11 +20,11 @@ QWidget* MapLoader::LoadMap(const QString& strMapPath)
 {
     QUiLoader loader;
     QFile file(strMapPath);
-    QWidget *mapWidget = NULL;
+    QWidget *pMapWidget = NULL;
 
     if(file.open(QFile::ReadOnly))
     {
-        mapWidget = loader.load(&file);
+        pMapWidget = loader.load(&file);
     }
     else
     {
@@ -32,7 +32,7 @@ QWidget* MapLoader::LoadMap(const QString& strMapPath)
 
     file.close();
 
-    return mapWidget;
+    return pMapWidget;
 }
 
 QList<QLabel *> MapLoader::LoadMapTerrain(const QWidget& map)
