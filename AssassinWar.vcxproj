@@ -95,6 +95,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PixelCoordinateTransfer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.h">
@@ -110,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommentLib.h" />
+    <ClInclude Include="PixelCoordinateTransfer.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.qrc">

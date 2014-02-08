@@ -5,15 +5,20 @@
 #include <QFile>
 
 #include "MapLoader.h"
+#include "UnderGrid.h"
 
 MapLoader::MapLoader()
+    : m_pUnderGrid(NULL)
 {
 
 }
 
 MapLoader::~MapLoader()
 {
-
+    if(NULL != m_pUnderGrid)
+    {
+        delete m_pUnderGrid;
+    }
 }
 
 QWidget* MapLoader::LoadMap(const QString& strMapPath)
@@ -28,6 +33,7 @@ QWidget* MapLoader::LoadMap(const QString& strMapPath)
     }
     else
     {
+        // do nothing
     }
 
     file.close();
@@ -39,4 +45,9 @@ QList<QLabel *> MapLoader::LoadMapTerrain(const QWidget& map)
 {
     QList<QLabel *> allTerrains = map.findChildren<QLabel *>();
     return allTerrains;
+}
+
+void MapLoader::initMapLoader()
+{
+    m_pUnderGrid = new UnderGrid();
 }

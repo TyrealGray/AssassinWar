@@ -5,6 +5,15 @@ int main(int argc, char *argv[])
 {
     QApplication AW_App(argc, argv);
     AssassinWar AW;
-    AW.show();
-    return AW_App.exec();
+    if(!AW.initAW())
+    {
+        //error
+        AW_App.quit();
+    }
+    else
+    {
+        AW.show();
+        return AW_App.exec();
+    }
+
 }

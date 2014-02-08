@@ -78,10 +78,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="MapLoader.cpp" />
+    <ClCompile Include="UnderGrid.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="MapLoader.h" />
+    <ClInclude Include="UnderGrid.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

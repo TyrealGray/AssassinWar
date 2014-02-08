@@ -50,6 +50,9 @@
     <ClCompile Include="GeneratedFiles\qrc_AssassinWar.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="PixelCoordinateTransfer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.h">
@@ -61,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommentLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelCoordinateTransfer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

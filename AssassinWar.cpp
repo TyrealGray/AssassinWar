@@ -8,15 +8,10 @@
 
 AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
-      m_pRepaintTimer(NULL)
+      m_pRepaintTimer(NULL),
+      m_pMapLoader(NULL)
 {
-    m_pRepaintTimer = new QTimer(this);
-    connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-    m_pRepaintTimer->start(250);
 
-    MapLoader mapLoader;
-    QWidget* pMapWidget =  mapLoader.LoadMap("./map/map1.ui");
-    mapLoader.LoadMapTerrain(*pMapWidget);
 }
 
 AssassinWar::~AssassinWar()
@@ -35,4 +30,17 @@ void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
 
     QPainter painter(this);
     painter.drawLine(++a, 0.0, 15.0, 25.0);// drawing code
+}
+
+bool AssassinWar::initAW()
+{
+    m_pRepaintTimer = new QTimer(this);
+    connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
+    m_pRepaintTimer->start(250);
+
+    m_pMapLoader = new MapLoader();
+    m_pMapLoader->initMapLoader();
+    //QWidget* pMapWidget =  m_pMapLoader->LoadMap("./map/map1.ui");
+    //mapLoader->LoadMapTerrain(*pMapWidget);
+    return true;
 }
