@@ -26,13 +26,13 @@ AssassinWar::~AssassinWar()
 
 void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
 {
-    //static float a = 0.0f;
+    static float a = 0.0f;
 
-    //if(60 < a)
-    //{
-    //    a = 0.0f;
-    //}
+    if(60 < a)
+    {
+        a = 0.0f;
+    }
 
     QPainter painter(this);
-    painter.drawLine(0.0, 0.0, 15.0, 25.0);// drawing code
+    painter.drawLine(++a, 0.0, 15.0, 25.0);// drawing code
 }
