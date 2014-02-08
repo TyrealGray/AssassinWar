@@ -2,7 +2,6 @@
 #define ASSASSINWAR_H
 
 #include <QtGui/QMainWindow>
-#include "ui_AssassinWar.h"
 
 class QTimer;
 class AssassinWar : public QMainWindow
@@ -18,8 +17,6 @@ protected:
 
 private:
     QTimer* m_pRepaintTimer;
-
-    Ui::AssassinWarClass ui;
 };
 
 #endif // ASSASSINWAR_H

@@ -55,17 +55,11 @@
     <CustomBuild Include="AssassinWar.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="AssassinWar.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="AssassinWar.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_AssassinWar.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="CommentLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
