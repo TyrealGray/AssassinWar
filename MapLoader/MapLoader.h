@@ -15,10 +15,10 @@ public:
 
     void initMapLoader();
 
-    //读取ui
+    //load ui
     QWidget* LoadMap(const QString& strMapPath);
 
-    //读取障碍物场景
+    //load Terrain
     QList<QLabel *> LoadMapTerrain(const QWidget& map);
 
 private:

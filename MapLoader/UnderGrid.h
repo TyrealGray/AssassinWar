@@ -9,12 +9,12 @@ public:
     UnderGrid(void);
     ~UnderGrid(void);
 
-    //设置地面网格大小
-    //网格数量(Number of Grid) = width*height
+    //set UnderGrid Size
+    //Number of Grid = width*height
     bool SetSize(unsigned int &uiGridWidth, unsigned int &uiGridheight);
 
-    //获取X,Y处的网格get Grid.X=uiX && Grid.Y=uiY
-    //如果没有返回Null if Grid doesn't exist
+    //get Grid.X=uiX && Grid.Y=uiY
+    //return Null if Grid doesn't exist
     std::shared_ptr<Grid> getGrid(unsigned int &uiX, unsigned int &uiY);
 
 private:
