@@ -87,13 +87,13 @@ bool AssassinWar::LoadGameMap_(const QString& strMapPath)
         float fMapWidth = static_cast<float>(mapSize.width());
         float fMapHeight = static_cast<float>(mapSize.height());
 
-        int iAllGridTotalWidth = PixelCoordinateTransfer::Instance().ToGridX(fMapWidth);
-        int iAllGridTotalHeight = PixelCoordinateTransfer::Instance().ToGridY(fMapHeight);
+        int iAllGridTotalRow = PixelCoordinateTransfer::Instance().ToGridX(fMapWidth);
+        int iAllGridTotalColumn = PixelCoordinateTransfer::Instance().ToGridY(fMapHeight);
 
-        if(GRID_NUMBER_IS_ZERO != iAllGridTotalWidth && GRID_NUMBER_IS_ZERO != iAllGridTotalHeight)
+        if(GRID_NUMBER_IS_ZERO != iAllGridTotalRow && GRID_NUMBER_IS_ZERO != iAllGridTotalColumn)
         {
-            unsigned int uiAllGridTotalWidth = static_cast<unsigned int>(iAllGridTotalWidth);
-            unsigned int uiAllGridTotalHeight = static_cast<unsigned int>(iAllGridTotalHeight);
+            unsigned int uiAllGridTotalWidth = static_cast<unsigned int>(iAllGridTotalRow + 1);
+            unsigned int uiAllGridTotalHeight = static_cast<unsigned int>(iAllGridTotalColumn + 1);
 
             m_pUnderGrid->SetSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
             m_ListTerrains = m_pMapLoader->LoadMapTerrain(*pMapWidget);
