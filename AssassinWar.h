@@ -2,8 +2,11 @@
 #define ASSASSINWAR_H
 
 #include <QtGui/QMainWindow>
+#include <QList>
 
 class QTimer;
+class QLabel;
+class UnderGrid;
 class MapLoader;
 class AssassinWar : public QMainWindow
 {
@@ -21,6 +24,10 @@ protected:
 private:
     QTimer* m_pRepaintTimer;
     MapLoader* m_pMapLoader;
+    UnderGrid* m_pUnderGrid;
+    QList<QLabel *> m_ListTerrains;
+
+    bool LoadGameMap_(const QString& strMapPath);
 };
 
 #endif // ASSASSINWAR_H

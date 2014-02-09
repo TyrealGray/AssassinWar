@@ -3,16 +3,15 @@ class Grid
 {
 public:
     Grid(void);
-    Grid(unsigned int &uiX, unsigned int &uiY);
+    Grid(const unsigned int &uiX, const unsigned int &uiY);
     Grid(const Grid& grid);
     ~Grid(void);
 
-    //设置是否可以使用该网格
-    void SetDisable(bool &bDisable);
+    void SetDisable(const bool &bDisable);
 
-    void SetX(unsigned int &uiX);
+    void SetX(const unsigned int &uiX);
 
-    void SetY(unsigned int &uiY);
+    void SetY(const unsigned int &uiY);
 
     bool IsDisable();
 

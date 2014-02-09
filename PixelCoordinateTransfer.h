@@ -2,15 +2,17 @@
 class PixelCoordinateTransfer
 {
 public:
+    static PixelCoordinateTransfer& Instance();
+
+    int ToGridX(const float& fX);
+
+    int ToGridY(const float& fY);
+
+    float GridXToPixelCoordinateX(const unsigned int& uiX);
+
+    float GridYToPixelCoordinateY(const unsigned int& uiY);
+private:
     PixelCoordinateTransfer(void);
     ~PixelCoordinateTransfer(void);
-
-    unsigned int ToGridX(unsigned int uiX);
-
-    unsigned int ToGridY(unsigned int uiY);
-
-    unsigned int GridXToPixelCoordinateX(unsigned int uiX);
-
-    unsigned int GridYToPixelCoordinateY(unsigned int uiY);
 };
 

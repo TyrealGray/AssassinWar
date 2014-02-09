@@ -5,7 +5,7 @@ Grid::Grid(void)
 {
 }
 
-Grid::Grid(unsigned int &uiX, unsigned int &uiY)
+Grid::Grid(const unsigned int &uiX, const unsigned int &uiY)
     : m_bDisable(true),
       m_uiX(uiX),
       m_uiY(uiY)
@@ -24,17 +24,17 @@ Grid::~Grid(void)
 {
 }
 
-void Grid::SetDisable(bool &bDisable)
+void Grid::SetDisable(const bool &bDisable)
 {
     m_bDisable = bDisable;
 }
 
-void Grid::SetX(unsigned int &uiX)
+void Grid::SetX(const unsigned int &uiX)
 {
     m_uiX = uiX;
 }
 
-void Grid::SetY(unsigned int &uiY)
+void Grid::SetY(const unsigned int &uiY)
 {
     m_uiY = uiY;
 }

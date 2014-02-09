@@ -6,14 +6,13 @@
 class QLabel;
 class QString;
 class QWidget;
-class UnderGrid;
 class MapLoader
 {
 public:
     MapLoader();
     ~MapLoader();
 
-    void initMapLoader();
+    void InitMapLoader();
 
     //load ui
     QWidget* LoadMap(const QString& strMapPath);
@@ -22,7 +21,7 @@ public:
     QList<QLabel *> LoadMapTerrain(const QWidget& map);
 
 private:
-    UnderGrid* m_pUnderGrid;
+
 };
 
 #endif // MAPLOADER_H

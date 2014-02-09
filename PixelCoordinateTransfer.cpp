@@ -10,21 +10,34 @@ PixelCoordinateTransfer::~PixelCoordinateTransfer(void)
 {
 }
 
-unsigned int PixelCoordinateTransfer::ToGridX(unsigned int uiX)
+PixelCoordinateTransfer& PixelCoordinateTransfer::Instance()
 {
-    return 0;
+    static PixelCoordinateTransfer pixelCoordinateTransfer;
+    return pixelCoordinateTransfer;
 }
 
-unsigned int PixelCoordinateTransfer::ToGridY(unsigned int uiY)
+int PixelCoordinateTransfer::ToGridX(const float& fX)
 {
-    return 0;
-}
-unsigned int PixelCoordinateTransfer::GridXToPixelCoordinateX(unsigned int uiX)
-{
-    return 0;
+    int GridX = static_cast<int>(fX);
+    GridX /= 15;
+    return GridX - 1;
 }
 
-unsigned int PixelCoordinateTransfer::GridYToPixelCoordinateY(unsigned int uiY)
+int PixelCoordinateTransfer::ToGridY(const float& fY)
 {
-    return 0;
+    int GridY = static_cast<int>(fY);
+    GridY /= 15;
+    return GridY - 1;
+}
+
+float PixelCoordinateTransfer::GridXToPixelCoordinateX(const unsigned int& uiX)
+{
+    float PixelCoordinateX = static_cast<float>((uiX + 1) * 15);
+    return PixelCoordinateX;
+}
+
+float PixelCoordinateTransfer::GridYToPixelCoordinateY(const unsigned int& uiY)
+{
+    float PixelCoordinateY = static_cast<float>((uiY + 1) * 15);
+    return PixelCoordinateY;
 }
