@@ -1,4 +1,9 @@
 <RCC>
-    <qresource prefix="AssassinWar">
+    <qresource prefix="/AssassinWar">
+        <file>AssassinsWar.jpg</file>
+        <file>Resources/Toolbar/Host.jpg</file>
+        <file>Resources/Toolbar/Join.jpg</file>
+        <file>Resources/Toolbar/SearchGame.jpg</file>
+        <file>Resources/Toolbar/Setting.jpg</file>
     </qresource>
 </RCC>

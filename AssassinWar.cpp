@@ -1,28 +1,37 @@
 #include <QTimer>
 #include <QLabel>
 #include <QPainter>
+#include <QToolBar>
+#include <QMouseEvent>
 
 #include "CommentLib.h"
 
 #include "AssassinWar.h"
 #include "MapLoader.h"
 #include "UnderGrid.h"
+#include "ToolbarManager.h"
 #include "PixelCoordinateTransfer.h"
 
 const int GRID_NUMBER_IS_ZERO = -1;
+const int MAIN_TOOLBAR_POS = 45;
 
 AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
       m_pRepaintTimer(NULL),
       m_pMapLoader(NULL),
-      m_pUnderGrid(NULL)
+      m_pUnderGrid(NULL),
+      m_pToolbar(NULL),
+      m_pToolbarManager(NULL)
 {
 
 }
 
 AssassinWar::~AssassinWar()
 {
-    m_pRepaintTimer->stop();
+    if(NULL != m_pRepaintTimer)
+    {
+        m_pRepaintTimer->stop();
+    }
 
     if(NULL != m_pMapLoader)
     {
@@ -35,24 +44,36 @@ AssassinWar::~AssassinWar()
         delete m_pUnderGrid;
         m_pUnderGrid = NULL;
     }
-}
 
-void AssassinWar::paintEvent(QPaintEvent *PaintEvent)
-{
-    static float a = 0.0f;
-
-    if(60 < a)
+    if(NULL != m_pToolbarManager)
     {
-        a = 0.0f;
+        delete m_pToolbarManager;
+        m_pToolbarManager = NULL;
     }
-
-    QPainter painter(this);
-    painter.drawLine(++a, 0.0, 15.0, 25.0);// drawing code
 }
 
-bool AssassinWar::initAW()
+void AssassinWar::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    bool bInitSuccessed = true;
+    if(MAIN_TOOLBAR_POS > mouseEvent->pos().y())
+    {
+        m_pToolbar->setVisible(true);
+    }
+    else
+    {
+        m_pToolbar->setVisible(false);
+    }
+}
+
+void AssassinWar::paintEvent(QPaintEvent *paintEvent)
+{
+    QPainter painter(this);
+
+    painter.drawPixmap(0, 0, m_background);
+}
+
+bool AssassinWar::initAW_()
+{
+    bool bInitAWSuccessed = true;
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
     m_pRepaintTimer->start(250);
@@ -63,11 +84,11 @@ bool AssassinWar::initAW()
     m_pUnderGrid = new UnderGrid();
 
     QString strMapPath = "./map/map1.ui";
-    bInitSuccessed = LoadGameMap_(strMapPath);
+    bInitAWSuccessed = LoadGameMap_(strMapPath);
 
     setWindowState(Qt::WindowFullScreen);
 
-    return bInitSuccessed;
+    return bInitAWSuccessed;
 }
 
 bool AssassinWar::LoadGameMap_(const QString& strMapPath)
@@ -105,4 +126,41 @@ bool AssassinWar::LoadGameMap_(const QString& strMapPath)
     }
 
     return bLoadGameMapSuccessed;
+}
+
+void AssassinWar::InitMainWin()
+{
+    InitToolbarManager_();
+
+    InitBackground_();
+
+    InitToolbar_();
+
+    resize(640, 360);
+    setMouseTracking(true);
+}
+
+void AssassinWar::InitToolbar_()
+{
+    m_pToolbar = addToolBar(tr("MainToolbar"));
+    m_pToolbar->addAction(m_pToolbarManager->GetButtonHost());
+    m_pToolbar->addAction(m_pToolbarManager->GetButtonJoin());
+    m_pToolbar->addAction(m_pToolbarManager->GetButtonSearchGame());
+    m_pToolbar->addAction(m_pToolbarManager->GetButtonSetting());
+    m_pToolbar->setIconSize(QSize(45, 45));
+    m_pToolbar->setMovable(false);
+    m_pToolbar->setVisible(false);
+}
+
+void AssassinWar::InitBackground_()
+{
+    QImage background;
+    background.load("./AssassinsWar.jpg");
+    m_background = QPixmap::fromImage(background.scaled(size(), Qt::KeepAspectRatio));
+}
+
+void AssassinWar::InitToolbarManager_()
+{
+    m_pToolbarManager = new ToolbarManager();
+    m_pToolbarManager->Init();
 }
