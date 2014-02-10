@@ -1,5 +1,6 @@
 #include <QTimer>
 #include <QLabel>
+#include <QAction>
 #include <QPainter>
 #include <QToolBar>
 #include <QMouseEvent>
@@ -13,7 +14,8 @@
 #include "PixelCoordinateTransfer.h"
 
 const int GRID_NUMBER_IS_ZERO = -1;
-const int MAIN_TOOLBAR_POS = 45;
+const int ICON_SIZE = 45;
+const int MAIN_WIN_WIDTH = 850;
 
 AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
@@ -21,7 +23,8 @@ AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
       m_pMapLoader(NULL),
       m_pUnderGrid(NULL),
       m_pToolbar(NULL),
-      m_pToolbarManager(NULL)
+      m_pToolbarManager(NULL),
+      m_bIsAWRun(false)
 {
 
 }
@@ -54,7 +57,7 @@ AssassinWar::~AssassinWar()
 
 void AssassinWar::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
-    if(MAIN_TOOLBAR_POS > mouseEvent->pos().y())
+    if(ICON_SIZE > mouseEvent->pos().y() && !m_bIsAWRun)
     {
         m_pToolbar->setVisible(true);
     }
@@ -71,24 +74,23 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     painter.drawPixmap(0, 0, m_background);
 }
 
-bool AssassinWar::initAW_()
+void AssassinWar::OnButttonHost_()
 {
+    RunAW_();
+
+    setMouseTracking(false);
+    m_pToolbar->setVisible(false);
+}
+
+bool AssassinWar::RunAW_()
+{
+    setWindowState(Qt::WindowFullScreen);
     bool bInitAWSuccessed = true;
-    m_pRepaintTimer = new QTimer(this);
-    connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-    m_pRepaintTimer->start(250);
 
-    m_pMapLoader = new MapLoader();
-    m_pMapLoader->InitMapLoader();
-
-    m_pUnderGrid = new UnderGrid();
-
-    QString strMapPath = "./map/map1.ui";
+    QString strMapPath = "./map/SmallTown.ui";
     bInitAWSuccessed = LoadGameMap_(strMapPath);
 
-    setWindowState(Qt::WindowFullScreen);
-
-    return bInitAWSuccessed;
+    return (m_bIsAWRun = bInitAWSuccessed);
 }
 
 bool AssassinWar::LoadGameMap_(const QString& strMapPath)
@@ -117,6 +119,10 @@ bool AssassinWar::LoadGameMap_(const QString& strMapPath)
             unsigned int uiAllGridTotalHeight = static_cast<unsigned int>(iAllGridTotalColumn + 1);
 
             m_pUnderGrid->SetSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
+
+            //UNDONE change this API
+            InitBackground_("./Resources/SmallTown/Background/SmallTown.jpg");
+
             m_ListTerrains = m_pMapLoader->LoadMapTerrain(*pMapWidget);
         }
         else
@@ -132,11 +138,15 @@ void AssassinWar::InitMainWin()
 {
     InitToolbarManager_();
 
-    InitBackground_();
+    InitBackground_("./AssassinsWar.jpg");
 
     InitToolbar_();
 
-    resize(640, 360);
+    InitRepainter_();
+
+    InitMapSystem_();
+
+    resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
     setMouseTracking(true);
 }
 
@@ -147,20 +157,37 @@ void AssassinWar::InitToolbar_()
     m_pToolbar->addAction(m_pToolbarManager->GetButtonJoin());
     m_pToolbar->addAction(m_pToolbarManager->GetButtonSearchGame());
     m_pToolbar->addAction(m_pToolbarManager->GetButtonSetting());
-    m_pToolbar->setIconSize(QSize(45, 45));
+    m_pToolbar->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     m_pToolbar->setMovable(false);
     m_pToolbar->setVisible(false);
+
+    connect(m_pToolbarManager->GetButtonHost(), SIGNAL(triggered()), this, SLOT(OnButttonHost_()));
 }
 
-void AssassinWar::InitBackground_()
+void AssassinWar::InitBackground_(const QString& strBackgroundImagePath)
 {
     QImage background;
-    background.load("./AssassinsWar.jpg");
-    m_background = QPixmap::fromImage(background.scaled(size(), Qt::KeepAspectRatio));
+    background.load(strBackgroundImagePath);
+    m_background = QPixmap::fromImage(background.scaled(size(), Qt::KeepAspectRatioByExpanding));
 }
 
 void AssassinWar::InitToolbarManager_()
 {
     m_pToolbarManager = new ToolbarManager();
     m_pToolbarManager->Init();
+}
+
+void AssassinWar::InitRepainter_()
+{
+    m_pRepaintTimer = new QTimer(this);
+    connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
+    m_pRepaintTimer->start(250);
+}
+
+void AssassinWar::InitMapSystem_()
+{
+    m_pMapLoader = new MapLoader();
+    m_pMapLoader->InitMapLoader();
+
+    m_pUnderGrid = new UnderGrid();
 }

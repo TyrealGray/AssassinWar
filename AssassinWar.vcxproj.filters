@@ -64,15 +64,15 @@
     <CustomBuild Include="AssassinWar.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="ToolbarManager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommentLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PixelCoordinateTransfer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ToolbarManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -23,9 +23,13 @@ public:
 
 protected:
 
+    void mouseMoveEvent(QMouseEvent *mouseEvent);
+
     void paintEvent(QPaintEvent *paintEvent);
 
-    void mouseMoveEvent(QMouseEvent *mouseEvent);
+private slots:
+
+    void OnButttonHost_();
 
 private:
     QTimer* m_pRepaintTimer;
@@ -34,12 +38,15 @@ private:
     QToolBar* m_pToolbar;
     ToolbarManager* m_pToolbarManager;
     QList<QLabel *> m_ListTerrains;
+    bool m_bIsAWRun;
     QPixmap m_background;
 
     void InitToolbarManager_();
-    void InitBackground_();
+    void InitBackground_(const QString& strBackgroundImagePath);
     void InitToolbar_();
-    bool initAW_();
+    void InitRepainter_();
+    void InitMapSystem_();
+    bool RunAW_();
     bool LoadGameMap_(const QString& strMapPath);
 };
 
