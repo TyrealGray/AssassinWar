@@ -19,7 +19,7 @@ public:
 
     ~AssassinWar();
 
-    void InitMainWin();
+    void initMainWin();
 
 protected:
 
@@ -29,7 +29,7 @@ protected:
 
 private slots:
 
-    void OnButttonHost_();
+    void onButttonHost_();
 
 private:
     QTimer* m_pRepaintTimer;
@@ -41,13 +41,13 @@ private:
     bool m_bIsAWRun;
     QPixmap m_background;
 
-    void InitToolbarManager_();
-    void InitBackground_(const QString& strBackgroundImagePath);
-    void InitToolbar_();
-    void InitRepainter_();
-    void InitMapSystem_();
-    bool RunAW_();
-    bool LoadGameMap_(const QString& strMapPath);
+    void initToolbarManager_();
+    void initBackground_(const QString& strBackgroundImagePath);
+    void initToolbar_();
+    void initRepainter_();
+    void initMapSystem_();
+    bool runAW_();
+    bool loadGameMap_(const QString& strMapPath);
 };
 
 #endif // ASSASSINWAR_H

@@ -74,30 +74,30 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     painter.drawPixmap(0, 0, m_background);
 }
 
-void AssassinWar::OnButttonHost_()
+void AssassinWar::onButttonHost_()
 {
-    RunAW_();
+    runAW_();
 
     setMouseTracking(false);
     m_pToolbar->setVisible(false);
 }
 
-bool AssassinWar::RunAW_()
+bool AssassinWar::runAW_()
 {
     setWindowState(Qt::WindowFullScreen);
     bool bInitAWSuccessed = true;
 
     QString strMapPath = "./map/SmallTown.ui";
-    bInitAWSuccessed = LoadGameMap_(strMapPath);
+    bInitAWSuccessed = loadGameMap_(strMapPath);
 
     return (m_bIsAWRun = bInitAWSuccessed);
 }
 
-bool AssassinWar::LoadGameMap_(const QString& strMapPath)
+bool AssassinWar::loadGameMap_(const QString& strMapPath)
 {
     bool bLoadGameMapSuccessed = true;
 
-    QWidget* pMapWidget =  m_pMapLoader->LoadMap(strMapPath);
+    QWidget* pMapWidget =  m_pMapLoader->loadMap(strMapPath);
     if(NULL == pMapWidget)
     {
         bLoadGameMapSuccessed = false;
@@ -110,20 +110,20 @@ bool AssassinWar::LoadGameMap_(const QString& strMapPath)
         float fMapWidth = static_cast<float>(mapSize.width());
         float fMapHeight = static_cast<float>(mapSize.height());
 
-        int iAllGridTotalRow = PixelCoordinateTransfer::Instance().ToGridX(fMapWidth);
-        int iAllGridTotalColumn = PixelCoordinateTransfer::Instance().ToGridY(fMapHeight);
+        int iAllGridTotalRow = PixelCoordinateTransfer::instance().toGridX(fMapWidth);
+        int iAllGridTotalColumn = PixelCoordinateTransfer::instance().toGridY(fMapHeight);
 
         if(GRID_NUMBER_IS_ZERO != iAllGridTotalRow && GRID_NUMBER_IS_ZERO != iAllGridTotalColumn)
         {
             unsigned int uiAllGridTotalWidth = static_cast<unsigned int>(iAllGridTotalRow + 1);
             unsigned int uiAllGridTotalHeight = static_cast<unsigned int>(iAllGridTotalColumn + 1);
 
-            m_pUnderGrid->SetSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
+            m_pUnderGrid->setSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
 
             //UNDONE change this API
-            InitBackground_("./Resources/SmallTown/Background/SmallTown.jpg");
+            initBackground_("./Resources/SmallTown/Background/SmallTown.jpg");
 
-            m_ListTerrains = m_pMapLoader->LoadMapTerrain(*pMapWidget);
+            m_ListTerrains = m_pMapLoader->loadMapTerrain(*pMapWidget);
         }
         else
         {
@@ -134,60 +134,60 @@ bool AssassinWar::LoadGameMap_(const QString& strMapPath)
     return bLoadGameMapSuccessed;
 }
 
-void AssassinWar::InitMainWin()
+void AssassinWar::initMainWin()
 {
-    InitToolbarManager_();
+    initToolbarManager_();
 
-    InitBackground_("./AssassinsWar.jpg");
+    initBackground_("./AssassinsWar.jpg");
 
-    InitToolbar_();
+    initToolbar_();
 
-    InitRepainter_();
+    initRepainter_();
 
-    InitMapSystem_();
+    initMapSystem_();
 
     resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
     setMouseTracking(true);
 }
 
-void AssassinWar::InitToolbar_()
+void AssassinWar::initToolbar_()
 {
     m_pToolbar = addToolBar(tr("MainToolbar"));
-    m_pToolbar->addAction(m_pToolbarManager->GetButtonHost());
-    m_pToolbar->addAction(m_pToolbarManager->GetButtonJoin());
-    m_pToolbar->addAction(m_pToolbarManager->GetButtonSearchGame());
-    m_pToolbar->addAction(m_pToolbarManager->GetButtonSetting());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonHost());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonJoin());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonSearchGame());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonSetting());
     m_pToolbar->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     m_pToolbar->setMovable(false);
     m_pToolbar->setVisible(false);
 
-    connect(m_pToolbarManager->GetButtonHost(), SIGNAL(triggered()), this, SLOT(OnButttonHost_()));
+    connect(m_pToolbarManager->getButtonHost(), SIGNAL(triggered()), this, SLOT(onButttonHost_()));
 }
 
-void AssassinWar::InitBackground_(const QString& strBackgroundImagePath)
+void AssassinWar::initBackground_(const QString& strBackgroundImagePath)
 {
     QImage background;
     background.load(strBackgroundImagePath);
     m_background = QPixmap::fromImage(background.scaled(size(), Qt::KeepAspectRatioByExpanding));
 }
 
-void AssassinWar::InitToolbarManager_()
+void AssassinWar::initToolbarManager_()
 {
     m_pToolbarManager = new ToolbarManager();
-    m_pToolbarManager->Init();
+    m_pToolbarManager->init();
 }
 
-void AssassinWar::InitRepainter_()
+void AssassinWar::initRepainter_()
 {
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
     m_pRepaintTimer->start(250);
 }
 
-void AssassinWar::InitMapSystem_()
+void AssassinWar::initMapSystem_()
 {
     m_pMapLoader = new MapLoader();
-    m_pMapLoader->InitMapLoader();
+    m_pMapLoader->initMapLoader();
 
     m_pUnderGrid = new UnderGrid();
 }

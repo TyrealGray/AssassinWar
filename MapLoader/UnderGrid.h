@@ -11,16 +11,19 @@ public:
 
     //set UnderGrid Size
     //Number of Grid = width*height
-    bool SetSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
+    bool setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
 
     //get Grid.X=uiX && Grid.Y=uiY
     //return Null if Grid doesn't exist
     std::shared_ptr<Grid> getGrid(const unsigned int &uiX, const  unsigned int &uiY);
 
+    bool disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
+                      const unsigned int &uiRightBottomGridX, const unsigned int &uiRightBottomGridY);
+
 private:
     bool m_bIsSizeSetted;
     std::vector<std::shared_ptr<Grid>> m_vecGridGroup;
 
-    std::shared_ptr<Grid> CreateNewGrid_(const unsigned int &uiX, const  unsigned int &uiY);
+    std::shared_ptr<Grid> createNewGrid_(const unsigned int &uiX, const  unsigned int &uiY);
 };
 

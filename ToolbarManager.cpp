@@ -12,32 +12,32 @@ ToolbarManager::~ToolbarManager(void)
 {
 }
 
-void ToolbarManager::Init()
+void ToolbarManager::init()
 {
-    InitToolbarAction_();
+    initToolbarAction_();
 }
 
-QAction* ToolbarManager::GetButtonHost()
+QAction* ToolbarManager::getButtonHost()
 {
     return m_pOnButtonHostAction;
 }
 
-QAction* ToolbarManager::GetButtonJoin()
+QAction* ToolbarManager::getButtonJoin()
 {
     return m_pOnButtonJoinAction;
 }
 
-QAction* ToolbarManager::GetButtonSearchGame()
+QAction* ToolbarManager::getButtonSearchGame()
 {
     return m_pOnButtonSearchGameAction;
 }
 
-QAction* ToolbarManager::GetButtonSetting()
+QAction* ToolbarManager::getButtonSetting()
 {
     return m_pOnButtonSetttingAction;
 }
 
-void ToolbarManager::InitToolbarAction_()
+void ToolbarManager::initToolbarAction_()
 {
     m_pOnButtonHostAction = new QAction(QObject::tr("Host a Game"), NULL);
     m_pOnButtonHostAction->setToolTip(QObject::tr("Host a Game"));

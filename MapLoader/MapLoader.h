@@ -12,13 +12,13 @@ public:
     MapLoader();
     ~MapLoader();
 
-    void InitMapLoader();
+    void initMapLoader();
 
     //load ui
-    QWidget* LoadMap(const QString& strMapPath);
+    QWidget* loadMap(const QString& strMapPath);
 
     //load Terrain
-    QList<QLabel *> LoadMapTerrain(const QWidget& map);
+    QList<QLabel *> loadMapTerrain(const QWidget& map);
 
 private:
 

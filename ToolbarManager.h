@@ -7,15 +7,15 @@ public:
     ToolbarManager(void);
     ~ToolbarManager(void);
 
-    void Init();
+    void init();
 
-    QAction* GetButtonHost();
+    QAction* getButtonHost();
 
-    QAction* GetButtonJoin();
+    QAction* getButtonJoin();
 
-    QAction* GetButtonSearchGame();
+    QAction* getButtonSearchGame();
 
-    QAction* GetButtonSetting();
+    QAction* getButtonSetting();
 
 private:
     QAction* m_pOnButtonHostAction;
@@ -23,6 +23,6 @@ private:
     QAction* m_pOnButtonSearchGameAction;
     QAction* m_pOnButtonSetttingAction;
 
-    void InitToolbarAction_();
+    void initToolbarAction_();
 };
 

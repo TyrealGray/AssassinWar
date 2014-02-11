@@ -16,7 +16,7 @@ MapLoader::~MapLoader()
 {
 }
 
-QWidget* MapLoader::LoadMap(const QString& strMapPath)
+QWidget* MapLoader::loadMap(const QString& strMapPath)
 {
     QUiLoader loader;
     QFile file(strMapPath);
@@ -36,13 +36,13 @@ QWidget* MapLoader::LoadMap(const QString& strMapPath)
     return pMapWidget;
 }
 
-QList<QLabel *> MapLoader::LoadMapTerrain(const QWidget& map)
+QList<QLabel *> MapLoader::loadMapTerrain(const QWidget& map)
 {
     QList<QLabel *> allTerrains = map.findChildren<QLabel *>();
     return allTerrains;
 }
 
-void MapLoader::InitMapLoader()
+void MapLoader::initMapLoader()
 {
 
 }

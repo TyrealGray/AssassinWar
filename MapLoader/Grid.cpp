@@ -24,32 +24,32 @@ Grid::~Grid(void)
 {
 }
 
-void Grid::SetDisable(const bool &bDisable)
+void Grid::setDisable(const bool &bDisable)
 {
     m_bDisable = bDisable;
 }
 
-void Grid::SetX(const unsigned int &uiX)
+void Grid::setX(const unsigned int &uiX)
 {
     m_uiX = uiX;
 }
 
-void Grid::SetY(const unsigned int &uiY)
+void Grid::setY(const unsigned int &uiY)
 {
     m_uiY = uiY;
 }
 
-bool Grid::IsDisable()
+bool Grid::isDisable()
 {
     return m_bDisable;
 }
 
-unsigned int Grid::GetX()
+unsigned int Grid::getX()
 {
     return m_uiX;
 }
 
-unsigned int Grid::GetY()
+unsigned int Grid::getY()
 {
     return m_uiY;
 }

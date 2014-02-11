@@ -11,6 +11,5 @@
         <file>Resources/SmallTown/Terrain/House4.jpg</file>
         <file>Resources/SmallTown/Terrain/House5.jpg</file>
         <file>Resources/SmallTown/Terrain/Tree.jpg</file>
-        <file>Resources/SmallTown/Background/SmallTown.jpg</file>
     </qresource>
 </RCC>
