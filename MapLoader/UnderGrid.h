@@ -22,6 +22,8 @@ public:
 
 private:
     bool m_bIsSizeSetted;
+    unsigned int m_uiAllGridTotalRow;
+    unsigned int m_uiAllGridTotalColumn;
     std::vector<std::shared_ptr<Grid>> m_vecGridGroup;
 
     std::shared_ptr<Grid> createNewGrid_(const unsigned int &uiX, const  unsigned int &uiY);

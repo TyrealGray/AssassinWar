@@ -23,6 +23,8 @@ public:
 
 protected:
 
+    void mouseReleaseEvent(QMouseEvent *mouseEvent);
+
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
     void paintEvent(QPaintEvent *paintEvent);
