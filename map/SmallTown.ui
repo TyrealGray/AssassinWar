@@ -26,7 +26,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House1.jpg</pixmap>
+    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House1.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -45,7 +45,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House2.jpg</pixmap>
+    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House2.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -64,7 +64,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House5.jpg</pixmap>
+    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/House5.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>
@@ -83,7 +83,7 @@
     <string/>
    </property>
    <property name="pixmap">
-    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/Tree.jpg</pixmap>
+    <pixmap resource="../AssassinWar.qrc">:/AssassinWar/Resources/SmallTown/Terrain/Tree.png</pixmap>
    </property>
    <property name="scaledContents">
     <bool>true</bool>

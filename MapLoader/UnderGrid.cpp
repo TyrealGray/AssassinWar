@@ -53,6 +53,17 @@ std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigne
 bool UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
                              const unsigned int &uiRightBottomGridX, const unsigned int &uiRightBottomGridY)
 {
+    for(unsigned int uiRowIndex = uiLeftTopGridX; uiRowIndex <= uiRightBottomGridX; ++uiRowIndex)
+    {
+        for(unsigned int uiColumnIndex = uiLeftTopGridY; uiColumnIndex <= uiRightBottomGridY; ++uiColumnIndex)
+        {
+            std::shared_ptr<Grid> pGrid = getGrid(uiRowIndex, uiColumnIndex);
+            if(NULL != pGrid)
+            {
+                pGrid->setDisable(false);
+            }
+        }
+    }
     return false;
 }
 

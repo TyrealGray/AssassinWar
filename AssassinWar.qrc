@@ -5,11 +5,11 @@
         <file>Resources/Toolbar/Join.jpg</file>
         <file>Resources/Toolbar/SearchGame.jpg</file>
         <file>Resources/Toolbar/Setting.jpg</file>
-        <file>Resources/SmallTown/Terrain/House1.jpg</file>
-        <file>Resources/SmallTown/Terrain/House2.jpg</file>
-        <file>Resources/SmallTown/Terrain/House3.jpg</file>
-        <file>Resources/SmallTown/Terrain/House4.jpg</file>
-        <file>Resources/SmallTown/Terrain/House5.jpg</file>
-        <file>Resources/SmallTown/Terrain/Tree.jpg</file>
+        <file>Resources/SmallTown/Terrain/House1.png</file>
+        <file>Resources/SmallTown/Terrain/House2.png</file>
+        <file>Resources/SmallTown/Terrain/House3.png</file>
+        <file>Resources/SmallTown/Terrain/House4.png</file>
+        <file>Resources/SmallTown/Terrain/House5.png</file>
+        <file>Resources/SmallTown/Terrain/Tree.png</file>
     </qresource>
 </RCC>

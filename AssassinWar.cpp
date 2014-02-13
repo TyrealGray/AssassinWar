@@ -124,6 +124,22 @@ bool AssassinWar::loadGameMap_(const QString& strMapPath)
             initBackground_("./Resources/SmallTown/Background/SmallTown.jpg");
 
             m_ListTerrains = m_pMapLoader->loadMapTerrain(*pMapWidget);
+
+            for(unsigned int index = 0; index < m_ListTerrains.size(); ++index)
+            {
+                int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().topLeft().x());
+                int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().topLeft().y());
+
+                int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().bottomRight().x());
+                int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().bottomRight().y());
+
+                m_pUnderGrid->disableGrids(
+                    static_cast<unsigned int>(iTerrainTopLX),
+                    static_cast<unsigned int>(iTerrainTopLY),
+                    static_cast<unsigned int>(iTerrainBottomRX),
+                    static_cast<unsigned int>(iTerrainBottomRY)
+                );
+            }
         }
         else
         {
