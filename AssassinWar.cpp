@@ -63,37 +63,35 @@ void AssassinWar::mouseReleaseEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsAWRun)
     {
-        int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x());
-        int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y());
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y());
 
         QString strX, strY, gridX, gridY;
         strX.setNum(iCurClickedGridX);
         strY.setNum(iCurClickedGridY);
 
+        std::shared_ptr<Grid> pCurClickGrid = m_pUnderGrid->getGrid(iCurClickedGridX, iCurClickedGridY);
 
-        //Undone test code
-        if(iCurClickedGridX < 0)
+        if(NULL != pCurClickGrid)
         {
-            iCurClickedGridX = 0;
-        }
-        if(iCurClickedGridY < 0)
-        {
-            iCurClickedGridY = 0;
-        }
+            gridX.setNum(pCurClickGrid->getX());
+            gridY.setNum(pCurClickGrid->getY());
 
-        std::shared_ptr<Grid> pCurClickGrid = m_pUnderGrid->getGrid(static_cast<unsigned int>(iCurClickedGridX),
-                                              static_cast<unsigned int>(iCurClickedGridY));
 
-        gridX.setNum(pCurClickGrid->getX());
-        gridY.setNum(pCurClickGrid->getY());
-
-        if(pCurClickGrid->isDisable())
-        {
-            QToolTip::showText(mouseEvent->pos(), "UnHit");
+            //mouse event click Terrians test code
+            if(pCurClickGrid->isDisable())
+            {
+                QToolTip::showText(mouseEvent->pos(), "UnHit");
+            }
+            else
+            {
+                QToolTip::showText(mouseEvent->pos(), "Hit!!");
+            }
+            //test code end
         }
         else
         {
-            QToolTip::showText(mouseEvent->pos(), "Hit!!");
+            //can not get the Grid infomation
         }
     }
     else
@@ -152,13 +150,15 @@ bool AssassinWar::loadGameMap_(const QString& strMapPath)
     {
         setWindowState(Qt::WindowFullScreen);
         setCentralWidget(pMapWidget);
+
+        //UNDONE here needcheck: pMapWidget or MainWin is more bigger?
         QSize mapSize = size();
 
         float fMapWidth = static_cast<float>(mapSize.width());
         float fMapHeight = static_cast<float>(mapSize.height());
 
-        int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toGridX(fMapWidth);
-        int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toGridY(fMapHeight);
+        int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toBottomRGridX(fMapWidth);
+        int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toBottomRGridY(fMapHeight);
 
         if(GRID_NUMBER_IS_ZERO != iBottomRightGridRowIndex && GRID_NUMBER_IS_ZERO != iBottomRightGridColumnIndex)
         {
@@ -174,17 +174,17 @@ bool AssassinWar::loadGameMap_(const QString& strMapPath)
 
             for(unsigned int index = 0; index < m_ListTerrains.size(); ++index)
             {
-                int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().left());
-                int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().top());
+                unsigned int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().left());
+                unsigned int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().top());
 
-                int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().right());
-                int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().bottom());
+                unsigned int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().right());
+                unsigned int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().bottom());
 
                 m_pUnderGrid->disableGrids(
-                    static_cast<unsigned int>(iTerrainTopLX),
-                    static_cast<unsigned int>(iTerrainTopLY),
-                    static_cast<unsigned int>(iTerrainBottomRX),
-                    static_cast<unsigned int>(iTerrainBottomRY)
+                    iTerrainTopLX,
+                    iTerrainTopLY,
+                    iTerrainBottomRX,
+                    iTerrainBottomRY
                 );
             }
         }

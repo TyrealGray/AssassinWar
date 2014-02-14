@@ -42,27 +42,16 @@ bool UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &ui
 
 std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigned int &uiY)
 {
-    std::vector<std::shared_ptr<Grid>>::const_iterator vecGridIterator = m_vecGridGroup.begin();
-    while(m_vecGridGroup.end() != vecGridIterator)
+    std::shared_ptr<Grid> pGrid = NULL;
+    if(m_vecGridGroup.size() >= (uiY * m_uiAllGridTotalColumn) + uiX)
     {
-        if(uiX == (*vecGridIterator)->getX() && uiY == (*vecGridIterator)->getY())
-        {
-            break;
-        }
-        else
-        {
-            ++vecGridIterator;
-        }
-    }
-
-    if(m_vecGridGroup.end() == vecGridIterator)
-    {
-        return NULL;
+        pGrid = m_vecGridGroup[(uiY * m_uiAllGridTotalColumn) + uiX ];
     }
     else
     {
-        return (m_vecGridGroup.end() == vecGridIterator) ? NULL : (*vecGridIterator);
+
     }
+    return pGrid;
 }
 
 bool UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,

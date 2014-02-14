@@ -16,14 +16,28 @@ PixelCoordinateTransfer& PixelCoordinateTransfer::instance()
     return pixelCoordinateTransfer;
 }
 
-int PixelCoordinateTransfer::toGridX(const float& fX)
+unsigned int PixelCoordinateTransfer::toGridX(const float& fX)
+{
+    int GridX = static_cast<int>(fX);
+    GridX /= 15;
+    return (0 > GridX - 1) ? 0 : static_cast<unsigned int>(GridX - 1);
+}
+
+unsigned int PixelCoordinateTransfer::toGridY(const float& fY)
+{
+    int GridY = static_cast<int>(fY);
+    GridY /= 15;
+    return (0 > GridY - 1) ? 0 : static_cast<unsigned int>(GridY - 1);
+}
+
+int PixelCoordinateTransfer::toBottomRGridX(const float& fX)
 {
     int GridX = static_cast<int>(fX);
     GridX /= 15;
     return GridX - 1;
 }
 
-int PixelCoordinateTransfer::toGridY(const float& fY)
+int PixelCoordinateTransfer::toBottomRGridY(const float& fY)
 {
     int GridY = static_cast<int>(fY);
     GridY /= 15;
