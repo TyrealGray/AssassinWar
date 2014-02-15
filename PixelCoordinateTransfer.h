@@ -8,10 +8,6 @@ public:
 
     unsigned int toGridY(const float& fY);
 
-    int toBottomRGridX(const float& fX);
-
-    int toBottomRGridY(const float& fY);
-
     float gridXToPixelCoordinateX(const unsigned int& uiX);
 
     float gridYToPixelCoordinateY(const unsigned int& uiY);

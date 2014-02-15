@@ -15,7 +15,8 @@ class AssassinWar : public QMainWindow
 
 public:
 
-    AssassinWar(QWidget *parent = 0, Qt::WFlags flags = 0);
+    AssassinWar(const int &iWidth, const int &iHeight,
+                QWidget *parent = 0, Qt::WFlags flags = 0);
 
     ~AssassinWar();
 
@@ -39,9 +40,11 @@ private:
     UnderGrid* m_pUnderGrid;
     QToolBar* m_pToolbar;
     ToolbarManager* m_pToolbarManager;
-    QList<QLabel *> m_ListTerrains;
     bool m_bIsAWRun;
+    unsigned int m_iScreenWidth;
+    unsigned int m_iScreenHeight;
     QPixmap m_background;
+    QList<QLabel *> m_ListTerrains;
 
     void initToolbarManager_();
     void initBackground_(const QString& strBackgroundImagePath);

@@ -12,23 +12,22 @@
 #include "AssassinWar.h"
 #include "MapLoader.h"
 #include "UnderGrid.h"
+#include "MapManager.h"
 #include "ToolbarManager.h"
 #include "PixelCoordinateTransfer.h"
 
-const int GRID_NUMBER_IS_ZERO = -1;
+const int GRID_NUMBER_IS_ZERO = 0;
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
 
 std::shared_ptr<Grid> g_pGrid = NULL;
 
-AssassinWar::AssassinWar(QWidget *parent, Qt::WFlags flags)
+AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
+                         QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
-      m_pRepaintTimer(NULL),
-      m_pMapLoader(NULL),
-      m_pUnderGrid(NULL),
-      m_pToolbar(NULL),
-      m_pToolbarManager(NULL),
-      m_bIsAWRun(false)
+      m_pRepaintTimer(NULL), m_pMapLoader(NULL), m_pUnderGrid(NULL), m_pToolbar(NULL), m_pToolbarManager(NULL),
+      m_bIsAWRun(false),
+      m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
 
 }
@@ -151,14 +150,16 @@ bool AssassinWar::loadGameMap_(const QString& strMapPath)
         setWindowState(Qt::WindowFullScreen);
         setCentralWidget(pMapWidget);
 
-        //UNDONE here needcheck: pMapWidget or MainWin is more bigger?
-        QSize mapSize = size();
+        int iMapWidth = (pMapWidget->size().width() > size().width()) ? pMapWidget->size().width() : size().width();
+        int iMapHeight = (pMapWidget->size().height() > size().height()) ? pMapWidget->size().height() : size().height();
+
+        QSize mapSize(iMapHeight, iMapWidth);
 
         float fMapWidth = static_cast<float>(mapSize.width());
         float fMapHeight = static_cast<float>(mapSize.height());
 
-        int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toBottomRGridX(fMapWidth);
-        int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toBottomRGridY(fMapHeight);
+        unsigned int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toGridX(fMapWidth);
+        unsigned int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toGridY(fMapHeight);
 
         if(GRID_NUMBER_IS_ZERO != iBottomRightGridRowIndex && GRID_NUMBER_IS_ZERO != iBottomRightGridColumnIndex)
         {

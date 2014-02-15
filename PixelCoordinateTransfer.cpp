@@ -12,46 +12,32 @@ PixelCoordinateTransfer::~PixelCoordinateTransfer(void)
 
 PixelCoordinateTransfer& PixelCoordinateTransfer::instance()
 {
-    static PixelCoordinateTransfer pixelCoordinateTransfer;
-    return pixelCoordinateTransfer;
+    static PixelCoordinateTransfer sPixelCoordinateTransfer;
+    return sPixelCoordinateTransfer;
 }
 
 unsigned int PixelCoordinateTransfer::toGridX(const float& fX)
 {
-    int GridX = static_cast<int>(fX);
+    unsigned int GridX = static_cast<unsigned int>(fX);
     GridX /= 15;
-    return (0 > GridX - 1) ? 0 : static_cast<unsigned int>(GridX - 1);
+    return GridX + 1;
 }
 
 unsigned int PixelCoordinateTransfer::toGridY(const float& fY)
 {
-    int GridY = static_cast<int>(fY);
+    unsigned int GridY = static_cast<unsigned int>(fY);
     GridY /= 15;
-    return (0 > GridY - 1) ? 0 : static_cast<unsigned int>(GridY - 1);
-}
-
-int PixelCoordinateTransfer::toBottomRGridX(const float& fX)
-{
-    int GridX = static_cast<int>(fX);
-    GridX /= 15;
-    return GridX - 1;
-}
-
-int PixelCoordinateTransfer::toBottomRGridY(const float& fY)
-{
-    int GridY = static_cast<int>(fY);
-    GridY /= 15;
-    return GridY - 1;
+    return GridY + 1;
 }
 
 float PixelCoordinateTransfer::gridXToPixelCoordinateX(const unsigned int& uiX)
 {
-    float PixelCoordinateX = static_cast<float>((uiX + 1) * 15);
+    float PixelCoordinateX = static_cast<float>((uiX * 15) + 7);
     return PixelCoordinateX;
 }
 
 float PixelCoordinateTransfer::gridYToPixelCoordinateY(const unsigned int& uiY)
 {
-    float PixelCoordinateY = static_cast<float>((uiY + 1) * 15);
+    float PixelCoordinateY = static_cast<float>((uiY * 15) + 7);
     return PixelCoordinateY;
 }

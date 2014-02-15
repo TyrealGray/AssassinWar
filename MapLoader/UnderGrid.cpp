@@ -43,13 +43,13 @@ bool UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &ui
 std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigned int &uiY)
 {
     std::shared_ptr<Grid> pGrid = NULL;
-    if(m_vecGridGroup.size() >= (uiY * m_uiAllGridTotalColumn) + uiX)
+    if(m_vecGridGroup.size() > (uiY * m_uiAllGridTotalColumn) + uiX)
     {
         pGrid = m_vecGridGroup[(uiY * m_uiAllGridTotalColumn) + uiX ];
     }
     else
     {
-
+        // out of size
     }
     return pGrid;
 }
