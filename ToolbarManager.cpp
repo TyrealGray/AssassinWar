@@ -12,7 +12,7 @@ ToolbarManager::~ToolbarManager(void)
 {
 }
 
-void ToolbarManager::init()
+void ToolbarManager::initialize()
 {
     initToolbarAction_();
 }

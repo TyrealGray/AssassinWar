@@ -49,11 +49,11 @@ QStringList MapManager::getMapList()
 
         int iMapNumber = m_mapListConfig->value("MapNumber").toInt();
 
-        QString strMapIndex = "map0";
+        QString strMapIndex = "No0";
 
         for(int index = 1 ; index <= iMapNumber ; ++index)
         {
-            MapList << m_mapListConfig->value(QString("MapNumber%1").arg(index)).toString();
+            MapList << m_mapListConfig->value(QString("No%1").arg(index)).toString();
         }
 
     }

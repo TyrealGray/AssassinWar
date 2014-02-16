@@ -7,7 +7,7 @@ public:
     ToolbarManager(void);
     ~ToolbarManager(void);
 
-    void init();
+    void initialize();
 
     QAction* getButtonHost();
 

@@ -9,6 +9,7 @@ class QLabel;
 class UnderGrid;
 class MapLoader;
 class ToolbarManager;
+class ChoosingMapDlg;
 class AssassinWar : public QMainWindow
 {
     Q_OBJECT
@@ -34,12 +35,17 @@ private slots:
 
     void onButttonHost_();
 
+    bool runAW_(const QString& strCurrntMapName);
+
+    void showMainWin_();
+
 private:
     QTimer* m_pRepaintTimer;
     MapLoader* m_pMapLoader;
     UnderGrid* m_pUnderGrid;
     QToolBar* m_pToolbar;
     ToolbarManager* m_pToolbarManager;
+    ChoosingMapDlg* m_pChoosingMapDlg;
     bool m_bIsAWRun;
     unsigned int m_iScreenWidth;
     unsigned int m_iScreenHeight;
@@ -47,12 +53,13 @@ private:
     QList<QLabel *> m_ListTerrains;
 
     void initToolbarManager_();
+    void initChoosingMapDlg_();
     void initBackground_(const QString& strBackgroundImagePath);
     void initToolbar_();
     void initRepainter_();
     void initMapSystem_();
-    bool runAW_();
-    bool loadGameMap_(const QString& strMapPath);
+
+    bool loadGameMap_(const QString& strCurrntMapName);
 };
 
 #endif // ASSASSINWAR_H

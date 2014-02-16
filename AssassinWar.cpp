@@ -14,10 +14,13 @@
 #include "UnderGrid.h"
 #include "MapManager.h"
 #include "ToolbarManager.h"
+#include "ChoosingMapDlg.h"
 #include "PixelCoordinateTransfer.h"
 
-const int GRID_NUMBER_IS_ZERO = 0;
+
 const int ICON_SIZE = 45;
+const int GRID_NUMBER_IS_ZERO = 0;
+
 const int MAIN_WIN_WIDTH = 850;
 
 std::shared_ptr<Grid> g_pGrid = NULL;
@@ -26,6 +29,7 @@ AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
       m_pRepaintTimer(NULL), m_pMapLoader(NULL), m_pUnderGrid(NULL), m_pToolbar(NULL), m_pToolbarManager(NULL),
+      m_pChoosingMapDlg(NULL),
       m_bIsAWRun(false),
       m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
@@ -120,27 +124,30 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
 
 void AssassinWar::onButttonHost_()
 {
-    runAW_();
-
     setMouseTracking(false);
     m_pToolbar->setVisible(false);
+
+    m_pChoosingMapDlg->updateMapList(MapManager::instance().getMapList());
+    m_pChoosingMapDlg->show();
+
 }
 
-bool AssassinWar::runAW_()
+bool AssassinWar::runAW_(const QString& strCurrntMapName)
 {
     bool bInitAWSuccessed = true;
 
-    QString strMapPath = "./map/SmallTown.ui";
-    bInitAWSuccessed = loadGameMap_(strMapPath);
+    m_pChoosingMapDlg->hide();
+
+    bInitAWSuccessed = loadGameMap_(strCurrntMapName);
 
     return (m_bIsAWRun = bInitAWSuccessed);
 }
 
-bool AssassinWar::loadGameMap_(const QString& strMapPath)
+bool AssassinWar::loadGameMap_(const QString& strCurrntMapName)
 {
     bool bLoadGameMapSuccessed = true;
 
-    QWidget* pMapWidget =  m_pMapLoader->loadMap(strMapPath);
+    QWidget* pMapWidget =  m_pMapLoader->loadMap(MapManager::instance().getMapPath(strCurrntMapName));
     if(NULL == pMapWidget)
     {
         bLoadGameMapSuccessed = false;
@@ -168,8 +175,7 @@ bool AssassinWar::loadGameMap_(const QString& strMapPath)
 
             m_pUnderGrid->setSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
 
-            //UNDONE change this API
-            initBackground_("./Resources/SmallTown/Background/SmallTown.jpg");
+            initBackground_(MapManager::instance().getMapBackground(strCurrntMapName));
 
             m_ListTerrains = m_pMapLoader->loadMapTerrain(*pMapWidget);
 
@@ -202,7 +208,7 @@ void AssassinWar::initMainWin()
 {
     initToolbarManager_();
 
-    initBackground_("./AssassinsWar.jpg");
+    initChoosingMapDlg_();
 
     initToolbar_();
 
@@ -210,8 +216,7 @@ void AssassinWar::initMainWin()
 
     initMapSystem_();
 
-    resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
-    setMouseTracking(true);
+    showMainWin_();
 }
 
 void AssassinWar::initToolbar_()
@@ -238,7 +243,7 @@ void AssassinWar::initBackground_(const QString& strBackgroundImagePath)
 void AssassinWar::initToolbarManager_()
 {
     m_pToolbarManager = new ToolbarManager();
-    m_pToolbarManager->init();
+    m_pToolbarManager->initialize();
 }
 
 void AssassinWar::initRepainter_()
@@ -254,4 +259,21 @@ void AssassinWar::initMapSystem_()
     m_pMapLoader->initMapLoader();
 
     m_pUnderGrid = new UnderGrid();
+}
+
+void AssassinWar::initChoosingMapDlg_()
+{
+    m_pChoosingMapDlg = new ChoosingMapDlg(this);
+    m_pChoosingMapDlg->initialize();
+    connect(m_pChoosingMapDlg, SIGNAL(createGame(QString)), this, SLOT(runAW_(QString)));
+    connect(m_pChoosingMapDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin_()));
+}
+
+void AssassinWar::showMainWin_()
+{
+    resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
+
+    initBackground_("./AssassinsWar.jpg");
+
+    setMouseTracking(true);
 }

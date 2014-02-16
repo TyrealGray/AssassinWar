@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="AssassinWar.cpp" />
     <ClCompile Include="ChoosingMapDlg.cpp" />
+    <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_AssassinWar.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -130,6 +131,7 @@
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui"</Command>
     </CustomBuild>
     <ClInclude Include="CommentLib.h" />
+    <ClInclude Include="GameSetting.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="PixelCoordinateTransfer.h" />
     <CustomBuild Include="ToolbarManager.h">
