@@ -206,6 +206,8 @@ bool AssassinWar::loadGameMap_(const QString& strCurrntMapName)
 
 void AssassinWar::initMainWin()
 {
+    setWindowFlags(Qt::FramelessWindowHint);
+
     initToolbarManager_();
 
     initChoosingMapDlg_();
