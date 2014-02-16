@@ -2,12 +2,9 @@
 #define ASSASSINWAR_H
 
 #include <QtGui/QMainWindow>
-#include <QList>
 
 class QTimer;
-class QLabel;
-class UnderGrid;
-class MapLoader;
+class GameScreen;
 class ToolbarManager;
 class ChoosingMapDlg;
 class AssassinWar : public QMainWindow
@@ -25,8 +22,6 @@ public:
 
 protected:
 
-    void mouseReleaseEvent(QMouseEvent *mouseEvent);
-
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
     void paintEvent(QPaintEvent *paintEvent);
@@ -41,25 +36,21 @@ private slots:
 
 private:
     QTimer* m_pRepaintTimer;
-    MapLoader* m_pMapLoader;
-    UnderGrid* m_pUnderGrid;
     QToolBar* m_pToolbar;
+    GameScreen* m_pGameScreen;
     ToolbarManager* m_pToolbarManager;
     ChoosingMapDlg* m_pChoosingMapDlg;
     bool m_bIsAWRun;
     unsigned int m_iScreenWidth;
     unsigned int m_iScreenHeight;
     QPixmap m_background;
-    QList<QLabel *> m_ListTerrains;
 
+    void initGameScreen_();
     void initToolbarManager_();
     void initChoosingMapDlg_();
     void initBackground_(const QString& strBackgroundImagePath);
     void initToolbar_();
     void initRepainter_();
-    void initMapSystem_();
-
-    bool loadGameMap_(const QString& strCurrntMapName);
 };
 
 #endif // ASSASSINWAR_H
