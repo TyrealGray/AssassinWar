@@ -114,7 +114,7 @@ void AssassinWar::initToolbar_()
     m_pToolbar = addToolBar(tr("MainToolbar"));
     m_pToolbar->addAction(m_pToolbarManager->getButtonHost());
     m_pToolbar->addAction(m_pToolbarManager->getButtonJoin());
-    m_pToolbar->addAction(m_pToolbarManager->getButtonSearchGame());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonHelp());
     m_pToolbar->addAction(m_pToolbarManager->getButtonSetting());
     m_pToolbar->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     m_pToolbar->setMovable(false);

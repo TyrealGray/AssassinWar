@@ -13,14 +13,14 @@ public:
 
     QAction* getButtonJoin();
 
-    QAction* getButtonSearchGame();
+    QAction* getButtonHelp();
 
     QAction* getButtonSetting();
 
 private:
     QAction* m_pOnButtonHostAction;
     QAction* m_pOnButtonJoinAction;
-    QAction* m_pOnButtonSearchGameAction;
+    QAction* m_pOnButtonHelpAction;
     QAction* m_pOnButtonSetttingAction;
 
     void initToolbarAction_();

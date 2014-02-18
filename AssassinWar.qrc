@@ -2,7 +2,6 @@
     <qresource prefix="/AssassinWar">
         <file>Resources/Toolbar/Host.jpg</file>
         <file>Resources/Toolbar/Join.jpg</file>
-        <file>Resources/Toolbar/SearchGame.jpg</file>
         <file>Resources/Toolbar/Setting.jpg</file>
         <file>Resources/SmallTown/Terrain/House2.png</file>
         <file>Resources/SmallTown/Terrain/House3.png</file>
@@ -10,5 +9,6 @@
         <file>Resources/SmallTown/Terrain/House5.png</file>
         <file>Resources/SmallTown/Terrain/Tree.png</file>
         <file>Resources/SmallTown/Terrain/House1.png</file>
+        <file>Resources/Toolbar/Help.jpg</file>
     </qresource>
 </RCC>

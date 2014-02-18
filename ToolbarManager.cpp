@@ -27,9 +27,9 @@ QAction* ToolbarManager::getButtonJoin()
     return m_pOnButtonJoinAction;
 }
 
-QAction* ToolbarManager::getButtonSearchGame()
+QAction* ToolbarManager::getButtonHelp()
 {
-    return m_pOnButtonSearchGameAction;
+    return m_pOnButtonHelpAction;
 }
 
 QAction* ToolbarManager::getButtonSetting()
@@ -47,9 +47,9 @@ void ToolbarManager::initToolbarAction_()
     m_pOnButtonJoinAction->setToolTip(QObject::tr("Join a Game"));
     m_pOnButtonJoinAction->setIcon(QIcon("./Resources/Toolbar/Join.jpg"));
 
-    m_pOnButtonSearchGameAction = new QAction(QObject::tr("Search Game"), NULL);
-    m_pOnButtonSearchGameAction->setToolTip(QObject::tr("Search Game"));
-    m_pOnButtonSearchGameAction->setIcon(QIcon("./Resources/Toolbar/SearchGame.jpg"));
+    m_pOnButtonHelpAction = new QAction(QObject::tr("Help"), NULL);
+    m_pOnButtonHelpAction->setToolTip(QObject::tr("Help"));
+    m_pOnButtonHelpAction->setIcon(QIcon("./Resources/Toolbar/Help.jpg"));
 
     m_pOnButtonSetttingAction = new QAction(QObject::tr("Setting"), NULL);
     m_pOnButtonSetttingAction->setToolTip(QObject::tr("Setting"));
