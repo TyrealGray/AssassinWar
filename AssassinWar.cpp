@@ -12,6 +12,8 @@
 #include "ToolbarManager.h"
 #include "ChoosingMapDlg.h"
 
+#include "CharacterManager.h"
+
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
 
@@ -63,6 +65,7 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     QPainter painter(this);
 
     painter.drawPixmap(0, 0, m_background);
+    CharacterManager::instance().drawAllCharacter(painter);
 }
 
 void AssassinWar::onButttonHost_()

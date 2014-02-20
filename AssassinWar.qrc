@@ -10,5 +10,6 @@
         <file>Resources/SmallTown/Terrain/Tree.png</file>
         <file>Resources/SmallTown/Terrain/House1.png</file>
         <file>Resources/Toolbar/Help.jpg</file>
+        <file>Resources/Character/Ghost-F.png</file>
     </qresource>
 </RCC>

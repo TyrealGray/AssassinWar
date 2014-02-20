@@ -27,7 +27,6 @@ protected:
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
 private:
-    QTimer* m_pRepaintTimer;
     MapLoader* m_pMapLoader;
     UnderGrid* m_pUnderGrid;
     bool m_bIsScreenOpen;

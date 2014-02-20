@@ -11,12 +11,14 @@
 #include "MapManager.h"
 #include "PixelCoordinateTransfer.h"
 
+#include "CharacterManager.h"
+
 const int GRID_NUMBER_IS_ZERO = 0;
 
 GameScreen::GameScreen(const int &iWidth, const int &iHeight,
                        QWidget *parent)
     : QScrollArea(parent),
-      m_pRepaintTimer(NULL), m_pMapLoader(NULL), m_pUnderGrid(NULL),
+      m_pMapLoader(NULL), m_pUnderGrid(NULL),
       m_bIsScreenOpen(false),
       m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
@@ -61,6 +63,7 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             if(pCurClickGrid->isDisable())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
+                CharacterManager::instance().setGhostPos(mouseEvent->pos().x() + static_cast<float>(horizontalScrollBar()->value()), mouseEvent->pos().y() + static_cast<float>(verticalScrollBar()->value()));
             }
             else
             {
