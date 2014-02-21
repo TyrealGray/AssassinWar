@@ -9,6 +9,9 @@ class CharacterManager
 public:
     static CharacterManager& instance();
 
+    unsigned int getPlayerCharacterGridX();
+    unsigned int getPlayerCharacterGridY();
+
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
     void setGhostPos(const unsigned int &iX, const unsigned int &iY);
 

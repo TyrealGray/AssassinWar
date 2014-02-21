@@ -11,11 +11,12 @@
 #include "MapManager.h"
 #include "ToolbarManager.h"
 #include "ChoosingMapDlg.h"
-
 #include "CharacterManager.h"
+#include "PixelCoordinateTransfer.h"
 
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
+const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 500;
 
 AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
@@ -65,8 +66,16 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     QPainter painter(this);
 
     painter.drawPixmap(0, 0, m_background);
-    CharacterManager::instance().drawAllCharacter(painter, m_pGameScreen->getScreenOffsetX(), m_pGameScreen->getScreenOffsetY());
+
+    if(m_bIsAWRun)
+    {
+        int iPlayerX = PixelCoordinateTransfer::instance().gridXToPixelCoordinateX(CharacterManager::instance().getPlayerCharacterGridX());
+        int iPlayerY = PixelCoordinateTransfer::instance().gridYToPixelCoordinateY(CharacterManager::instance().getPlayerCharacterGridY());
+        m_pGameScreen->ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+        CharacterManager::instance().drawAllCharacter(painter, m_pGameScreen->getScreenOffsetX(), m_pGameScreen->getScreenOffsetY());
+    }
 }
+
 
 void AssassinWar::onButttonHost_()
 {

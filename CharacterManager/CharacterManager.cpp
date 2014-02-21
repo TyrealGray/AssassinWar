@@ -34,3 +34,13 @@ void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOf
     int PixelCoordinateY = static_cast<int>((m_uiY - 1) * 15);
     painter.drawImage(PixelCoordinateX - iOffsetX, PixelCoordinateY - iOffsetY , (*m_pGhostF));
 }
+
+unsigned int CharacterManager::getPlayerCharacterGridX()
+{
+    return m_uiX;
+}
+
+unsigned int CharacterManager::getPlayerCharacterGridY()
+{
+    return m_uiY;
+}

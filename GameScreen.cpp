@@ -59,7 +59,7 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             gridX.setNum(pCurClickGrid->getX());
             gridY.setNum(pCurClickGrid->getY());
 
-            if(pCurClickGrid->isDisable())
+            if(pCurClickGrid->isDisable() && Qt::RightButton == mouseEvent->button())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
                 CharacterManager::instance().setGhostPos(pCurClickGrid->getX(), pCurClickGrid->getY());
@@ -154,23 +154,10 @@ bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
 
             m_pUnderGrid->setSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
 
-            m_ListTerrains = m_pMapLoader->loadMapTerrain(*pMapWidget);
+            m_terrainsList = m_pMapLoader->loadMapTerrain(*pMapWidget);
 
-            for(unsigned int index = 0; index < m_ListTerrains.size(); ++index)
-            {
-                unsigned int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().left());
-                unsigned int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().top());
+            setTerrainInvalidZone_();
 
-                unsigned int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_ListTerrains[index]->geometry().right());
-                unsigned int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_ListTerrains[index]->geometry().bottom());
-
-                m_pUnderGrid->disableGrids(
-                    iTerrainTopLX,
-                    iTerrainTopLY,
-                    iTerrainBottomRX,
-                    iTerrainBottomRY
-                );
-            }
             pMapWidget->setMouseTracking(true);
         }
         else
@@ -188,4 +175,26 @@ void GameScreen::initMapSystem_()
     m_pMapLoader->initMapLoader();
 
     m_pUnderGrid = new UnderGrid();
+
+    horizontalScrollBar()->setVisible(false);
+    verticalScrollBar()->setVisible(false);
+}
+
+void GameScreen::setTerrainInvalidZone_()
+{
+    for(unsigned int index = 0; index < m_terrainsList.size(); ++index)
+    {
+        unsigned int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_terrainsList[index]->geometry().left());
+        unsigned int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_terrainsList[index]->geometry().top());
+
+        unsigned int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_terrainsList[index]->geometry().right());
+        unsigned int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_terrainsList[index]->geometry().bottom());
+
+        m_pUnderGrid->disableGrids(
+            iTerrainTopLX,
+            iTerrainTopLY,
+            iTerrainBottomRX,
+            iTerrainBottomRY
+        );
+    }
 }

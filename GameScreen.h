@@ -36,13 +36,14 @@ private:
     bool m_bIsScreenOpen;
     int m_iScreenWidth;
     int m_iScreenHeight;
-    QList<QLabel *> m_ListTerrains;
+    QList<QLabel *> m_terrainsList;
 
     void initBackground_(const QString& strBackgroundImagePath);
     void initRepainter_();
     void initMapSystem_();
-
     bool loadGameMap_(const QString& strCurrntMapName);
+    void setTerrainInvalidZone_();
+
 };
 
 #endif // GAMESCREEN_H
