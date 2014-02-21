@@ -4,8 +4,8 @@
 
 CharacterManager::CharacterManager()
     : m_pGhostF(NULL),
-      m_iX(-1),
-      m_iY(-1)
+      m_uiX(0),
+      m_uiY(0)
 {
     m_pGhostF = new QImage;
     m_pGhostF->load("./Resources/Character/Ghost-F.png");
@@ -22,13 +22,15 @@ CharacterManager& CharacterManager::instance()
     return sCharacterManager;
 }
 
-void CharacterManager::setGhostPos(const int &iX, const int &iY)
+void CharacterManager::setGhostPos(const unsigned int &iX, const unsigned int &iY)
 {
-    m_iX = iX;
-    m_iY = iY;
+    m_uiX = iX;
+    m_uiY = iY;
 }
 
-void CharacterManager::drawAllCharacter(QPainter &painter)
+void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
-    painter.drawImage((m_iX - 10), (m_iY - 10) , (*m_pGhostF));
+    int PixelCoordinateX = static_cast<int>((m_uiX - 1) * 15);
+    int PixelCoordinateY = static_cast<int>((m_uiY - 1) * 15);
+    painter.drawImage(PixelCoordinateX - iOffsetX, PixelCoordinateY - iOffsetY , (*m_pGhostF));
 }

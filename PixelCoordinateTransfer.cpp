@@ -32,12 +32,12 @@ unsigned int PixelCoordinateTransfer::toGridY(const int& iY)
 
 int PixelCoordinateTransfer::gridXToPixelCoordinateX(const unsigned int& uiX)
 {
-    int PixelCoordinateX = static_cast<int>((uiX * 15) + 7);
+    int PixelCoordinateX = static_cast<int>((uiX - 1) * 15);
     return PixelCoordinateX;
 }
 
 int PixelCoordinateTransfer::gridYToPixelCoordinateY(const unsigned int& uiY)
 {
-    int PixelCoordinateY = static_cast<int>((uiY * 15) + 7);
+    int PixelCoordinateY = static_cast<int>((uiY - 1) * 15);
     return PixelCoordinateY;
 }

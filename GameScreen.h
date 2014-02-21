@@ -20,6 +20,10 @@ public:
 
     bool openScreen(const QString& strCurrntMapName);
 
+    int getScreenOffsetX()const;
+
+    int getScreenOffsetY()const;
+
 protected:
 
     void mouseReleaseEvent(QMouseEvent *mouseEvent);

@@ -65,7 +65,7 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     QPainter painter(this);
 
     painter.drawPixmap(0, 0, m_background);
-    CharacterManager::instance().drawAllCharacter(painter);
+    CharacterManager::instance().drawAllCharacter(painter, m_pGameScreen->getScreenOffsetX(), m_pGameScreen->getScreenOffsetY());
 }
 
 void AssassinWar::onButttonHost_()
@@ -80,17 +80,15 @@ void AssassinWar::onButttonHost_()
 
 bool AssassinWar::runAW_(const QString& strCurrntMapName)
 {
-    bool bInitAWSuccessed = true;
-
     m_pChoosingMapDlg->hide();
 
     setWindowState(Qt::WindowFullScreen);
 
     initBackground_(MapManager::instance().getMapBackground(strCurrntMapName));
 
-    bInitAWSuccessed = m_pGameScreen->openScreen(strCurrntMapName);
+    m_bIsAWRun = m_pGameScreen->openScreen(strCurrntMapName);
 
-    return (m_bIsAWRun = bInitAWSuccessed);
+    return m_bIsAWRun ;
 }
 
 void AssassinWar::initMainWin()

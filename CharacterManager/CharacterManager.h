@@ -9,13 +9,13 @@ class CharacterManager
 public:
     static CharacterManager& instance();
 
-    void drawAllCharacter(QPainter &painter);
-    void setGhostPos(const int &iX, const int &iY);
+    void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
+    void setGhostPos(const unsigned int &iX, const unsigned int &iY);
 
 private:
     QImage* m_pGhostF;
-    int m_iX;
-    int m_iY;
+    unsigned int m_uiX;
+    unsigned int m_uiY;
 
     CharacterManager();
     ~CharacterManager();

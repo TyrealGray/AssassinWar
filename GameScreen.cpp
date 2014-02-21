@@ -44,9 +44,10 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + horizontalScrollBar()->value());
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + verticalScrollBar()->value());
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + getScreenOffsetX());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + getScreenOffsetY());
 
+        //mouse event click Terrians test code
         QString strX, strY, gridX, gridY;
         strX.setNum(iCurClickedGridX);
         strY.setNum(iCurClickedGridY);
@@ -58,12 +59,10 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             gridX.setNum(pCurClickGrid->getX());
             gridY.setNum(pCurClickGrid->getY());
 
-
-            //mouse event click Terrians test code
             if(pCurClickGrid->isDisable())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
-                CharacterManager::instance().setGhostPos(mouseEvent->pos().x() + horizontalScrollBar()->value(), mouseEvent->pos().y() + verticalScrollBar()->value());
+                CharacterManager::instance().setGhostPos(pCurClickGrid->getX(), pCurClickGrid->getY());
             }
             else
             {
@@ -86,8 +85,8 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + horizontalScrollBar()->value());
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + verticalScrollBar()->value());
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + getScreenOffsetX());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + getScreenOffsetY());
 
         QString strX, strY;
         strX.setNum(iCurClickedGridX);
@@ -114,12 +113,19 @@ bool GameScreen::initScreen()
 bool GameScreen::openScreen(const QString& strCurrntMapName)
 {
 
-    bool bOpenScreenSuccessed = true;
+    m_bIsScreenOpen = loadGameMap_(strCurrntMapName);
 
-    bOpenScreenSuccessed = loadGameMap_(strCurrntMapName);
+    return m_bIsScreenOpen ;
+}
 
-    return (m_bIsScreenOpen = bOpenScreenSuccessed);
+int GameScreen::getScreenOffsetX()const
+{
+    return horizontalScrollBar()->value();
+}
 
+int GameScreen::getScreenOffsetY()const
+{
+    return verticalScrollBar()->value();
 }
 
 bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
