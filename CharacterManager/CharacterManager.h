@@ -10,12 +10,12 @@ public:
     static CharacterManager& instance();
 
     void drawAllCharacter(QPainter &painter);
-    void setGhostPos(const float &fX, const float &fY);
+    void setGhostPos(const int &iX, const int &iY);
 
 private:
     QImage* m_pGhostF;
-    float m_fX;
-    float m_fY;
+    int m_iX;
+    int m_iY;
 
     CharacterManager();
     ~CharacterManager();

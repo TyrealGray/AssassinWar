@@ -30,8 +30,8 @@ private:
     MapLoader* m_pMapLoader;
     UnderGrid* m_pUnderGrid;
     bool m_bIsScreenOpen;
-    unsigned int m_iScreenWidth;
-    unsigned int m_iScreenHeight;
+    int m_iScreenWidth;
+    int m_iScreenHeight;
     QList<QLabel *> m_ListTerrains;
 
     void initBackground_(const QString& strBackgroundImagePath);

@@ -4,13 +4,13 @@ class PixelCoordinateTransfer
 public:
     static PixelCoordinateTransfer& instance();
 
-    unsigned int toGridX(const float& fX);
+    unsigned int toGridX(const int& iX);
 
-    unsigned int toGridY(const float& fY);
+    unsigned int toGridY(const int& iY);
 
-    float gridXToPixelCoordinateX(const unsigned int& uiX);
+    int gridXToPixelCoordinateX(const unsigned int& uiX);
 
-    float gridYToPixelCoordinateY(const unsigned int& uiY);
+    int gridYToPixelCoordinateY(const unsigned int& uiY);
 private:
     PixelCoordinateTransfer(void);
     ~PixelCoordinateTransfer(void);

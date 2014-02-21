@@ -44,8 +44,8 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + static_cast<float>(horizontalScrollBar()->value()));
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + static_cast<float>(verticalScrollBar()->value()));
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + horizontalScrollBar()->value());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + verticalScrollBar()->value());
 
         QString strX, strY, gridX, gridY;
         strX.setNum(iCurClickedGridX);
@@ -63,7 +63,7 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             if(pCurClickGrid->isDisable())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
-                CharacterManager::instance().setGhostPos(mouseEvent->pos().x() + static_cast<float>(horizontalScrollBar()->value()), mouseEvent->pos().y() + static_cast<float>(verticalScrollBar()->value()));
+                CharacterManager::instance().setGhostPos(mouseEvent->pos().x() + horizontalScrollBar()->value(), mouseEvent->pos().y() + verticalScrollBar()->value());
             }
             else
             {
@@ -86,8 +86,8 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + static_cast<float>(horizontalScrollBar()->value()));
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + static_cast<float>(verticalScrollBar()->value()));
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + horizontalScrollBar()->value());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + verticalScrollBar()->value());
 
         QString strX, strY;
         strX.setNum(iCurClickedGridX);
@@ -138,18 +138,13 @@ bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
         int iMapWidth = (pMapWidget->size().width() > size().width()) ? pMapWidget->size().width() : m_iScreenWidth;
         int iMapHeight = (pMapWidget->size().height() > size().height()) ? pMapWidget->size().height() : m_iScreenHeight;
 
-        QSize mapSize(iMapWidth, iMapHeight);
-
-        float fMapWidth = static_cast<float>(mapSize.width());
-        float fMapHeight = static_cast<float>(mapSize.height());
-
-        unsigned int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toGridX(fMapWidth);
-        unsigned int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toGridY(fMapHeight);
+        unsigned int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toGridX(iMapWidth);
+        unsigned int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toGridY(iMapHeight);
 
         if(GRID_NUMBER_IS_ZERO != iBottomRightGridRowIndex && GRID_NUMBER_IS_ZERO != iBottomRightGridColumnIndex)
         {
-            unsigned int uiAllGridTotalWidth = static_cast<unsigned int>(iBottomRightGridColumnIndex + 1);
-            unsigned int uiAllGridTotalHeight = static_cast<unsigned int>(iBottomRightGridRowIndex + 1);
+            unsigned int uiAllGridTotalWidth = iBottomRightGridColumnIndex + 1;
+            unsigned int uiAllGridTotalHeight = iBottomRightGridRowIndex + 1;
 
             m_pUnderGrid->setSize(uiAllGridTotalWidth, uiAllGridTotalHeight);
 
