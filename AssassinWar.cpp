@@ -16,7 +16,7 @@
 
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
-const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 500;
+const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 250;
 
 AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
