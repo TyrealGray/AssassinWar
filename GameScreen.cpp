@@ -1,4 +1,5 @@
 #include <QLabel>
+#include <QPainter>
 #include <QScrollBar>
 #include <QScrollArea>
 #include <QMouseEvent>
@@ -14,6 +15,7 @@
 #include "CharacterManager.h"
 
 const int GRID_NUMBER_IS_ZERO = 0;
+const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 250;
 
 GameScreen::GameScreen(const int &iWidth, const int &iHeight,
                        QWidget *parent)
@@ -126,6 +128,14 @@ int GameScreen::getScreenOffsetX()const
 int GameScreen::getScreenOffsetY()const
 {
     return verticalScrollBar()->value();
+}
+
+void GameScreen::drawAllGameScreen(QPainter& painter)
+{
+    int iPlayerX = PixelCoordinateTransfer::instance().gridXToPixelCoordinateX(CharacterManager::instance().getPlayerCharacterGridX());
+    int iPlayerY = PixelCoordinateTransfer::instance().gridYToPixelCoordinateY(CharacterManager::instance().getPlayerCharacterGridY());
+    ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+    CharacterManager::instance().drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
 
 bool GameScreen::loadGameMap_(const QString& strCurrntMapName)

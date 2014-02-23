@@ -5,6 +5,7 @@
 #include <QList>
 
 class QLabel;
+class QPainter;
 class UnderGrid;
 class MapLoader;
 class GameScreen : public QScrollArea
@@ -23,6 +24,8 @@ public:
     int getScreenOffsetX()const;
 
     int getScreenOffsetY()const;
+
+    void drawAllGameScreen(QPainter& painter);
 
 protected:
 
