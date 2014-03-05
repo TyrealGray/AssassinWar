@@ -1,14 +1,12 @@
 #include <QPainter>
 
 #include "CharacterManager.h"
+#include "Character.h"
 
 CharacterManager::CharacterManager()
-    : m_pGhostF(NULL),
-      m_uiX(0),
-      m_uiY(0)
+    : m_pGhostF(NULL)
 {
-    m_pGhostF = new QImage;
-    m_pGhostF->load("./Resources/Character/Ghost-F.png");
+    m_pGhostF = new Character;
 }
 
 CharacterManager::~CharacterManager()
@@ -22,25 +20,22 @@ CharacterManager& CharacterManager::instance()
     return sCharacterManager;
 }
 
-void CharacterManager::setGhostPos(const unsigned int &iX, const unsigned int &iY)
+void CharacterManager::setGhostPos(const unsigned int &uiX, const unsigned int &uiY)
 {
-    m_uiX = iX;
-    m_uiY = iY;
+    m_pGhostF->goTo(uiX, uiY);
 }
 
 void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
-    int PixelCoordinateX = static_cast<int>((m_uiX - 1) * 15);
-    int PixelCoordinateY = static_cast<int>((m_uiY - 1) * 15);
-    painter.drawImage(PixelCoordinateX - iOffsetX, PixelCoordinateY - iOffsetY , (*m_pGhostF));
+    m_pGhostF->render(painter, iOffsetX, iOffsetY);
 }
 
 unsigned int CharacterManager::getPlayerCharacterGridX()
 {
-    return m_uiX;
+    return m_pGhostF->getCurrentGridX();
 }
 
 unsigned int CharacterManager::getPlayerCharacterGridY()
 {
-    return m_uiY;
+    return m_pGhostF->getCurrentGridY();
 }

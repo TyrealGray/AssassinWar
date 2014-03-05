@@ -4,6 +4,7 @@
 
 class QImage;
 class QPainter;
+class Character;
 class CharacterManager
 {
 public:
@@ -16,9 +17,7 @@ public:
     void setGhostPos(const unsigned int &iX, const unsigned int &iY);
 
 private:
-    QImage* m_pGhostF;
-    unsigned int m_uiX;
-    unsigned int m_uiY;
+    Character* m_pGhostF;
 
     CharacterManager();
     ~CharacterManager();
