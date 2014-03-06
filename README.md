@@ -10,6 +10,6 @@ Be sure that you only kill Assassin(other players),becuase you will get Punishme
 -------------
 
 to open the project you need:
-vs2010 sp1
-QT4.8.5
+vs2010 sp1,
+QT4.8.5,
 GTest 1.7.0
