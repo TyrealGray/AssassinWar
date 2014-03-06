@@ -66,7 +66,7 @@ bool UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned 
             std::shared_ptr<Grid> pGrid = getGrid(uiRowIndex, uiColumnIndex);
             if(NULL != pGrid)
             {
-                pGrid->setDisable(false);
+                pGrid->setAble(false);
             }
         }
     }

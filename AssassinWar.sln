@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapLoader", "MapLoader\MapL
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CharacterManager", "CharacterManager\CharacterManager.vcxproj", "{AC786B19-89BF-4BF0-98BB-550840B7B9A2}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AWTest", "AWTest\AWTest.vcxproj", "{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -29,6 +31,10 @@ Global
 		{AC786B19-89BF-4BF0-98BB-550840B7B9A2}.Debug|Win32.Build.0 = Debug|Win32
 		{AC786B19-89BF-4BF0-98BB-550840B7B9A2}.Release|Win32.ActiveCfg = Release|Win32
 		{AC786B19-89BF-4BF0-98BB-550840B7B9A2}.Release|Win32.Build.0 = Release|Win32
+		{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}.Debug|Win32.Build.0 = Debug|Win32
+		{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}.Release|Win32.ActiveCfg = Release|Win32
+		{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

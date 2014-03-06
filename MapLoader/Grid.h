@@ -7,20 +7,20 @@ public:
     Grid(const Grid& grid);
     ~Grid(void);
 
-    void setDisable(const bool &bDisable);
+    void setAble(const bool &bDisable);
 
     void setX(const unsigned int &uiX);
 
     void setY(const unsigned int &uiY);
 
-    bool isDisable();
+    bool isAble();
 
     unsigned int getX();
 
     unsigned int getY();
 
 private:
-    bool m_bDisable;
+    bool m_bAble;
     unsigned int m_uiX;
     unsigned int m_uiY;
 };

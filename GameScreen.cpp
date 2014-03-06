@@ -61,7 +61,7 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             gridX.setNum(pCurClickGrid->getX());
             gridY.setNum(pCurClickGrid->getY());
 
-            if(pCurClickGrid->isDisable() && Qt::RightButton == mouseEvent->button())
+            if(pCurClickGrid->isAble() && Qt::RightButton == mouseEvent->button())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
                 CharacterManager::instance().setGhostPos(pCurClickGrid->getX(), pCurClickGrid->getY());

@@ -144,7 +144,7 @@ void AssassinWar::initRepainter_()
 {
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
-    m_pRepaintTimer->start(250);
+    m_pRepaintTimer->start(200);
 }
 
 void AssassinWar::initChoosingMapDlg_()
