@@ -8,3 +8,8 @@ Each players control one Assassin that looks like normal people,and the whole ga
 -------------
 Be sure that you only kill Assassin(other players),becuase you will get Punishment if you kill the innocence NPCs
 -------------
+
+to open the project you need:
+vs2010 sp1
+QT4.8.5
+GTest 1.7.0
