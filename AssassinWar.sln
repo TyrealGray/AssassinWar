@@ -4,6 +4,7 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AssassinWar", "AssassinWar.vcxproj", "{8D06FC57-FB33-430B-98BA-637EB8A16A7A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{AC786B19-89BF-4BF0-98BB-550840B7B9A2} = {AC786B19-89BF-4BF0-98BB-550840B7B9A2}
+		{E3A4454A-AD18-48F5-B682-D7010B7CFDBE} = {E3A4454A-AD18-48F5-B682-D7010B7CFDBE}
 		{4B4B8267-8CA1-40C2-9684-16F25E0F68D3} = {4B4B8267-8CA1-40C2-9684-16F25E0F68D3}
 	EndProjectSection
 EndProject
@@ -12,6 +13,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CharacterManager", "CharacterManager\CharacterManager.vcxproj", "{AC786B19-89BF-4BF0-98BB-550840B7B9A2}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AWTest", "AWTest\AWTest.vcxproj", "{E3A4454A-AD18-48F5-B682-D7010B7CFDBE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AC786B19-89BF-4BF0-98BB-550840B7B9A2} = {AC786B19-89BF-4BF0-98BB-550840B7B9A2}
+		{4B4B8267-8CA1-40C2-9684-16F25E0F68D3} = {4B4B8267-8CA1-40C2-9684-16F25E0F68D3}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,5 +1,7 @@
 #pragma once
 
+enum Direction {GO_UP, GO_DOWN, GO_Left, GO_RIGHT};
+
 class QImage;
 class QPainter;
 class Character
@@ -16,6 +18,10 @@ public:
 
     unsigned int getCurrentGridY();
 
+    unsigned int getTargetGridX();
+
+    unsigned int getTargetGridY();
+
 private:
     QImage* m_pCharacter;
     float m_uiSpeed;
@@ -23,5 +29,8 @@ private:
     unsigned int m_uiCurrentY;
     unsigned int m_uiTargetGridX;
     unsigned int m_uiTargetGridY;
+    Direction m_eDirection;
+    unsigned int getCurrentX_();
+    unsigned int getCurrentY_();
 };
 

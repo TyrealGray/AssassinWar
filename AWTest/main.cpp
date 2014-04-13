@@ -6,6 +6,28 @@
 
 #include "UnderGrid.h"
 
+TEST(GridTest, FunctionTest)
+{
+    Grid grid(2, 3);
+
+    EXPECT_EQ(2, grid.getX());
+    EXPECT_EQ(3, grid.getY());
+    EXPECT_EQ(true, grid.isAble());
+
+    grid.setAble(false);
+
+    EXPECT_EQ(false, grid.isAble());
+
+    grid.setX(4);
+    EXPECT_EQ(4, grid.getX());
+
+    grid.setY(5);
+    EXPECT_EQ(5, grid.getY());
+
+    grid.setAble(true);
+    EXPECT_EQ(true, grid.isAble());
+}
+
 TEST(UnderGridTest, setSizeTest)
 {
     UnderGrid underGrid;
