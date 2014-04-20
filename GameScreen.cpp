@@ -46,8 +46,8 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + getScreenOffsetX());
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + getScreenOffsetY());
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
 
         //mouse event click Terrians test code
         QString strX, strY, gridX, gridY;
@@ -87,8 +87,8 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(m_bIsScreenOpen)
     {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::instance().toGridX(mouseEvent->pos().x() + getScreenOffsetX());
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::instance().toGridY(mouseEvent->pos().y() + getScreenOffsetY());
+        unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
+        unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
 
         QString strX, strY;
         strX.setNum(iCurClickedGridX);
@@ -132,8 +132,8 @@ int GameScreen::getScreenOffsetY()const
 
 void GameScreen::drawAllGameScreen(QPainter& painter)
 {
-    int iPlayerX = PixelCoordinateTransfer::instance().gridXToPixelCoordinateX(CharacterManager::instance().getPlayerCharacterGridX());
-    int iPlayerY = PixelCoordinateTransfer::instance().gridYToPixelCoordinateY(CharacterManager::instance().getPlayerCharacterGridY());
+    int iPlayerX = PixelCoordinateTransfer::toPixel(CharacterManager::instance().getPlayerCharacterGridX());
+    int iPlayerY = PixelCoordinateTransfer::toPixel(CharacterManager::instance().getPlayerCharacterGridY());
     ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
     CharacterManager::instance().drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
@@ -154,8 +154,8 @@ bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
         int iMapWidth = (pMapWidget->size().width() > size().width()) ? pMapWidget->size().width() : m_iScreenWidth;
         int iMapHeight = (pMapWidget->size().height() > size().height()) ? pMapWidget->size().height() : m_iScreenHeight;
 
-        unsigned int iBottomRightGridColumnIndex = PixelCoordinateTransfer::instance().toGridX(iMapWidth);
-        unsigned int iBottomRightGridRowIndex = PixelCoordinateTransfer::instance().toGridY(iMapHeight);
+        unsigned int iBottomRightGridColumnIndex = PixelCoordinateTransfer::toGrid(iMapWidth);
+        unsigned int iBottomRightGridRowIndex = PixelCoordinateTransfer::toGrid(iMapHeight);
 
         if(GRID_NUMBER_IS_ZERO != iBottomRightGridRowIndex && GRID_NUMBER_IS_ZERO != iBottomRightGridColumnIndex)
         {
@@ -194,11 +194,11 @@ void GameScreen::setTerrainInvalidZone_()
 {
     for(unsigned int index = 0; index < m_terrainsList.size(); ++index)
     {
-        unsigned int iTerrainTopLX = PixelCoordinateTransfer::instance().toGridX(m_terrainsList[index]->geometry().left());
-        unsigned int iTerrainTopLY = PixelCoordinateTransfer::instance().toGridY(m_terrainsList[index]->geometry().top());
+        unsigned int iTerrainTopLX = PixelCoordinateTransfer::toGrid(m_terrainsList[index]->geometry().left());
+        unsigned int iTerrainTopLY = PixelCoordinateTransfer::toGrid(m_terrainsList[index]->geometry().top());
 
-        unsigned int iTerrainBottomRX = PixelCoordinateTransfer::instance().toGridX(m_terrainsList[index]->geometry().right());
-        unsigned int iTerrainBottomRY = PixelCoordinateTransfer::instance().toGridY(m_terrainsList[index]->geometry().bottom());
+        unsigned int iTerrainBottomRX = PixelCoordinateTransfer::toGrid(m_terrainsList[index]->geometry().right());
+        unsigned int iTerrainBottomRY = PixelCoordinateTransfer::toGrid(m_terrainsList[index]->geometry().bottom());
 
         m_pUnderGrid->disableGrids(
             iTerrainTopLX,
