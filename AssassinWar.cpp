@@ -14,6 +14,7 @@
 
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
+const QString BACKGROUND_IMG = "./AssassinWar.jpg";
 
 AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
@@ -108,7 +109,7 @@ void AssassinWar::initMainWin()
 
     initRepainter_();
 
-    initBackground_("./AssassinsWar.jpg");
+    initBackground_(BACKGROUND_IMG);
 
     showMainWin_();
 }
@@ -159,7 +160,7 @@ void AssassinWar::showMainWin_()
 {
     resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
 
-    initBackground_("./AssassinsWar.jpg");
+    initBackground_(BACKGROUND_IMG);
 
     setMouseTracking(true);
 }
