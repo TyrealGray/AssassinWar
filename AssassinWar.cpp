@@ -47,6 +47,11 @@ AssassinWar::~AssassinWar()
     }
 }
 
+void AssassinWar::closeEvent(QCloseEvent *closeEvent)
+{
+    closeEvent->accept();
+}
+
 void AssassinWar::mouseMoveEvent(QMouseEvent *mouseEvent)
 {
     if(ICON_SIZE > mouseEvent->pos().y() && !m_bIsAWRun)
@@ -65,7 +70,7 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
 
     painter.drawPixmap(0, 0, m_background);
 
-    if(m_bIsAWRun)
+    if(m_bIsAWRun && NULL != m_pGameScreen)
     {
         m_pGameScreen->drawAllGameScreen(painter);
     }
@@ -82,7 +87,7 @@ void AssassinWar::onButttonHost()
 
 }
 
-bool AssassinWar::runAW(const QString& strCurrntMapName)
+void AssassinWar::runAW(const QString& strCurrntMapName)
 {
     m_pChoosingMapDlg->hide();
 
@@ -91,8 +96,6 @@ bool AssassinWar::runAW(const QString& strCurrntMapName)
     initBackground(MapManager::instance().getMapBackground(strCurrntMapName));
 
     m_bIsAWRun = m_pGameScreen->openScreen(strCurrntMapName);
-
-    return m_bIsAWRun ;
 }
 
 void AssassinWar::initMainWin()
@@ -174,6 +177,8 @@ void AssassinWar::showMainWin()
     resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
 
     initBackground(BACKGROUND_IMG);
+
+    move((m_iScreenWidth - MAIN_WIN_WIDTH) / 2, (m_iScreenHeight - (MAIN_WIN_WIDTH / 2)) / 2);
 
     setMouseTracking(true);
 }

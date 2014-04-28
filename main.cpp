@@ -1,5 +1,5 @@
 #include "AssassinWar.h"
-#include <QtGui/QApplication>
+#include <QApplication>
 #include <QDesktopWidget>
 
 int main(int argc, char *argv[])

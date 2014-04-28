@@ -1,6 +1,6 @@
 #pragma once
 
-enum Direction {GO_UP, GO_DOWN, GO_Left, GO_RIGHT};
+enum Direction {GO_UP, GO_DOWN, GO_LEFT, GO_RIGHT};
 
 class QImage;
 class QPainter;
@@ -34,8 +34,9 @@ private:
     Direction m_eDirection;
     unsigned int getCurrentX();
     unsigned int getCurrentY();
-    void updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord);
-    bool shouldMoveUpToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
-    bool shouldMoveDownToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+    void updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, Direction eIncrease, Direction eDecrease);
+    bool isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+    bool isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+    void setDirection(Direction eDirection);
 };
 

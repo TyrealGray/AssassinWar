@@ -27,9 +27,9 @@ void Character::goTo(const unsigned int &uiX, const unsigned int &uiY)
 void Character::updatePosition()
 {
 
-    this->updateCoord(m_uiTargetGridX, m_uiCurrentX);
+    this->updateCoord(m_uiTargetGridX, m_uiCurrentX, GO_RIGHT , GO_LEFT);
 
-    this->updateCoord(m_uiTargetGridY, m_uiCurrentY);
+    this->updateCoord(m_uiTargetGridY, m_uiCurrentY, GO_DOWN, GO_UP);
 
 }
 
@@ -68,24 +68,49 @@ unsigned int Character::getCurrentY()
     return m_uiCurrentY;
 }
 
-void Character::updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord)
+void Character::updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, Direction eIncrease, Direction eDecrease)
 {
-    if(1 <= uiTargetGridCoord && this->shouldMoveDownToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    if(1 <= uiTargetGridCoord && this->isIncreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
     {
         uiCurrentCoord += m_uiSpeed;
+        setDirection(eIncrease);
     }
-    else if(1 <= uiTargetGridCoord && this->shouldMoveUpToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    else if(1 <= uiTargetGridCoord && this->isDecreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
     {
         uiCurrentCoord -= m_uiSpeed;
+        setDirection(eDecrease);
     }
 }
 
-bool Character::shouldMoveUpToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+bool Character::isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
 {
     return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) < uiCurrentCoord - m_uiSpeed;
 }
 
-bool Character::shouldMoveDownToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+bool Character::isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
 {
     return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) > uiCurrentCoord + m_uiSpeed;
+}
+
+void Character::setDirection(Direction eDirection)
+{
+    m_eDirection = eDirection;
+
+    switch(m_eDirection)
+    {
+    case GO_UP:
+        m_pCharacter->load("./Resources/Character/Ghost-B.png");
+        break;
+    case GO_DOWN:
+        m_pCharacter->load("./Resources/Character/Ghost-F.png");
+        break;
+    case GO_LEFT:
+        m_pCharacter->load("./Resources/Character/Ghost-L.png");
+        break;
+    case GO_RIGHT:
+        m_pCharacter->load("./Resources/Character/Ghost-R.png");
+        break;
+    default:
+        break;
+    }
 }

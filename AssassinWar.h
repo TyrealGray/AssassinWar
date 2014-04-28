@@ -22,6 +22,8 @@ public:
 
 protected:
 
+    void closeEvent(QCloseEvent *closeEvent);
+
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
     void paintEvent(QPaintEvent *paintEvent);
@@ -30,7 +32,7 @@ private slots:
 
     void onButttonHost();
 
-    bool runAW(const QString& strCurrntMapName);
+    void runAW(const QString& strCurrntMapName);
 
     void showMainWin();
 

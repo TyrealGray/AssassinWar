@@ -18,9 +18,11 @@ public:
                QWidget *parent = 0);
     ~GameScreen();
 
-    bool initScreen();
+    void initScreen();
 
     bool openScreen(const QString& strCurrntMapName);
+
+    bool closeScreen();
 
     int getScreenOffsetX()const;
 

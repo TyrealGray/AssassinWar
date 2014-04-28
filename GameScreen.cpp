@@ -14,6 +14,7 @@
 
 #include "CharacterManager.h"
 
+const bool GAME_OVER = false;
 const int GRID_NUMBER_IS_ZERO = 0;
 const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 250;
 
@@ -105,17 +106,13 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
     }
 }
 
-bool GameScreen::initScreen()
+void GameScreen::initScreen()
 {
-    bool bInitSuccessed = true;
-
     setMouseTracking(true);
 
     initMapSystem();
 
     initCharacterManager();
-
-    return bInitSuccessed;
 }
 
 bool GameScreen::openScreen(const QString& strCurrntMapName)
@@ -124,6 +121,24 @@ bool GameScreen::openScreen(const QString& strCurrntMapName)
     m_bIsScreenOpen = loadGameMap(strCurrntMapName);
 
     return m_bIsScreenOpen ;
+}
+
+bool GameScreen::closeScreen()
+{
+    QWidget* pCurrentWid = this->widget();
+
+    this->setWidget(NULL);
+
+    if(NULL != pCurrentWid)
+    {
+        pCurrentWid->setMouseTracking(false);
+
+        delete pCurrentWid;
+    }
+
+    m_bIsScreenOpen = false;
+
+    return GAME_OVER;
 }
 
 int GameScreen::getScreenOffsetX()const
@@ -146,14 +161,10 @@ void GameScreen::drawAllGameScreen(QPainter& painter)
 
 bool GameScreen::loadGameMap(const QString& strCurrntMapName)
 {
-    bool bLoadGameMapSuccessed = true;
+    bool bLoadGameMapSuccessed = false;
 
     QWidget* pMapWidget =  m_pMapLoader->loadMap(MapManager::instance().getMapPath(strCurrntMapName));
-    if(NULL == pMapWidget)
-    {
-        bLoadGameMapSuccessed = false;
-    }
-    else
+    if(NULL != pMapWidget)
     {
         setWidget(pMapWidget);
 
@@ -175,11 +186,13 @@ bool GameScreen::loadGameMap(const QString& strCurrntMapName)
             setTerrainInvalidZone();
 
             pMapWidget->setMouseTracking(true);
+
+            bLoadGameMapSuccessed = true;
         }
-        else
-        {
-            bLoadGameMapSuccessed = false;
-        }
+    }
+    else
+    {
+        //do nothing
     }
 
     return bLoadGameMapSuccessed;
