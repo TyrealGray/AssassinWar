@@ -14,7 +14,7 @@ ToolbarManager::~ToolbarManager(void)
 
 void ToolbarManager::initialize()
 {
-    initToolbarAction_();
+    initToolbarAction();
 }
 
 QAction* ToolbarManager::getButtonHost()
@@ -37,7 +37,12 @@ QAction* ToolbarManager::getButtonSetting()
     return m_pOnButtonSetttingAction;
 }
 
-void ToolbarManager::initToolbarAction_()
+QAction* ToolbarManager::getButtonQuit()
+{
+    return m_pOnButtonQuitAction;
+}
+
+void ToolbarManager::initToolbarAction()
 {
     m_pOnButtonHostAction = new QAction(QObject::tr("Host a Game"), NULL);
     m_pOnButtonHostAction->setToolTip(QObject::tr("Host a Game"));
@@ -54,4 +59,8 @@ void ToolbarManager::initToolbarAction_()
     m_pOnButtonSetttingAction = new QAction(QObject::tr("Setting"), NULL);
     m_pOnButtonSetttingAction->setToolTip(QObject::tr("Setting"));
     m_pOnButtonSetttingAction->setIcon(QIcon("./Resources/Toolbar/Setting.jpg"));
+
+    m_pOnButtonQuitAction = new QAction(QObject::tr("Quit"), NULL);
+    m_pOnButtonQuitAction->setToolTip(QObject::tr("Quit"));
+    m_pOnButtonQuitAction->setIcon(QIcon("./Resources/Toolbar/Quit.jpg"));
 }

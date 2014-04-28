@@ -72,7 +72,7 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
 }
 
 
-void AssassinWar::onButttonHost_()
+void AssassinWar::onButttonHost()
 {
     setMouseTracking(false);
     m_pToolbar->setVisible(false);
@@ -82,13 +82,13 @@ void AssassinWar::onButttonHost_()
 
 }
 
-bool AssassinWar::runAW_(const QString& strCurrntMapName)
+bool AssassinWar::runAW(const QString& strCurrntMapName)
 {
     m_pChoosingMapDlg->hide();
 
     setWindowState(Qt::WindowFullScreen);
 
-    initBackground_(MapManager::instance().getMapBackground(strCurrntMapName));
+    initBackground(MapManager::instance().getMapBackground(strCurrntMapName));
 
     m_bIsAWRun = m_pGameScreen->openScreen(strCurrntMapName);
 
@@ -99,73 +99,66 @@ void AssassinWar::initMainWin()
 {
     setWindowFlags(Qt::FramelessWindowHint);
 
-    initGameScreen_();
+    initGameScreen();
 
-    initToolbarManager_();
+    initToolbarManager();
 
-    initChoosingMapDlg_();
+    initChoosingMapDlg();
 
-    initToolbar_();
+    initToolbar();
 
-    initRepainter_();
+    initRepainter();
 
-    initBackground_(BACKGROUND_IMG);
+    initBackground(BACKGROUND_IMG);
 
-    showMainWin_();
+    showMainWin();
 }
 
-void AssassinWar::initToolbar_()
+void AssassinWar::initToolbar()
 {
     m_pToolbar = addToolBar(tr("MainToolbar"));
     m_pToolbar->addAction(m_pToolbarManager->getButtonHost());
     m_pToolbar->addAction(m_pToolbarManager->getButtonJoin());
     m_pToolbar->addAction(m_pToolbarManager->getButtonHelp());
     m_pToolbar->addAction(m_pToolbarManager->getButtonSetting());
+    m_pToolbar->addAction(m_pToolbarManager->getButtonQuit());
     m_pToolbar->setIconSize(QSize(ICON_SIZE, ICON_SIZE));
     m_pToolbar->setMovable(false);
     m_pToolbar->setVisible(false);
 
-    connect(m_pToolbarManager->getButtonHost(), SIGNAL(triggered()), this, SLOT(onButttonHost_()));
+    connect(m_pToolbarManager->getButtonHost(), SIGNAL(triggered()), this, SLOT(onButttonHost()));
+    connect(m_pToolbarManager->getButtonQuit(), SIGNAL(triggered()), this, SLOT(close()));
 }
 
-void AssassinWar::initBackground_(const QString& strBackgroundImagePath)
+void AssassinWar::initBackground(const QString& strBackgroundImagePath)
 {
     QImage background;
     background.load(strBackgroundImagePath);
     m_background = QPixmap::fromImage(background.scaled(size(), Qt::KeepAspectRatioByExpanding));
 }
 
-void AssassinWar::initToolbarManager_()
+void AssassinWar::initToolbarManager()
 {
     m_pToolbarManager = new ToolbarManager();
     m_pToolbarManager->initialize();
 }
 
-void AssassinWar::initRepainter_()
+void AssassinWar::initRepainter()
 {
     m_pRepaintTimer = new QTimer(this);
     connect(m_pRepaintTimer, SIGNAL(timeout()), this, SLOT(repaint()));
     m_pRepaintTimer->start(200);
 }
 
-void AssassinWar::initChoosingMapDlg_()
+void AssassinWar::initChoosingMapDlg()
 {
     m_pChoosingMapDlg = new ChoosingMapDlg(this);
     m_pChoosingMapDlg->initialize();
-    connect(m_pChoosingMapDlg, SIGNAL(createGame(QString)), this, SLOT(runAW_(QString)));
-    connect(m_pChoosingMapDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin_()));
+    connect(m_pChoosingMapDlg, SIGNAL(createGame(QString)), this, SLOT(runAW(QString)));
+    connect(m_pChoosingMapDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin()));
 }
 
-void AssassinWar::showMainWin_()
-{
-    resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
-
-    initBackground_(BACKGROUND_IMG);
-
-    setMouseTracking(true);
-}
-
-void AssassinWar::initGameScreen_()
+void AssassinWar::initGameScreen()
 {
     m_pGameScreen = new GameScreen(m_iScreenWidth, m_iScreenHeight);
 
@@ -174,4 +167,13 @@ void AssassinWar::initGameScreen_()
     m_pGameScreen->setStyleSheet("background-color:transparent;");
 
     setCentralWidget(m_pGameScreen);
+}
+
+void AssassinWar::showMainWin()
+{
+    resize(MAIN_WIN_WIDTH, MAIN_WIN_WIDTH / 2);
+
+    initBackground(BACKGROUND_IMG);
+
+    setMouseTracking(true);
 }

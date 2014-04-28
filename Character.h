@@ -12,6 +12,8 @@ public:
 
     void goTo(const unsigned int &uiX, const unsigned int &uiY);
 
+    void updatePosition();
+
     void render(QPainter &painter, int &iOffsetX, int &iOffsetY);
 
     unsigned int getCurrentGridX();
@@ -30,7 +32,10 @@ private:
     unsigned int m_uiTargetGridX;
     unsigned int m_uiTargetGridY;
     Direction m_eDirection;
-    unsigned int getCurrentX_();
-    unsigned int getCurrentY_();
+    unsigned int getCurrentX();
+    unsigned int getCurrentY();
+    void updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord);
+    bool shouldMoveUpToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+    bool shouldMoveDownToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
 };
 

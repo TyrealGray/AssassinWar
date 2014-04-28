@@ -17,12 +17,15 @@ public:
 
     QAction* getButtonSetting();
 
+    QAction* getButtonQuit();
+
 private:
     QAction* m_pOnButtonHostAction;
     QAction* m_pOnButtonJoinAction;
     QAction* m_pOnButtonHelpAction;
     QAction* m_pOnButtonSetttingAction;
+    QAction* m_pOnButtonQuitAction;
 
-    void initToolbarAction_();
+    void initToolbarAction();
 };
 

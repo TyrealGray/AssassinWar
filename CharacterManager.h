@@ -1,26 +1,40 @@
 #ifndef CHARACTERMANAGER_H
 #define CHARACTERMANAGER_H
 
+#include <QObject>
 
+class QTimer;
 class QImage;
 class QPainter;
 class Character;
-class CharacterManager
+class CharacterManager : public QObject
 {
+    Q_OBJECT
+
 public:
-    static CharacterManager& instance();
-
-    unsigned int getPlayerCharacterGridX();
-    unsigned int getPlayerCharacterGridY();
-
-    void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
-    void setGhostPos(const unsigned int &iX, const unsigned int &iY);
-
-private:
-    Character* m_pGhostF;
-
     CharacterManager();
     ~CharacterManager();
+
+    void addPlayer();
+
+    void addCharacter();
+
+    void addNpc();
+
+    unsigned int getPlayerGridX();
+    unsigned int getPlayerGridY();
+
+    void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
+    void setPlayerPos(const unsigned int &iX, const unsigned int &iY);
+
+private slots:
+    void updateAllCharacterPos();
+
+private:
+    QTimer* m_pUpdateTimer;
+    Character* m_pGhostF;
+
+    void initUpdateTimer();
 };
 
 #endif // CHARACTERMANAGER_H

@@ -24,38 +24,28 @@ void Character::goTo(const unsigned int &uiX, const unsigned int &uiY)
     m_uiTargetGridY = uiY;
 }
 
+void Character::updatePosition()
+{
+
+    this->updateCoord(m_uiTargetGridX, m_uiCurrentX);
+
+    this->updateCoord(m_uiTargetGridY, m_uiCurrentY);
+
+}
+
 void Character::render(QPainter &painter, int &iOffsetX, int &iOffsetY)
 {
-    if(1 <= m_uiTargetGridX && PixelCoordinateTransfer::toPixel(m_uiTargetGridX)  > m_uiCurrentX + m_uiSpeed)
-    {
-        m_uiCurrentX += m_uiSpeed;
-    }
-    else if(1 <= m_uiTargetGridX && PixelCoordinateTransfer::toPixel(m_uiTargetGridX) < m_uiCurrentX - m_uiSpeed)
-    {
-        m_uiCurrentX -= m_uiSpeed;
-    }
-
-    if(1 <= m_uiTargetGridY && PixelCoordinateTransfer::toPixel(m_uiTargetGridY) > m_uiCurrentY + m_uiSpeed)
-    {
-        m_uiCurrentY += m_uiSpeed;
-    }
-    else if(1 <= m_uiTargetGridY && PixelCoordinateTransfer::toPixel(m_uiTargetGridY) < m_uiCurrentY - m_uiSpeed)
-    {
-        m_uiCurrentY -= m_uiSpeed;
-    }
-
     painter.drawImage(m_uiCurrentX - iOffsetX, m_uiCurrentY - iOffsetY , (*m_pCharacter));
-
 }
 
 unsigned int Character::getCurrentGridX()
 {
-    return  PixelCoordinateTransfer::toGrid(getCurrentX_());
+    return  PixelCoordinateTransfer::toGrid(getCurrentX());
 }
 
 unsigned int Character::getCurrentGridY()
 {
-    return  PixelCoordinateTransfer::toGrid(getCurrentY_());
+    return  PixelCoordinateTransfer::toGrid(getCurrentY());
 }
 
 unsigned int Character::getTargetGridX()
@@ -68,12 +58,34 @@ unsigned int Character::getTargetGridY()
     return m_uiTargetGridY;
 }
 
-unsigned int Character::getCurrentX_()
+unsigned int Character::getCurrentX()
 {
     return m_uiCurrentX;
 }
 
-unsigned int Character::getCurrentY_()
+unsigned int Character::getCurrentY()
 {
     return m_uiCurrentY;
+}
+
+void Character::updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord)
+{
+    if(1 <= uiTargetGridCoord && this->shouldMoveDownToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    {
+        uiCurrentCoord += m_uiSpeed;
+    }
+    else if(1 <= uiTargetGridCoord && this->shouldMoveUpToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    {
+        uiCurrentCoord -= m_uiSpeed;
+    }
+}
+
+bool Character::shouldMoveUpToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+{
+    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) < uiCurrentCoord - m_uiSpeed;
+}
+
+bool Character::shouldMoveDownToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+{
+    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) > uiCurrentCoord + m_uiSpeed;
 }

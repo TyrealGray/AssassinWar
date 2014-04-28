@@ -47,7 +47,7 @@ bool ChoosingMapDlg::initialize()
 
     setLayout(pDlgLayout);
 
-    connect(pCreateGameBtn, SIGNAL(clicked()), this, SLOT(onBtnCreateGame_()));
+    connect(pCreateGameBtn, SIGNAL(clicked()), this, SLOT(onBtnCreateGame()));
 
     return bInitDlgSuccessed;
 }
@@ -80,7 +80,7 @@ void ChoosingMapDlg::closeEvent(QCloseEvent *closeEvent)
     emit cancelCreateGame();
 }
 
-void ChoosingMapDlg::onBtnCreateGame_()
+void ChoosingMapDlg::onBtnCreateGame()
 {
     emit createGame(getCurrentMap());
 }

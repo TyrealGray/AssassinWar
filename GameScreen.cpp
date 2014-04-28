@@ -20,7 +20,7 @@ const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 250;
 GameScreen::GameScreen(const int &iWidth, const int &iHeight,
                        QWidget *parent)
     : QScrollArea(parent),
-      m_pMapLoader(NULL), m_pUnderGrid(NULL),
+      m_pMapLoader(NULL), m_pUnderGrid(NULL), m_pCharacterManager(NULL),
       m_bIsScreenOpen(false),
       m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
@@ -40,6 +40,12 @@ GameScreen::~GameScreen()
         delete m_pUnderGrid;
         m_pUnderGrid = NULL;
     }
+
+    if(NULL != m_pCharacterManager)
+    {
+        delete m_pCharacterManager;
+        m_pCharacterManager = NULL;
+    }
 }
 
 void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
@@ -49,7 +55,6 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
         unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
         unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
 
-        //mouse event click Terrians test code
         QString strX, strY, gridX, gridY;
         strX.setNum(iCurClickedGridX);
         strY.setNum(iCurClickedGridY);
@@ -64,13 +69,12 @@ void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
             if(pCurClickGrid->isAble() && Qt::RightButton == mouseEvent->button())
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
-                CharacterManager::instance().setGhostPos(pCurClickGrid->getX(), pCurClickGrid->getY());
+                m_pCharacterManager->setPlayerPos(pCurClickGrid->getX(), pCurClickGrid->getY());
             }
             else
             {
                 QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   Hit  " + gridX + "      " + gridY);
             }
-            //test code end
         }
         else
         {
@@ -107,7 +111,9 @@ bool GameScreen::initScreen()
 
     setMouseTracking(true);
 
-    initMapSystem_();
+    initMapSystem();
+
+    initCharacterManager();
 
     return bInitSuccessed;
 }
@@ -115,7 +121,7 @@ bool GameScreen::initScreen()
 bool GameScreen::openScreen(const QString& strCurrntMapName)
 {
 
-    m_bIsScreenOpen = loadGameMap_(strCurrntMapName);
+    m_bIsScreenOpen = loadGameMap(strCurrntMapName);
 
     return m_bIsScreenOpen ;
 }
@@ -132,13 +138,13 @@ int GameScreen::getScreenOffsetY()const
 
 void GameScreen::drawAllGameScreen(QPainter& painter)
 {
-    int iPlayerX = PixelCoordinateTransfer::toPixel(CharacterManager::instance().getPlayerCharacterGridX());
-    int iPlayerY = PixelCoordinateTransfer::toPixel(CharacterManager::instance().getPlayerCharacterGridY());
+    int iPlayerX = PixelCoordinateTransfer::toPixel(m_pCharacterManager->getPlayerGridX());
+    int iPlayerY = PixelCoordinateTransfer::toPixel(m_pCharacterManager->getPlayerGridY());
     ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
-    CharacterManager::instance().drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
+    m_pCharacterManager->drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
 
-bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
+bool GameScreen::loadGameMap(const QString& strCurrntMapName)
 {
     bool bLoadGameMapSuccessed = true;
 
@@ -166,7 +172,7 @@ bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
 
             m_terrainsList = m_pMapLoader->loadMapTerrain(*pMapWidget);
 
-            setTerrainInvalidZone_();
+            setTerrainInvalidZone();
 
             pMapWidget->setMouseTracking(true);
         }
@@ -179,7 +185,7 @@ bool GameScreen::loadGameMap_(const QString& strCurrntMapName)
     return bLoadGameMapSuccessed;
 }
 
-void GameScreen::initMapSystem_()
+void GameScreen::initMapSystem()
 {
     m_pMapLoader = new MapLoader();
     m_pMapLoader->initMapLoader();
@@ -190,7 +196,13 @@ void GameScreen::initMapSystem_()
     verticalScrollBar()->setVisible(false);
 }
 
-void GameScreen::setTerrainInvalidZone_()
+void GameScreen::initCharacterManager()
+{
+    m_pCharacterManager = new CharacterManager();
+    m_pCharacterManager->addPlayer();
+}
+
+void GameScreen::setTerrainInvalidZone()
 {
     for(unsigned int index = 0; index < m_terrainsList.size(); ++index)
     {

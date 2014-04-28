@@ -11,5 +11,9 @@
         <file>Resources/SmallTown/Terrain/House1.png</file>
         <file>Resources/Toolbar/Help.jpg</file>
         <file>Resources/Character/Ghost-F.png</file>
+        <file>Resources/Toolbar/Quit.jpg</file>
+        <file>Resources/Character/Ghost-B.png</file>
+        <file>Resources/Character/Ghost-L.png</file>
+        <file>Resources/Character/Ghost-R.png</file>
     </qresource>
 </RCC>

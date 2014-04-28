@@ -28,11 +28,11 @@ protected:
 
 private slots:
 
-    void onButttonHost_();
+    void onButttonHost();
 
-    bool runAW_(const QString& strCurrntMapName);
+    bool runAW(const QString& strCurrntMapName);
 
-    void showMainWin_();
+    void showMainWin();
 
 private:
     QTimer* m_pRepaintTimer;
@@ -45,12 +45,12 @@ private:
     unsigned int m_iScreenHeight;
     QPixmap m_background;
 
-    void initGameScreen_();
-    void initToolbarManager_();
-    void initChoosingMapDlg_();
-    void initBackground_(const QString& strBackgroundImagePath);
-    void initToolbar_();
-    void initRepainter_();
+    void initGameScreen();
+    void initToolbarManager();
+    void initChoosingMapDlg();
+    void initBackground(const QString& strBackgroundImagePath);
+    void initToolbar();
+    void initRepainter();
 };
 
 #endif // ASSASSINWAR_H

@@ -28,7 +28,7 @@ signals:
     void createGame(QString strCurrntMapName);
     void cancelCreateGame();
 private slots:
-    void onBtnCreateGame_();
+    void onBtnCreateGame();
 private:
     QComboBox* m_pMapList;
     GameSetting* m_pGameSetting;
