@@ -49,7 +49,9 @@ private:
     void initCharacterManager();
     bool loadGameMap(const QString& strCurrntMapName);
     void setTerrainInvalidZone();
-
+    void onMouseClick(QMouseEvent *mouseEvent);
+    void onMouseLeft(QMouseEvent *mouseEvent);
+    void onMouseRight(QMouseEvent *mouseEvent);
 };
 
 #endif // GAMESCREEN_H

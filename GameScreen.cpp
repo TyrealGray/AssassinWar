@@ -4,8 +4,6 @@
 #include <QScrollArea>
 #include <QMouseEvent>
 
-#include <QToolTip>
-
 #include "GameScreen.h"
 #include "MapLoader.h"
 #include "UnderGrid.h"
@@ -51,41 +49,7 @@ GameScreen::~GameScreen()
 
 void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)
 {
-    if(m_bIsScreenOpen)
-    {
-        unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
-        unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
-
-        QString strX, strY, gridX, gridY;
-        strX.setNum(iCurClickedGridX);
-        strY.setNum(iCurClickedGridY);
-
-        std::shared_ptr<Grid> pCurClickGrid = m_pUnderGrid->getGrid(iCurClickedGridX, iCurClickedGridY);
-
-        if(NULL != pCurClickGrid)
-        {
-            gridX.setNum(pCurClickGrid->getX());
-            gridY.setNum(pCurClickGrid->getY());
-
-            if(pCurClickGrid->isAble() && Qt::RightButton == mouseEvent->button())
-            {
-                QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   UnHit  " + gridX + "      " + gridY);
-                m_pCharacterManager->setPlayerPos(pCurClickGrid->getX(), pCurClickGrid->getY());
-            }
-            else
-            {
-                QToolTip::showText(mouseEvent->pos(), strX + "     " + strY + "   Hit  " + gridX + "      " + gridY);
-            }
-        }
-        else
-        {
-            //can not get the Grid infomation
-        }
-    }
-    else
-    {
-        //do nothing
-    }
+    onMouseClick(mouseEvent);
 }
 
 void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
@@ -94,11 +58,6 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
     {
         unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
         unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
-
-        QString strX, strY;
-        strX.setNum(iCurClickedGridX);
-        strY.setNum(iCurClickedGridY);
-        QToolTip::showText(mouseEvent->pos(), strX + "     " + strY);
     }
     else
     {
@@ -231,5 +190,54 @@ void GameScreen::setTerrainInvalidZone()
             iTerrainBottomRX,
             iTerrainBottomRY
         );
+    }
+}
+
+void GameScreen::onMouseClick(QMouseEvent *mouseEvent)
+{
+    if(m_bIsScreenOpen)
+    {
+        if(Qt::RightButton == mouseEvent->button())
+        {
+            onMouseRight(mouseEvent);
+        }
+        else if(Qt::LeftButton == mouseEvent->button())
+        {
+            onMouseLeft(mouseEvent);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+    else
+    {
+        //do nothing
+    }
+}
+
+void GameScreen::onMouseLeft(QMouseEvent *mouseEvent)
+{
+
+}
+
+void GameScreen::onMouseRight(QMouseEvent *mouseEvent)
+{
+    unsigned int iCurClickedGridX = PixelCoordinateTransfer::toGrid(mouseEvent->pos().x() + getScreenOffsetX());
+    unsigned int iCurClickedGridY = PixelCoordinateTransfer::toGrid(mouseEvent->pos().y() + getScreenOffsetY());
+
+    std::shared_ptr<Grid> pCurClickGrid = m_pUnderGrid->getGrid(iCurClickedGridX, iCurClickedGridY);
+
+    if(NULL != pCurClickGrid)
+    {
+
+        if(pCurClickGrid->isAble())
+        {
+            m_pCharacterManager->setPlayerPos(pCurClickGrid->getX(), pCurClickGrid->getY());
+        }
+    }
+    else
+    {
+        //no Grid
     }
 }
