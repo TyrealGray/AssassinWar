@@ -1,13 +1,17 @@
 #pragma once
 #include <QTcpSocket>
 
+class QTimer;
+class GameModule;
 class GameNetwork : public QTcpSocket
 {
     Q_OBJECT
 
 public:
-    GameNetwork(const QString& name, QObject *parent = 0);
+    GameNetwork(const QString& name, GameModule* gameModule, QObject *parent = 0);
     ~GameNetwork(void);
+
+    void init(const QString& ipAddress);
 
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);
 
@@ -19,21 +23,26 @@ signals:
 
     void playerExpose(int id);
 
-    void characterPositionChange(int id, unsigned int uiX, unsigned int uiY);
-
     void newCharacterShowUp(int id, unsigned int uiX, unsigned int uiY, int roleType);
 
 private slots:
 
-    void update();
+    void updateGame();
+
+    void sendUpdateRequest();
 
 private:
+    QTimer* m_pUpdateTimer;
+    GameModule* m_pGameModule;
     QString m_name;
-    unsigned short m_nextBlockSize;
+    quint16 m_nextBlockSize;
+
+    void initUpdateTimer();
+
+    void sendUpdatePositionRequest();
 
     void connectToServer(const QString& ipAddress);
 
-    bool isAvailablePackageSizeSmallThan(const unsigned int& uiSize);
+    bool isAvailablePackageSizeSmallThan(quint16 size);
 
 };
-

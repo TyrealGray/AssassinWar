@@ -1,12 +1,16 @@
 #include <QDataStream>
+#include <QTimer>
 
 #include "ServerBlockType.h"
 #include "GameNetwork.h"
+#include "GameModule.h"
 
 const bool RECEIVE = true;
 const unsigned short PACKAGE_END = 0x55aa;
-GameNetwork::GameNetwork(const QString& name, QObject *parent /* = 0*/)
+GameNetwork::GameNetwork(const QString& name, GameModule* gameModule, QObject *parent /* = 0*/)
     : QTcpSocket(parent),
+      m_pUpdateTimer(NULL),
+      m_pGameModule(gameModule),
       m_name(name),
       m_nextBlockSize(0)
 {
@@ -15,6 +19,20 @@ GameNetwork::GameNetwork(const QString& name, QObject *parent /* = 0*/)
 
 GameNetwork::~GameNetwork(void)
 {
+}
+
+void GameNetwork::init(const QString& ipAddress)
+{
+    connectToServer(ipAddress);
+
+    initUpdateTimer();
+}
+
+void GameNetwork::initUpdateTimer()
+{
+    m_pUpdateTimer = new QTimer(this);
+    connect(m_pUpdateTimer, SIGNAL(timeout()), this, SLOT(sendUpdateRequest()));
+    m_pUpdateTimer->start(100);
 }
 
 void GameNetwork::connectToServer(const QString& ipAddress)
@@ -27,17 +45,16 @@ void GameNetwork::setPlayerPos(const unsigned int &uiX, const unsigned int &uiY)
     QByteArray block;
     QDataStream blockControl(&block, QIODevice::WriteOnly);
     blockControl.setVersion(QDataStream::Qt_4_8);
-    unsigned short blockSize = 0;
 
-    blockControl << blockSize << SET_PLAY_POSITION << m_name << uiX << uiY;
+    blockControl << quint16(0) << quint8(SET_PLAY_POSITION) << m_name << quint32(uiX) << quint32(uiY);
 
     blockControl.device()->seek(0);
-    blockControl << (block.size() - sizeof(unsigned short));
+    blockControl << quint16(block.size() - sizeof(quint16));
 
     this->write(block);
 }
 
-void GameNetwork::update()
+void GameNetwork::updateGame()
 {
     QDataStream serverBlock(this);
     serverBlock.setVersion(QDataStream::Qt_4_8);
@@ -59,23 +76,28 @@ void GameNetwork::update()
             break;
         }
 
-        unsigned char blockType;
+        if(isAvailablePackageSizeSmallThan(m_nextBlockSize))
+        {
+            break;
+        }
+
+        quint8 blockType;
 
         serverBlock >> blockType;
 
         if(UPDATA_POSITION == blockType)
         {
-            int iNumberOfCharacter = 0;
-            int characterID = 0;
-            unsigned int uiCharacterX = 0;
-            unsigned int uiCharacterY = 0;
+            qint32 iNumberOfCharacter = 0;
+            qint32 characterID = 0;
+            quint32 uiCharacterX = 0;
+            quint32 uiCharacterY = 0;
 
             serverBlock >> iNumberOfCharacter;
 
             for(int index = 0 ; index < iNumberOfCharacter; ++index)
             {
                 serverBlock >> characterID >> uiCharacterX >> uiCharacterY;
-                emit characterPositionChange(characterID, uiCharacterX, uiCharacterY);
+                m_pGameModule->setCharacterPos(characterID, uiCharacterX, uiCharacterY);
             }
         }
         else
@@ -87,7 +109,27 @@ void GameNetwork::update()
     }
 }
 
-bool GameNetwork::isAvailablePackageSizeSmallThan(const unsigned int& uiSize)
+void GameNetwork::sendUpdateRequest()
 {
-    return (this->bytesAvailable() < uiSize);
+    sendUpdatePositionRequest();
+}
+
+void GameNetwork::sendUpdatePositionRequest()
+{
+    QByteArray block;
+    QDataStream blockControl(&block, QIODevice::WriteOnly);
+    blockControl.setVersion(QDataStream::Qt_4_8);
+    unsigned short blockSize = 0;
+
+    blockControl << quint16(0) << quint8(UPDATA_POSITION);
+
+    blockControl.device()->seek(0);
+    blockControl << quint16(block.size() - sizeof(quint16));
+
+    this->write(block);
+}
+
+bool GameNetwork::isAvailablePackageSizeSmallThan(quint16 size)
+{
+    return (this->bytesAvailable() < size);
 }

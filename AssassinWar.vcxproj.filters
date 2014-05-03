@@ -33,6 +33,15 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Interface">
+      <UniqueIdentifier>{31a83567-b05f-49b6-8477-30f1c3b079c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{b77f0af0-aa93-49d3-985e-c0bf106a485a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{3f5e8c66-75d9-491b-8b96-cefd1e9a30e2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -110,31 +119,52 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GameServer.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GameModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MapModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterModule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameServerService.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameServerService.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="AssassinWar.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="AssassinWar.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="ToolbarManager.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="AssassinWar.h">
+      <Filter>Interface</Filter>
     </CustomBuild>
     <CustomBuild Include="ChoosingMapDlg.h">
-      <Filter>Header Files</Filter>
+      <Filter>Interface</Filter>
     </CustomBuild>
     <CustomBuild Include="GameScreen.h">
-      <Filter>Header Files</Filter>
+      <Filter>Interface</Filter>
     </CustomBuild>
-    <CustomBuild Include="CharacterManager.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GameNetwork.h">
-      <Filter>Header Files</Filter>
+    <CustomBuild Include="ToolbarManager.h">
+      <Filter>Interface</Filter>
     </CustomBuild>
     <CustomBuild Include="GameServer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Network</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GameNetwork.h">
+      <Filter>Network</Filter>
+    </CustomBuild>
+    <CustomBuild Include="CharacterManager.h">
+      <Filter>Module</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GameServerService.h">
+      <Filter>Network</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -147,14 +177,23 @@
     <ClInclude Include="MapManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameSetting.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="ServerBlockType.h">
+      <Filter>Network</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
+      <Filter>Module</Filter>
     </ClInclude>
-    <ClInclude Include="ServerBlockType.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSetting.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="MapModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterModule.h">
+      <Filter>Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

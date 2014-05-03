@@ -36,13 +36,8 @@ QWidget* MapLoader::loadMap(const QString& strMapPath)
     return pMapWidget;
 }
 
-QList<QLabel *> MapLoader::loadMapTerrain(const QWidget& map)
+QList<QLabel *> MapLoader::loadMapTerrain(const QWidget* map)
 {
-    QList<QLabel *> allTerrains = map.findChildren<QLabel *>();
+    QList<QLabel *> allTerrains = map->findChildren<QLabel *>();
     return allTerrains;
-}
-
-void MapLoader::initMapLoader()
-{
-
 }

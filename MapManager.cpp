@@ -40,16 +40,14 @@ QStringList MapManager::getMapList()
 {
     QStringList MapList;
 
-    if(QFile::exists("./ConfigFile/MapList.ini"))
+    if(QFile::exists(m_strMapPath))
     {
         if(NULL == m_mapListConfig)
         {
-            m_mapListConfig = new QSettings("./ConfigFile/MapList.ini", QSettings::IniFormat);
+            m_mapListConfig = new QSettings(m_strMapPath, QSettings::IniFormat);
         }
 
         int iMapNumber = m_mapListConfig->value("MapNumber").toInt();
-
-        QString strMapIndex = "No0";
 
         for(int index = 1 ; index <= iMapNumber ; ++index)
         {

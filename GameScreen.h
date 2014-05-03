@@ -4,11 +4,10 @@
 #include <QScrollArea>
 #include <QList>
 
-class QLabel;
 class QPainter;
-class UnderGrid;
-class MapLoader;
-class CharacterManager;
+class GameServer;
+class GameModule;
+class GameNetwork;
 class GameScreen : public QScrollArea
 {
     Q_OBJECT
@@ -37,18 +36,14 @@ protected:
     void mouseMoveEvent(QMouseEvent *mouseEvent);
 
 private:
-    MapLoader* m_pMapLoader;
-    UnderGrid* m_pUnderGrid;
-    CharacterManager* m_pCharacterManager;
+    GameModule* m_pGameModule;
+    GameServer* m_pGameServer;
+    GameNetwork* m_pGameNetwork;
     bool m_bIsScreenOpen;
     int m_iScreenWidth;
     int m_iScreenHeight;
-    QList<QLabel *> m_terrainsList;
 
-    void initMapSystem();
-    void initCharacterManager();
     bool loadGameMap(const QString& strCurrntMapName);
-    void setTerrainInvalidZone();
     void onMouseClick(QMouseEvent *mouseEvent);
     void onMouseLeft(QMouseEvent *mouseEvent);
     void onMouseRight(QMouseEvent *mouseEvent);
