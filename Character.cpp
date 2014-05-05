@@ -13,9 +13,26 @@ Character::Character(void)
     m_pCharacter->load("./Resources/Character/Ghost-F.png");
 }
 
+Character::Character(int id, unsigned int uiSpeed)
+    : m_id(id), m_uiSpeed(uiSpeed),
+      m_uiCurrentX(0), m_uiCurrentY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
+      m_iDirection(GO_DOWN)
+{
+
+}
 
 Character::~Character(void)
 {
+}
+
+void Character::die()
+{
+
+}
+
+void Character::setHide(bool isHide)
+{
+
 }
 
 void Character::setPosition(const unsigned int &uiX, const unsigned int &uiY)
@@ -26,18 +43,8 @@ void Character::setPosition(const unsigned int &uiX, const unsigned int &uiY)
 
 void Character::goTo(const unsigned int &uiX, const unsigned int &uiY)
 {
-    m_lock.lockForWrite();
     m_uiTargetGridX = uiX;
     m_uiTargetGridY = uiY;
-    m_lock.unlock();
-}
-
-void Character::updatePosition()
-{
-    m_lock.lockForWrite();
-    this->updateCoord(m_uiTargetGridX, m_uiCurrentX, GO_RIGHT , GO_LEFT);
-    this->updateCoord(m_uiTargetGridY, m_uiCurrentY, GO_DOWN, GO_UP);
-    m_lock.unlock();
 }
 
 void Character::render(QPainter &painter, int &iOffsetX, int &iOffsetY)
@@ -75,42 +82,14 @@ unsigned int Character::getCurrentY()
     return m_uiCurrentY;
 }
 
-void Character::updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, int iIncrease, int iDecrease)
-{
-    if(1 <= uiTargetGridCoord && this->isIncreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
-    {
-        uiCurrentCoord += m_uiSpeed;
-        setDirection(iIncrease);
-    }
-    else if(1 <= uiTargetGridCoord && this->isDecreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
-    {
-        uiCurrentCoord -= m_uiSpeed;
-        setDirection(iDecrease);
-    }
-}
-
-bool Character::isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
-{
-    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) < uiCurrentCoord - m_uiSpeed;
-}
-
-bool Character::isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
-{
-    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) > uiCurrentCoord + m_uiSpeed;
-}
-
 void Character::setCurrentX(int iX)
 {
-    m_lock.lockForWrite();
     m_uiCurrentX = iX;
-    m_lock.unlock();
 }
 
 void Character::setCurrentY(int iY)
 {
-    m_lock.lockForWrite();
     m_uiCurrentY = iY;
-    m_lock.unlock();
 }
 
 void Character::setDirection(int iDirection)

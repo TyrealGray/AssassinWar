@@ -26,6 +26,6 @@ private:
     unsigned int m_uiAllGridTotalColumn;
     std::vector<std::shared_ptr<Grid>> m_vecGridGroup;
 
-    std::shared_ptr<Grid> createNewGrid_(const unsigned int &uiX, const  unsigned int &uiY);
+    std::shared_ptr<Grid> createNewGrid(const unsigned int &uiX, const  unsigned int &uiY);
 };
 

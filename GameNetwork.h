@@ -15,16 +15,6 @@ public:
 
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);
 
-signals:
-
-    void targetingLocalPlayer(int id);
-
-    void characterDead(int id);
-
-    void playerExpose(int id);
-
-    void newCharacterShowUp(int id, unsigned int uiX, unsigned int uiY, int roleType);
-
 private slots:
 
     void updateGame();

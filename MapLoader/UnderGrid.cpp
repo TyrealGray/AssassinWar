@@ -26,7 +26,7 @@ bool UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &ui
         {
             for(unsigned int uiWidthIndex = 0 ; uiWidthIndex < uiGridWidth; ++uiWidthIndex)
             {
-                m_vecGridGroup.push_back(createNewGrid_(uiWidthIndex, uiHeightIndex));
+                m_vecGridGroup.push_back(createNewGrid(uiWidthIndex, uiHeightIndex));
             }
         }
         m_bIsSizeSetted = true;
@@ -76,7 +76,7 @@ bool UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned 
     return bDisableGridsSuccessed;
 }
 
-std::shared_ptr<Grid> UnderGrid::createNewGrid_(const unsigned int &uiX, const  unsigned int &uiY)
+std::shared_ptr<Grid> UnderGrid::createNewGrid(const unsigned int &uiX, const  unsigned int &uiY)
 {
     std::shared_ptr<Grid> pGrid(new Grid(uiX, uiY));
     return pGrid;

@@ -25,7 +25,14 @@ GameScreen::GameScreen(const int &iWidth, const int &iHeight,
 
 GameScreen::~GameScreen()
 {
+    delete m_pGameModule;
+    m_pGameModule = NULL;
 
+    delete m_pGameServer;
+    m_pGameServer = NULL;
+
+    delete m_pGameNetwork;
+    m_pGameNetwork = NULL;
 }
 
 void GameScreen::mouseReleaseEvent(QMouseEvent *mouseEvent)

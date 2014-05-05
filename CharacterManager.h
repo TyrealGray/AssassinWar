@@ -1,40 +1,33 @@
 #ifndef CHARACTERMANAGER_H
 #define CHARACTERMANAGER_H
 
-#include <QObject>
+#include <map>
+#include <vector>
+#include <memory>
+#include <QString>
 
-class QTimer;
-class QImage;
-class QPainter;
-class Character;
-class CharacterManager : public QObject
+#include "Character.h"
+
+class CharacterManager
 {
-    Q_OBJECT
 
 public:
     CharacterManager();
     ~CharacterManager();
 
-    void addPlayer();
+    void addPlayer(const QString& playerName);
 
     void addCharacter();
 
-    void addNpc();
+    std::shared_ptr<Character> getCharacter(const int id);
 
-    unsigned int getPlayerGridX();
-    unsigned int getPlayerGridY();
-
-    void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
-    void setPlayerPos(const unsigned int &iX, const unsigned int &iY);
-
-private slots:
-    void updateAllCharacterPos();
+    std::shared_ptr<Character> getPlayer(const QString& playerName);
 
 private:
-    QTimer* m_pUpdateTimer;
-    Character* m_pGhostF;
+    std::map<QString, int> m_name2IDMap;
+    std::vector<std::shared_ptr<Character>> m_charactersVec;
 
-    void initUpdateTimer();
+    std::shared_ptr<Character> newCharacter(int iCharacterType = 0);
 };
 
 #endif // CHARACTERMANAGER_H
