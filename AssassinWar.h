@@ -6,7 +6,7 @@
 class QTimer;
 class GameScreen;
 class ToolbarManager;
-class ChoosingMapDlg;
+class GameSettingDlg;
 class AssassinWar : public QMainWindow
 {
     Q_OBJECT
@@ -30,9 +30,11 @@ protected:
 
 private slots:
 
+    void gameRun(bool isRun);
+
     void onButttonHost();
 
-    void runAW(const QString& strCurrntMapName);
+    void initMap();
 
     void showMainWin();
 
@@ -41,7 +43,7 @@ private:
     QToolBar* m_pToolbar;
     GameScreen* m_pGameScreen;
     ToolbarManager* m_pToolbarManager;
-    ChoosingMapDlg* m_pChoosingMapDlg;
+    GameSettingDlg* m_pGameSettingDlg;
     bool m_bIsAWRun;
     unsigned int m_iScreenWidth;
     unsigned int m_iScreenHeight;

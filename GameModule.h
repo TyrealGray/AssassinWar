@@ -1,12 +1,13 @@
 #pragma once
-#include<vector>
+
+#include <memory>
+#include "Character.h"
 
 class QString;
 class QWidget;
 class QPainter;
-class Character;
 class MapModule;
-//class CharacterModule;
+class CharacterModule;
 class GameModule
 {
 public:
@@ -19,7 +20,11 @@ public:
 
     void loadMapTerrain();
 
+    void addNewPlayer(const QString& name);
+
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
+
+    void updateAllCharacterPosition();
 
     void setMapSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
 
@@ -29,12 +34,12 @@ public:
     unsigned int getPlayerGridX();
     unsigned int getPlayerGridY();
 
-    Character* getCharacterByID(int id);
-    std::vector<int> getAllCharacterIDs();
+    std::shared_ptr<Character> getCharacterByID(const int id);
+    std::shared_ptr<Character> getCharacterByName(const QString &name);
+    int getNumberOfCharacter();
 
 private:
     MapModule* m_pMapModule;
-    //CharacterModule* m_pCharacterModule;
-    Character* m_pGhostF;
+    CharacterModule* m_pCharacterModule;
 };
 

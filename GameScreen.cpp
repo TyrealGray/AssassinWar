@@ -9,7 +9,6 @@
 #include "GameNetwork.h"
 #include "PixelCoordinateTransfer.h"
 
-const bool GAME_OVER = false;
 const int GRID_NUMBER_IS_ZERO = 0;
 const int ENSURE_VISIBLE_BOUNDARY_DISTANCE = 250;
 
@@ -65,25 +64,27 @@ void GameScreen::initScreen()
 
     m_pGameServer->hostServer();
 
-    m_pGameNetwork = new GameNetwork(tr("testName"), m_pGameModule, this);
-
     horizontalScrollBar()->setVisible(false);
     verticalScrollBar()->setVisible(false);
 }
 
-bool GameScreen::openScreen(const QString& strCurrntMapName)
+void GameScreen::openScreen(const QString& strPlayerName, const QString& strCurrntMapName)
 {
-
     m_bIsScreenOpen = loadGameMap(strCurrntMapName);
 
-    m_pGameNetwork->init("127.0.0.1");
+    m_pGameNetwork = new GameNetwork(strPlayerName, m_pGameModule, this);
 
-    connect(m_pGameNetwork, SIGNAL(readyRead()), m_pGameNetwork, SLOT(updateGame()));
+    m_pGameNetwork->connectRoomIP("127.0.0.1");
 
-    return m_bIsScreenOpen ;
+    connect(m_pGameNetwork, SIGNAL(networkConnected()), this, SLOT(gameRoomConnected()));
 }
 
-bool GameScreen::closeScreen()
+void GameScreen::gameRoomConnected()
+{
+    emit screenOpened(m_bIsScreenOpen);
+}
+
+void GameScreen::closeScreen()
 {
     QWidget* pCurrentWid = this->widget();
 
@@ -97,8 +98,6 @@ bool GameScreen::closeScreen()
     }
 
     m_bIsScreenOpen = false;
-
-    return GAME_OVER;
 }
 
 int GameScreen::getScreenOffsetX()const
@@ -113,9 +112,9 @@ int GameScreen::getScreenOffsetY()const
 
 void GameScreen::drawAllGameScreen(QPainter& painter)
 {
-    int iPlayerX = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridX());
-    int iPlayerY = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridY());
-    ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+    //int iPlayerX = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridX());
+    //int iPlayerY = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridY());
+    //ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
     m_pGameModule->drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
 

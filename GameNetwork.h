@@ -11,19 +11,28 @@ public:
     GameNetwork(const QString& name, GameModule* gameModule, QObject *parent = 0);
     ~GameNetwork(void);
 
-    void init(const QString& ipAddress);
+    void connectRoomIP(const QString& ipAddress);
+
+    void addPlayer();
 
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);
+
+signals:
+
+    void networkConnected();
 
 private slots:
 
     void updateGame();
+
+    void initNetworkRequest();
 
     void sendUpdateRequest();
 
 private:
     QTimer* m_pUpdateTimer;
     GameModule* m_pGameModule;
+    bool m_bIsInit;
     QString m_name;
     quint16 m_nextBlockSize;
 

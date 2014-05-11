@@ -9,10 +9,8 @@ const bool RECEIVE = true;
 const unsigned short PACKAGE_END = 0x55aa;
 GameNetwork::GameNetwork(const QString& name, GameModule* gameModule, QObject *parent /* = 0*/)
     : QTcpSocket(parent),
-      m_pUpdateTimer(NULL),
-      m_pGameModule(gameModule),
-      m_name(name),
-      m_nextBlockSize(0)
+      m_pUpdateTimer(NULL), m_pGameModule(gameModule),
+      m_bIsInit(false), m_name(name), m_nextBlockSize(0)
 {
 }
 
@@ -21,11 +19,13 @@ GameNetwork::~GameNetwork(void)
 {
 }
 
-void GameNetwork::init(const QString& ipAddress)
+void GameNetwork::connectRoomIP(const QString& ipAddress)
 {
     connectToServer(ipAddress);
 
-    initUpdateTimer();
+    connect(this, SIGNAL(connected()), this, SLOT(initNetworkRequest()));
+
+    connect(this, SIGNAL(readyRead()), this, SLOT(updateGame()));
 }
 
 void GameNetwork::initUpdateTimer()
@@ -35,9 +35,34 @@ void GameNetwork::initUpdateTimer()
     m_pUpdateTimer->start(100);
 }
 
+void GameNetwork::initNetworkRequest()
+{
+    disconnect(this, SIGNAL(connected()), this, SLOT(initNetworkRequest()));
+
+    addPlayer();
+
+    initUpdateTimer();
+
+    emit networkConnected();
+}
+
 void GameNetwork::connectToServer(const QString& ipAddress)
 {
     this->connectToHost(ipAddress, 8126);
+}
+
+void GameNetwork::addPlayer()
+{
+    QByteArray block;
+    QDataStream blockControl(&block, QIODevice::WriteOnly);
+    blockControl.setVersion(QDataStream::Qt_4_8);
+
+    blockControl << quint16(0) << quint8(ADD_PLAYER) << m_name ;
+
+    blockControl.device()->seek(0);
+    blockControl << quint16(block.size() - sizeof(quint16));
+
+    this->write(block);
 }
 
 void GameNetwork::setPlayerPos(const unsigned int &uiX, const unsigned int &uiY)

@@ -19,9 +19,9 @@ public:
 
     void initScreen();
 
-    bool openScreen(const QString& strCurrntMapName);
+    void openScreen(const QString& strPlayerName, const QString& strCurrntMapName);
 
-    bool closeScreen();
+    void closeScreen();
 
     int getScreenOffsetX()const;
 
@@ -29,11 +29,19 @@ public:
 
     void drawAllGameScreen(QPainter& painter);
 
+signals:
+
+    void screenOpened(bool isOpened);
+
 protected:
 
     void mouseReleaseEvent(QMouseEvent *mouseEvent);
 
     void mouseMoveEvent(QMouseEvent *mouseEvent);
+
+private slots:
+
+    void gameRoomConnected();
 
 private:
     GameModule* m_pGameModule;

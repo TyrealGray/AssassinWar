@@ -10,7 +10,7 @@ class QPainter;
 class Character
 {
 public:
-    Character(void);
+
     Character(int id, unsigned int uiSpeed);
 
     virtual ~Character(void);
@@ -20,6 +20,18 @@ public:
     void setHide(bool isHide);
 
     void setPosition(const unsigned int &uiX, const unsigned int &uiY);
+
+    void updateNextPosition();
+
+    void updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, int iIncrease, int iDecrease);
+
+    bool isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+
+    bool isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+
+    unsigned int getNextStepGridX();
+
+    unsigned int getNextStepGridY();
 
     void goTo(const unsigned int &uiX, const unsigned int &uiY);
 
@@ -42,10 +54,10 @@ private:
     unsigned int m_uiTargetGridX;
     unsigned int m_uiTargetGridY;
     int m_iDirection;
-    unsigned int getCurrentX();
-    unsigned int getCurrentY();
     void setCurrentX(int iX);
     void setCurrentY(int iY);
+    unsigned int getCurrentX();
+    unsigned int getCurrentY();
     void setDirection(int iDirection);
 };
 

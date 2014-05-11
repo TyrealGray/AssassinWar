@@ -1,5 +1,3 @@
-#include <vector>
-
 #include "ServerBlockType.h"
 
 #include "GameServerService.h"
@@ -57,9 +55,12 @@ void GameServerService::readInComeRequest()
     {
         sendCharacterPositionData();
     }
-    else
+    else if(ADD_PLAYER == blockType)
     {
+        QString name;
 
+        inComeRequest >> name ;
+        m_pGameModule->addNewPlayer(name);
     }
 
     m_nextBlockSize = 0;
@@ -73,19 +74,18 @@ void GameServerService::sendCharacterPositionData()
 
     blockControl << quint16(0) << quint8(UPDATA_POSITION);
 
-    std::vector<int>ids = m_pGameModule->getAllCharacterIDs();
+    int iNumberOfCharacter = m_pGameModule->getNumberOfCharacter();
+
     qint32 id = 0;
     quint32 uiCharacterX = 0;
     quint32 uiCharacterY = 0;
 
-    blockControl << qint32(ids.size());
+    blockControl << qint32(iNumberOfCharacter);
 
-    for(int index = 0; index < ids.size(); ++index)
+    for(int index = 0; index < iNumberOfCharacter; ++index)
     {
-        id = ids[index];
-
-        uiCharacterX = m_pGameModule->getCharacterByID(ids[index])->getCurrentGridX();
-        uiCharacterY = m_pGameModule->getCharacterByID(ids[index])->getCurrentGridY();
+        uiCharacterX = m_pGameModule->getCharacterByID(index)->getCurrentGridX();
+        uiCharacterY = m_pGameModule->getCharacterByID(index)->getCurrentGridY();
 
         blockControl << id << uiCharacterX << uiCharacterY;
     }

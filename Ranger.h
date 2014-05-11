@@ -5,10 +5,8 @@ class Ranger :
     public Character
 {
 public:
-    Ranger(void);
+    Ranger(int id, unsigned int uiSpeed);
     ~Ranger(void);
-
 private:
-    QImage* m_pCharacter;
 };
 

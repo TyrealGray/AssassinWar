@@ -68,15 +68,6 @@
     <ClCompile Include="MapManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ChoosingMapDlg.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_ChoosingMapDlg.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_ChoosingMapDlg.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GameSetting.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -134,15 +125,27 @@
     <ClCompile Include="Ranger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Warrior.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Civilian.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSettingDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameSettingDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameSettingDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
     <CustomBuild Include="AssassinWar.h">
-      <Filter>Interface</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ChoosingMapDlg.h">
       <Filter>Interface</Filter>
     </CustomBuild>
     <CustomBuild Include="GameScreen.h">
@@ -162,6 +165,9 @@
     </CustomBuild>
     <CustomBuild Include="GameServerService.h">
       <Filter>Network</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GameSettingDlg.h">
+      <Filter>Interface</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +199,13 @@
       <Filter>Module</Filter>
     </ClInclude>
     <ClInclude Include="Ranger.h">
-      <Filter>Header Files</Filter>
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Civilian.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="Warrior.h">
+      <Filter>Module</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

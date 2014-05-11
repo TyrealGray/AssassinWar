@@ -10,7 +10,7 @@
 #include "GameScreen.h"
 #include "MapManager.h"
 #include "ToolbarManager.h"
-#include "ChoosingMapDlg.h"
+#include "GameSettingDlg.h"
 
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
@@ -20,7 +20,7 @@ AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
       m_pRepaintTimer(NULL), m_pToolbar(NULL), m_pGameScreen(NULL),
-      m_pToolbarManager(NULL), m_pChoosingMapDlg(NULL),
+      m_pToolbarManager(NULL), m_pGameSettingDlg(NULL),
       m_bIsAWRun(false),
       m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
@@ -82,20 +82,25 @@ void AssassinWar::onButttonHost()
     setMouseTracking(false);
     m_pToolbar->setVisible(false);
 
-    m_pChoosingMapDlg->updateMapList(MapManager::instance().getMapList());
-    m_pChoosingMapDlg->show();
+    m_pGameSettingDlg->updateMapList(MapManager::instance().getMapList());
+    m_pGameSettingDlg->show();
 
 }
 
-void AssassinWar::runAW(const QString& strCurrntMapName)
+void AssassinWar::initMap()
 {
-    m_pChoosingMapDlg->hide();
+    m_pGameSettingDlg->hide();
 
     setWindowState(Qt::WindowFullScreen);
 
-    initBackground(MapManager::instance().getMapBackground(strCurrntMapName));
+    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
 
-    m_bIsAWRun = m_pGameScreen->openScreen(strCurrntMapName);
+    m_pGameScreen->openScreen(m_pGameSettingDlg->getPlayerName(), m_pGameSettingDlg->getCurrentMap());
+}
+
+void AssassinWar::gameRun(bool isRun)
+{
+    m_bIsAWRun = isRun;
 }
 
 void AssassinWar::initMainWin()
@@ -155,10 +160,10 @@ void AssassinWar::initRepainter()
 
 void AssassinWar::initChoosingMapDlg()
 {
-    m_pChoosingMapDlg = new ChoosingMapDlg(this);
-    m_pChoosingMapDlg->initialize();
-    connect(m_pChoosingMapDlg, SIGNAL(createGame(QString)), this, SLOT(runAW(QString)));
-    connect(m_pChoosingMapDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin()));
+    m_pGameSettingDlg = new GameSettingDlg(this);
+    m_pGameSettingDlg->initialize();
+    connect(m_pGameSettingDlg, SIGNAL(createGame()), this, SLOT(initMap()));
+    connect(m_pGameSettingDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin()));
 }
 
 void AssassinWar::initGameScreen()
@@ -170,6 +175,8 @@ void AssassinWar::initGameScreen()
     m_pGameScreen->setStyleSheet("background-color:transparent;");
 
     setCentralWidget(m_pGameScreen);
+
+    connect(m_pGameScreen, SIGNAL(screenOpened(bool)), this, SLOT(gameRun(bool)));
 }
 
 void AssassinWar::showMainWin()
