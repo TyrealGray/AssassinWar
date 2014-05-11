@@ -34,21 +34,18 @@
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Interface">
-      <UniqueIdentifier>{31a83567-b05f-49b6-8477-30f1c3b079c3}</UniqueIdentifier>
+      <UniqueIdentifier>{e54b505a-cb46-41df-b597-e1deff76ac6d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Network">
-      <UniqueIdentifier>{b77f0af0-aa93-49d3-985e-c0bf106a485a}</UniqueIdentifier>
+      <UniqueIdentifier>{48e8f1bb-2bb2-43e4-8237-292ff6b1fea2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Module">
-      <UniqueIdentifier>{3f5e8c66-75d9-491b-8b96-cefd1e9a30e2}</UniqueIdentifier>
+      <UniqueIdentifier>{f67757f0-f4ac-47d4-a5c1-c6227fb350ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AssassinWar.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\qrc_AssassinWar.cpp">
+      <Filter>Generated Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_AssassinWar.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -56,37 +53,34 @@
     <ClCompile Include="GeneratedFiles\Release\moc_AssassinWar.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\qrc_AssassinWar.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PixelCoordinateTransfer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ToolbarManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameSetting.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GameScreen.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_GameScreen.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\Debug\moc_GameSettingDlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="GeneratedFiles\Release\moc_GameSettingDlg.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GameNetwork.cpp">
+    <ClCompile Include="interface\ToolbarManager.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\MapManager.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\GameSettingDlg.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\GameScreen.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="interface\AssassinWar.cpp">
+      <Filter>Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GameNetwork.cpp">
@@ -95,26 +89,11 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GameNetwork.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GameServer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GameServer.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_GameServer.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="GameModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MapModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="CharacterModule.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameServerService.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GameServerService.cpp">
       <Filter>Generated Files\Debug</Filter>
@@ -122,93 +101,114 @@
     <ClCompile Include="GeneratedFiles\Release\moc_GameServerService.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="Ranger.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="network\GameServerService.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Warrior.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="network\GameServer.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="Civilian.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="network\GameNetwork.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="GameSettingDlg.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="module\Character.cpp">
+      <Filter>Module</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_GameSettingDlg.cpp">
-      <Filter>Generated Files\Debug</Filter>
+    <ClCompile Include="module\CharacterManager.cpp">
+      <Filter>Module</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_GameSettingDlg.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="module\CharacterModule.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\Civilian.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\GameModule.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\GameSetting.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\MapModule.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\PixelCoordinateTransfer.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\Ranger.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="module\Warrior.cpp">
+      <Filter>Module</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="AssassinWar.h">
+    <CustomBuild Include="interface\AssassinWar.h">
       <Filter>Interface</Filter>
     </CustomBuild>
-    <CustomBuild Include="GameScreen.h">
+    <CustomBuild Include="interface\GameScreen.h">
       <Filter>Interface</Filter>
     </CustomBuild>
-    <CustomBuild Include="ToolbarManager.h">
+    <CustomBuild Include="interface\GameSettingDlg.h">
       <Filter>Interface</Filter>
     </CustomBuild>
-    <CustomBuild Include="GameServer.h">
+    <CustomBuild Include="network\GameNetwork.h">
       <Filter>Network</Filter>
     </CustomBuild>
-    <CustomBuild Include="GameNetwork.h">
+    <CustomBuild Include="network\GameServer.h">
       <Filter>Network</Filter>
     </CustomBuild>
-    <CustomBuild Include="CharacterManager.h">
-      <Filter>Module</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GameServerService.h">
+    <CustomBuild Include="network\GameServerService.h">
       <Filter>Network</Filter>
     </CustomBuild>
-    <CustomBuild Include="GameSettingDlg.h">
-      <Filter>Interface</Filter>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="CommentLib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PixelCoordinateTransfer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MapManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ServerBlockType.h">
-      <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="GameModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="GameSetting.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="MapModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="CharacterModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="Ranger.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="Civilian.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
-      <Filter>Module</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="AssassinWar.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="interface\MapManager.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="interface\ToolbarManager.h">
+      <Filter>Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="CommentLib.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="network\ServerBlockType.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="module\Character.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\CharacterManager.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\CharacterModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\Civilian.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\GameModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\GameSetting.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\MapModule.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\PixelCoordinateTransfer.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\Ranger.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="module\Warrior.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
