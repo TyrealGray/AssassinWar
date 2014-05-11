@@ -90,6 +90,11 @@ std::shared_ptr<Character> CharacterManager::newCharacter(int iCharacterType /* 
         break;
     }
 
+    if(NULL != pCharacter)
+    {
+        pCharacter->init();
+    }
+
     std::shared_ptr<Character> pNewCharacter(pCharacter);
     return pNewCharacter;
 }

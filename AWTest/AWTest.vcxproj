@@ -41,8 +41,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\module;$(ProjectDir)..\interface;$(ProjectDir)..\network;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\module;$(ProjectDir)..\interface;$(ProjectDir)..\network;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommentGTestLib.h" />
+    <ClInclude Include="UnderGridTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -15,6 +15,8 @@ public:
 
     virtual ~Character(void);
 
+    void init();
+
     void die();
 
     void setHide(bool isHide);
@@ -22,12 +24,6 @@ public:
     void setPosition(const unsigned int &uiX, const unsigned int &uiY);
 
     void updateNextPosition();
-
-    void updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, int iIncrease, int iDecrease);
-
-    bool isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
-
-    bool isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
 
     unsigned int getNextStepGridX();
 
@@ -54,10 +50,17 @@ private:
     unsigned int m_uiTargetGridX;
     unsigned int m_uiTargetGridY;
     int m_iDirection;
+
     void setCurrentX(int iX);
     void setCurrentY(int iY);
+    void setDirection(int iDirection);
+
     unsigned int getCurrentX();
     unsigned int getCurrentY();
-    void setDirection(int iDirection);
+    unsigned int getNextStepX();
+    unsigned int getNextStepY();
+
+    bool isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
+    bool isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord);
 };
 

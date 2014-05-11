@@ -29,5 +29,8 @@
     <ClInclude Include="CommentGTestLib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UnderGridTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

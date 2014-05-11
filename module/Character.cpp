@@ -9,12 +9,17 @@ Character::Character(int id, unsigned int uiSpeed)
       m_uiCurrentX(0), m_uiCurrentY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
       m_iDirection(GO_DOWN)
 {
-    m_pCharacter = new QImage();
-    m_pCharacter->load("./Resources/Character/Ghost-F.png");
+
 }
 
 Character::~Character(void)
 {
+}
+
+void Character::init()
+{
+    m_pCharacter = new QImage();
+    m_pCharacter->load("./Resources/Character/Ghost-F.png");
 }
 
 void Character::die()
@@ -40,21 +45,22 @@ void Character::setPosition(const unsigned int &uiX, const unsigned int &uiY)
 
 void Character::updateNextPosition()
 {
-    updateCoord(m_uiTargetGridX, m_uiCurrentX, GO_RIGHT , GO_LEFT);
-    updateCoord(m_uiTargetGridY, m_uiCurrentY, GO_DOWN, GO_UP);
-}
-
-void Character::updateCoord(const unsigned int &uiTargetGridCoord, unsigned int &uiCurrentCoord, int iIncrease, int iDecrease)
-{
-    if(1 <= uiTargetGridCoord && isIncreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    if(getNextStepX() > m_uiCurrentX)
     {
-        uiCurrentCoord += m_uiSpeed;
-        setDirection(iIncrease);
+        setDirection(GO_RIGHT);
     }
-    else if(1 <= uiTargetGridCoord && isDecreaseToTargetPos(uiTargetGridCoord, uiCurrentCoord))
+    else if(getNextStepX() < m_uiCurrentX)
     {
-        uiCurrentCoord -= m_uiSpeed;
-        setDirection(iDecrease);
+        setDirection(GO_LEFT);
+    }
+
+    if(getNextStepY() > m_uiCurrentY)
+    {
+        setDirection(GO_DOWN);
+    }
+    else if(getNextStepY() < m_uiCurrentY)
+    {
+        setDirection(GO_UP);
     }
 }
 
@@ -70,6 +76,16 @@ bool Character::isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, con
 
 unsigned int Character::getNextStepGridX()
 {
+    return PixelCoordinateTransfer::toGrid(getNextStepX());
+}
+
+unsigned int Character::getNextStepGridY()
+{
+    return PixelCoordinateTransfer::toGrid(getNextStepY());
+}
+
+unsigned int Character::getNextStepX()
+{
     unsigned int iNextStepX = m_uiCurrentX;
 
     if(1 <= m_uiTargetGridX && this->isIncreaseToTargetPos(m_uiTargetGridX, m_uiCurrentX))
@@ -81,10 +97,10 @@ unsigned int Character::getNextStepGridX()
         iNextStepX -= m_uiSpeed;
     }
 
-    return PixelCoordinateTransfer::toGrid(iNextStepX);
+    return iNextStepX;
 }
 
-unsigned int Character::getNextStepGridY()
+unsigned int Character::getNextStepY()
 {
     unsigned int iNextStepY = m_uiCurrentY;
 
@@ -97,7 +113,7 @@ unsigned int Character::getNextStepGridY()
         iNextStepY -= m_uiSpeed;
     }
 
-    return PixelCoordinateTransfer::toGrid(iNextStepY);
+    return iNextStepY;
 }
 
 void Character::goTo(const unsigned int &uiX, const unsigned int &uiY)
