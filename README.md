@@ -13,4 +13,3 @@
 ####vs2010 sp1,
 ####QT4.8.5,
 ####GTest 1.7.0
-####If you want to run the test,you need change lib project to be mtd/mt mode
