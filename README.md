@@ -8,7 +8,7 @@
 
 ###Be sure that you only kill Assassin(other players),becuase you will get Punishment if you kill the innocence NPCs
 
-#==============================
+##==============================
 ####to open the project you need:
 ####vs2010 sp1,
 ####QT4.8.5,
