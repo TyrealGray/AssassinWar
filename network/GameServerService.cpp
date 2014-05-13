@@ -5,23 +5,42 @@
 #include "Character.h"
 
 const unsigned short PACKAGE_END = 0x55aa;
-GameServerService::GameServerService(GameModule* gameModule, QObject *parent)
-    : QTcpSocket(parent),
+GameServerService::GameServerService(int iSicketID, GameModule* gameModule, QObject *parent)
+    : QThread(parent),
+      m_pTcpSocket(NULL),
       m_pGameModule(gameModule),
+      m_iSocketID(iSicketID),
       m_nextBlockSize(0)
 {
-    connect(this, SIGNAL(readyRead()), this, SLOT(readInComeRequest()));
-    connect(this , SIGNAL(disconnected()), this, SLOT(deleteLater()));
+
 }
 
 
 GameServerService::~GameServerService(void)
 {
+    exit();
+    wait();
+}
+
+void GameServerService::run()
+{
+    m_pTcpSocket = new QTcpSocket();
+
+    if(!m_pTcpSocket->setSocketDescriptor(m_iSocketID))
+    {
+        emit error(m_pTcpSocket->error());
+        return;
+    }
+
+    connect(m_pTcpSocket, SIGNAL(readyRead()), this, SLOT(readInComeRequest()), Qt::DirectConnection);
+    connect(m_pTcpSocket , SIGNAL(disconnected()), m_pTcpSocket, SLOT(deleteLater()), Qt::DirectConnection);
+
+    exec();
 }
 
 void GameServerService::readInComeRequest()
 {
-    QDataStream inComeRequest(this);
+    QDataStream inComeRequest(m_pTcpSocket);
     inComeRequest.setVersion(QDataStream::Qt_4_8);
 
     if(0 == m_nextBlockSize)
@@ -93,13 +112,13 @@ void GameServerService::sendCharacterPositionData()
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));
 
-    this->write(block);
+    m_pTcpSocket->write(block);
 
-    QDataStream end(this);
+    QDataStream end(m_pTcpSocket);
     end << quint16(PACKAGE_END);
 }
 
 bool GameServerService::isAvailablePackageSizeSmallThan(quint16 size)
 {
-    return (this->bytesAvailable() < size);
+    return (m_pTcpSocket->bytesAvailable() < size);
 }

@@ -20,6 +20,7 @@ bool GameServer::hostServer()
 
 void GameServer::incomingConnection(int socketID)
 {
-    GameServerService * pSocket = new GameServerService(m_pGameModule, this);
-    pSocket->setSocketDescriptor(socketID);
+    GameServerService * pThread = new GameServerService(socketID, m_pGameModule, this);
+    connect(pThread, SIGNAL(finished()), pThread, SLOT(deleteLater()));
+    pThread->start();
 }
