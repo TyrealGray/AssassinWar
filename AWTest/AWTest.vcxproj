@@ -41,8 +41,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\GameModuleSet;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\GameModuleSet;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -90,7 +90,9 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterTest.h" />
     <ClInclude Include="CommentGTestLib.h" />
+    <ClInclude Include="PixelCoordinateTransferTest.h" />
     <ClInclude Include="UnderGridTest.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

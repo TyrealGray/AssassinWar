@@ -32,5 +32,11 @@
     <ClInclude Include="UnderGridTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PixelCoordinateTransferTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
