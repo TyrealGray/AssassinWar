@@ -35,7 +35,7 @@
 
 **Every project path setting should begin with** `$(ProjectDir)`**,do not use** `$(SolutionDir)`**!!!**
 
-`other project link`[GTest 1.7.0][1]**And**[QT 4.8.5 GUI][2]
+`other project link`[GTest 1.7.0][1] **And** [QT 4.8.5 GUI][2]
 
 [1]: https://code.google.com/p/googletest/downloads/detail?name=gtest-1.7.0.zip
 [2]: http://download.qt-project.org/official_releases/qt/4.8/4.8.5/
