@@ -39,9 +39,6 @@
     <Filter Include="Network">
       <UniqueIdentifier>{48e8f1bb-2bb2-43e4-8237-292ff6b1fea2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Module">
-      <UniqueIdentifier>{f67757f0-f4ac-47d4-a5c1-c6227fb350ba}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_AssassinWar.cpp">
@@ -110,36 +107,6 @@
     <ClCompile Include="network\GameNetwork.cpp">
       <Filter>Network</Filter>
     </ClCompile>
-    <ClCompile Include="module\Character.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\CharacterManager.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\CharacterModule.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\Civilian.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\GameModule.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\GameSetting.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\MapModule.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\PixelCoordinateTransfer.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\Ranger.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
-    <ClCompile Include="module\Warrior.cpp">
-      <Filter>Module</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="AssassinWar.qrc">
@@ -179,36 +146,6 @@
     </ClInclude>
     <ClInclude Include="network\ServerBlockType.h">
       <Filter>Network</Filter>
-    </ClInclude>
-    <ClInclude Include="module\Character.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\CharacterManager.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\CharacterModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\Civilian.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\GameModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\GameSetting.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\MapModule.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\PixelCoordinateTransfer.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\Ranger.h">
-      <Filter>Module</Filter>
-    </ClInclude>
-    <ClInclude Include="module\Warrior.h">
-      <Filter>Module</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

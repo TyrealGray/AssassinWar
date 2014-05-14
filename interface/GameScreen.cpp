@@ -4,9 +4,12 @@
 #include <QMouseEvent>
 
 #include "GameScreen.h"
+
 #include "GameModule.h"
 #include "GameServer.h"
 #include "GameNetwork.h"
+
+#include "MapManager.h"
 #include "PixelCoordinateTransfer.h"
 
 const int GRID_NUMBER_IS_ZERO = 0;
@@ -122,7 +125,7 @@ bool GameScreen::loadGameMap(const QString& strCurrntMapName)
 {
     bool bLoadGameMapSuccessed = false;
 
-    QWidget* pMapWidget =  m_pGameModule->loadMap(strCurrntMapName);
+    QWidget* pMapWidget =  m_pGameModule->loadMap(MapManager::instance().getMapPath(strCurrntMapName));
     if(NULL != pMapWidget)
     {
         setWidget(pMapWidget);

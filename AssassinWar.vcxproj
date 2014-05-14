@@ -42,8 +42,8 @@
     <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)MapLoader;$(ProjectDir)module;$(ProjectDir)interface;$(ProjectDir)network;$(IncludePath)</IncludePath>
-    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)MapLoader;$(ProjectDir)module;$(ProjectDir)interface;$(ProjectDir)network;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)MapLoader;$(ProjectDir)GameModuleSet;$(ProjectDir)interface;$(ProjectDir)network;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)MapLoader;$(ProjectDir)GameModuleSet;$(ProjectDir)interface;$(ProjectDir)network;$(IncludePath)</IncludePath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(PorjectDir)lib;$(LibraryPath)</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(PorjectDir)lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -129,16 +129,6 @@
     <ClCompile Include="interface\MapManager.cpp" />
     <ClCompile Include="interface\ToolbarManager.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="module\Character.cpp" />
-    <ClCompile Include="module\CharacterManager.cpp" />
-    <ClCompile Include="module\CharacterModule.cpp" />
-    <ClCompile Include="module\Civilian.cpp" />
-    <ClCompile Include="module\GameModule.cpp" />
-    <ClCompile Include="module\GameSetting.cpp" />
-    <ClCompile Include="module\MapModule.cpp" />
-    <ClCompile Include="module\PixelCoordinateTransfer.cpp" />
-    <ClCompile Include="module\Ranger.cpp" />
-    <ClCompile Include="module\Warrior.cpp" />
     <ClCompile Include="network\GameNetwork.cpp" />
     <ClCompile Include="network\GameServer.cpp" />
     <ClCompile Include="network\GameServerService.cpp" />
@@ -200,16 +190,6 @@
     <ClInclude Include="CommentLib.h" />
     <ClInclude Include="interface\MapManager.h" />
     <ClInclude Include="interface\ToolbarManager.h" />
-    <ClInclude Include="module\Character.h" />
-    <ClInclude Include="module\CharacterManager.h" />
-    <ClInclude Include="module\CharacterModule.h" />
-    <ClInclude Include="module\Civilian.h" />
-    <ClInclude Include="module\GameModule.h" />
-    <ClInclude Include="module\GameSetting.h" />
-    <ClInclude Include="module\MapModule.h" />
-    <ClInclude Include="module\PixelCoordinateTransfer.h" />
-    <ClInclude Include="module\Ranger.h" />
-    <ClInclude Include="module\Warrior.h" />
     <ClInclude Include="network\ServerBlockType.h" />
     <CustomBuild Include="network\GameServerService.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
