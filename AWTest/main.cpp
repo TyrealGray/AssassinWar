@@ -4,6 +4,7 @@
 #include "CommentLib.h"
 #include "CommentGTestLib.h"
 
+#include "CharacterTest.h"
 #include "UnderGridTest.h"
 #include "PixelCoordinateTransferTest.h"
 

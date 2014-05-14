@@ -43,8 +43,9 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\GameModuleSet;$(IncludePath)</IncludePath>
     <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\include;$(ProjectDir)..\;$(ProjectDir)..\MapLoader;$(ProjectDir)..\GameModuleSet;$(IncludePath)</IncludePath>
-    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(PorjectDir)..\Core;$(LibraryPath)</LibraryPath>
     <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(GTest)\msvc\gtest-md\$(IntDir);$(PorjectDir)..\lib;$(LibraryPath)</LibraryPath>
+    <PostBuildEventUseInBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</PostBuildEventUseInBuild>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

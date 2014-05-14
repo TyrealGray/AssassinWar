@@ -47,19 +47,23 @@ void Character::updateNextPosition()
 {
     if(getNextStepX() > m_uiCurrentX)
     {
+        setCurrentX(getNextStepX());
         setDirection(GO_RIGHT);
     }
     else if(getNextStepX() < m_uiCurrentX)
     {
+        setCurrentX(getNextStepX());
         setDirection(GO_LEFT);
     }
 
     if(getNextStepY() > m_uiCurrentY)
     {
+        setCurrentY(getNextStepY());
         setDirection(GO_DOWN);
     }
     else if(getNextStepY() < m_uiCurrentY)
     {
+        setCurrentY(getNextStepY());
         setDirection(GO_UP);
     }
 }
