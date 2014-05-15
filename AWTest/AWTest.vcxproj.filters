@@ -38,5 +38,8 @@
     <ClInclude Include="CharacterTest.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="CharacterManagerTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

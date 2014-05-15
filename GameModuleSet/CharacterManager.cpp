@@ -28,19 +28,27 @@ void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOf
 
 void CharacterManager::addPlayer(const QString& playerName)
 {
-    srand((unsigned)time(NULL));
-    int iType = (rand() % NumberOfClass) + NumberOfClass;
-    std::shared_ptr<Character> pNewCharacter = newCharacter(iType);
-    m_charactersVec.push_back(pNewCharacter);
+    if(m_name2IDMap.end() == m_name2IDMap.find(playerName))
+    {
+        srand((unsigned)time(NULL));
+        unsigned int uiType = (rand() % NumberOfClass) + NumberOfClass;
 
-    m_name2IDMap.insert(std::make_pair(playerName, m_uiNumberOfCharacter++));
+        m_name2IDMap.insert(std::make_pair(playerName, m_uiNumberOfCharacter));
 
+        addCharacter(uiType);
+    }
 }
 
-void CharacterManager::addCharacter()
+void CharacterManager::addCivilian()
 {
-    std::shared_ptr<Character> pNewCharacter = newCharacter();
+    addCharacter(0);
+}
+
+void CharacterManager::addCharacter(unsigned int uiType)
+{
+    std::shared_ptr<Character> pNewCharacter = newCharacter(uiType);
     m_charactersVec.push_back(pNewCharacter);
+    ++m_uiNumberOfCharacter;
 }
 
 std::shared_ptr<Character> CharacterManager::getCharacter(const int id)
@@ -72,7 +80,7 @@ unsigned int CharacterManager::getNumberOfCharacter()
     return m_charactersVec.size();
 }
 
-std::shared_ptr<Character> CharacterManager::newCharacter(int iCharacterType /* = 0 */)
+std::shared_ptr<Character> CharacterManager::newCharacter(int iCharacterType)
 {
     Character* pCharacter = NULL;
     switch(iCharacterType)

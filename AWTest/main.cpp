@@ -5,7 +5,11 @@
 #include "CommentGTestLib.h"
 
 #include "CharacterTest.h"
+
+#include "CharacterManagerTest.h"
+
 #include "UnderGridTest.h"
+
 #include "PixelCoordinateTransferTest.h"
 
 

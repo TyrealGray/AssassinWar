@@ -23,7 +23,7 @@ public:
 
     void addPlayer(const QString& playerName);
 
-    void addCharacter();
+    void addCivilian();
 
     std::shared_ptr<Character> getCharacter(const int id);
 
@@ -36,7 +36,8 @@ private:
     std::map<QString, int> m_name2IDMap;
     std::vector<std::shared_ptr<Character>> m_charactersVec;
 
-    std::shared_ptr<Character> newCharacter(int iCharacterType = 0);
+    void addCharacter(unsigned int uiType);
+    std::shared_ptr<Character> newCharacter(int iCharacterType);
 };
 
 #endif // CHARACTERMANAGER_H

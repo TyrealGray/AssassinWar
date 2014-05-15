@@ -91,6 +91,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterManagerTest.h" />
     <ClInclude Include="CharacterTest.h" />
     <ClInclude Include="CommentGTestLib.h" />
     <ClInclude Include="PixelCoordinateTransferTest.h" />
