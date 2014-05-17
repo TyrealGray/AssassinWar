@@ -29,22 +29,18 @@ AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
 
 AssassinWar::~AssassinWar()
 {
-    if(NULL != m_pGameScreen)
-    {
-        delete m_pGameScreen;
-        m_pGameScreen = NULL;
-    }
+    delete m_pGameScreen;
+    m_pGameScreen = NULL;
+
 
     if(NULL != m_pRepaintTimer)
     {
         m_pRepaintTimer->stop();
     }
 
-    if(NULL != m_pToolbarManager)
-    {
-        delete m_pToolbarManager;
-        m_pToolbarManager = NULL;
-    }
+    delete m_pToolbarManager;
+    m_pToolbarManager = NULL;
+
 }
 
 void AssassinWar::closeEvent(QCloseEvent *closeEvent)
@@ -91,15 +87,17 @@ void AssassinWar::initMap()
 {
     m_pGameSettingDlg->hide();
 
-    setWindowState(Qt::WindowFullScreen);
-
-    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
+    m_pGameScreen->initServer();
 
     m_pGameScreen->openScreen(m_pGameSettingDlg->getPlayerName(), m_pGameSettingDlg->getCurrentMap());
 }
 
 void AssassinWar::gameRun(bool isRun)
 {
+    setWindowState(Qt::WindowFullScreen);
+
+    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
+
     m_bIsAWRun = isRun;
 }
 

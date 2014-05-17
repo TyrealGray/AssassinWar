@@ -25,14 +25,6 @@ TEST(GridTest, functionalTest)
     EXPECT_EQ(true, grid.isAble());
 }
 
-TEST(UnderGridTest, setSizeTest)
-{
-    UnderGrid underGrid;
-    EXPECT_EQ(true, underGrid.setSize(10, 10));
-    EXPECT_EQ(false, underGrid.setSize(10, 12));
-    EXPECT_EQ(false, underGrid.setSize(10, 10));
-}
-
 TEST(UnderGridTest, getGridTest)
 {
     UnderGrid underGrid;

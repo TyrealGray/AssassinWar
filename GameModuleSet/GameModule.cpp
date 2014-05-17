@@ -13,6 +13,11 @@ GameModule::GameModule(void)
 
 GameModule::~GameModule(void)
 {
+    delete m_pMapModule;
+    m_pMapModule = NULL;
+
+    delete m_pCharacterModule;
+    m_pCharacterModule = NULL;
 }
 
 void GameModule::init()

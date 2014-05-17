@@ -14,6 +14,8 @@ Character::Character(int id, unsigned int uiSpeed)
 
 Character::~Character(void)
 {
+    delete m_pCharacter;
+    m_pCharacter = NULL;
 }
 
 void Character::init()
@@ -66,16 +68,6 @@ void Character::updateNextPosition()
         setCurrentY(getNextStepY());
         setDirection(GO_UP);
     }
-}
-
-bool Character::isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
-{
-    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) < uiCurrentCoord - m_uiSpeed;
-}
-
-bool Character::isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
-{
-    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) > uiCurrentCoord + m_uiSpeed;
 }
 
 unsigned int Character::getNextStepGridX()
@@ -169,4 +161,14 @@ void Character::setCurrentY(int iY)
 void Character::setDirection(int iDirection)
 {
     m_iDirection = iDirection;
+}
+
+bool Character::isDecreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+{
+    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) < uiCurrentCoord - m_uiSpeed;
+}
+
+bool Character::isIncreaseToTargetPos(const unsigned int &uiTargetGridCoord, const unsigned int &uiCurrentCoord)
+{
+    return PixelCoordinateTransfer::toPixel(uiTargetGridCoord) > uiCurrentCoord + m_uiSpeed;
 }

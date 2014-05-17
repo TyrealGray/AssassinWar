@@ -17,11 +17,8 @@ GameSettingDlg::GameSettingDlg(QWidget *parent)
 
 GameSettingDlg::~GameSettingDlg()
 {
-    if(NULL != m_pGameSetting)
-    {
-        delete m_pGameSetting;
-        m_pGameSetting = NULL;
-    }
+    delete m_pGameSetting;
+    m_pGameSetting = NULL;
 }
 
 bool GameSettingDlg::initialize()

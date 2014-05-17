@@ -18,6 +18,7 @@ public:
     ~GameScreen();
 
     void initScreen();
+    void initServer();
 
     void openScreen(const QString& strPlayerName, const QString& strCurrntMapName);
 
@@ -51,6 +52,7 @@ private:
     int m_iScreenWidth;
     int m_iScreenHeight;
 
+    void initGameModule();
     bool loadGameMap(const QString& strCurrntMapName);
     void onMouseClick(QMouseEvent *mouseEvent);
     void onMouseLeft(QMouseEvent *mouseEvent);

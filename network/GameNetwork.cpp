@@ -17,6 +17,7 @@ GameNetwork::GameNetwork(const QString& name, GameModule* gameModule, QObject *p
 
 GameNetwork::~GameNetwork(void)
 {
+    m_pUpdateTimer->stop();
 }
 
 void GameNetwork::connectRoomIP(const QString& ipAddress)

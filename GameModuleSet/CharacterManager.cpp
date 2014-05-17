@@ -1,10 +1,12 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 #include "CharacterManager.h"
 #include "Civilian.h"
 #include "Warrior.h"
 #include "Ranger.h"
+
 
 const int NORMAL_SPEED = 10;
 const int NumberOfClass = 1;
@@ -31,7 +33,7 @@ void CharacterManager::addPlayer(const QString& playerName)
     if(m_name2IDMap.end() == m_name2IDMap.find(playerName))
     {
         srand((unsigned)time(NULL));
-        unsigned int uiType = (rand() % NumberOfClass) + NumberOfClass;
+        unsigned int uiType = (rand() % NumberOfClass) + 1;
 
         m_name2IDMap.insert(std::make_pair(playerName, m_uiNumberOfCharacter));
 
@@ -47,7 +49,9 @@ void CharacterManager::addCivilian()
 void CharacterManager::addCharacter(unsigned int uiType)
 {
     std::shared_ptr<Character> pNewCharacter = newCharacter(uiType);
+
     m_charactersVec.push_back(pNewCharacter);
+
     ++m_uiNumberOfCharacter;
 }
 

@@ -6,7 +6,7 @@ UnderGrid::UnderGrid(void)
       m_uiAllGridTotalRow(0),
       m_uiAllGridTotalColumn(0)
 {
-    m_vecGridGroup.reserve(500);
+    m_vecGridGroup.reserve(800);
 }
 
 
@@ -14,30 +14,24 @@ UnderGrid::~UnderGrid(void)
 {
 }
 
-bool UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight)
+void UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight)
 {
-    bool bSetSizeSuccessed = false;
-
-    if(!m_bIsSizeSetted)
+    if(m_bIsSizeSetted)
     {
-        m_uiAllGridTotalColumn = uiGridWidth;
-        m_uiAllGridTotalRow = uiGridheight;
-        for(unsigned int uiHeightIndex = 0; uiHeightIndex < uiGridheight ; ++uiHeightIndex)
+        m_vecGridGroup.clear();
+        m_vecGridGroup.reserve(800);
+    }
+
+    m_uiAllGridTotalColumn = uiGridWidth;
+    m_uiAllGridTotalRow = uiGridheight;
+    for(unsigned int uiHeightIndex = 0; uiHeightIndex < uiGridheight ; ++uiHeightIndex)
+    {
+        for(unsigned int uiWidthIndex = 0 ; uiWidthIndex < uiGridWidth; ++uiWidthIndex)
         {
-            for(unsigned int uiWidthIndex = 0 ; uiWidthIndex < uiGridWidth; ++uiWidthIndex)
-            {
-                m_vecGridGroup.push_back(createNewGrid(uiWidthIndex, uiHeightIndex));
-            }
+            m_vecGridGroup.push_back(createNewGrid(uiWidthIndex, uiHeightIndex));
         }
-        m_bIsSizeSetted = true;
-        bSetSizeSuccessed = true;
     }
-    else
-    {
-        //do nothing
-    }
-
-    return bSetSizeSuccessed;
+    m_bIsSizeSetted = true;
 }
 
 std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigned int &uiY)

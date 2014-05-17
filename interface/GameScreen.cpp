@@ -59,16 +59,27 @@ void GameScreen::initScreen()
 {
     setMouseTracking(true);
 
-    m_pGameModule = new GameModule();
+    horizontalScrollBar()->setVisible(false);
+    verticalScrollBar()->setVisible(false);
+}
 
-    m_pGameModule->init();
+void GameScreen::initServer()
+{
+    if(NULL == m_pGameModule)
+    {
+        initGameModule();
+    }
 
     m_pGameServer = new GameServer(m_pGameModule, this);
 
     m_pGameServer->hostServer();
+}
 
-    horizontalScrollBar()->setVisible(false);
-    verticalScrollBar()->setVisible(false);
+void GameScreen::initGameModule()
+{
+    m_pGameModule = new GameModule();
+
+    m_pGameModule->init();
 }
 
 void GameScreen::openScreen(const QString& strPlayerName, const QString& strCurrntMapName)

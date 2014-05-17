@@ -11,7 +11,7 @@ public:
 
     //set UnderGrid Size
     //Number of Grid = width*height
-    bool setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
+    void setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
 
     //get Grid.X=uiX && Grid.Y=uiY
     //return Null if Grid doesn't exist
