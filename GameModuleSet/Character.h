@@ -7,6 +7,7 @@ const int GO_RIGHT = 3;
 
 class QImage;
 class QPainter;
+class QReadWriteLock;
 class Character
 {
 public:
@@ -33,6 +34,10 @@ public:
 
     void render(QPainter &painter, int &iOffsetX, int &iOffsetY);
 
+    void setSpeed(unsigned int& uiSpeed);
+
+    unsigned int getSpeed();
+
     unsigned int getCurrentGridX();
 
     unsigned int getCurrentGridY();
@@ -42,8 +47,9 @@ public:
     unsigned int getTargetGridY();
 
 private:
-    int m_id;
     QImage* m_pCharacter;
+    QReadWriteLock* m_pLock;
+    int m_id;
     unsigned int m_uiSpeed;
     unsigned int m_uiCurrentX;
     unsigned int m_uiCurrentY;

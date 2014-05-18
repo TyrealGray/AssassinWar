@@ -6,9 +6,10 @@
 TEST(CharacterTest, setPositionTest)
 {
     Character person(0, 10);
-    person.setPosition(10, 10);
 
-    person.goTo(20, 20);
+    person.init();
+
+    person.setPosition(10, 10);
 
     EXPECT_EQ(10, person.getCurrentGridX());
 
@@ -34,9 +35,28 @@ TEST(CharacterTest, setPositionTest)
 
 }
 
+TEST(CharacterTest, setTargetPositionTest)
+{
+    Character person(0, 10);
+
+    person.init();
+
+    EXPECT_EQ(1, person.getTargetGridX());
+
+    EXPECT_EQ(1, person.getTargetGridY());
+
+    person.goTo(20, 20);
+
+    EXPECT_EQ(20, person.getTargetGridX());
+
+    EXPECT_EQ(20, person.getTargetGridY());
+}
+
 TEST(CharacterTest, getNextPositionTest)
 {
     Character person(0, 10);
+
+    person.init();
 
     person.setPosition(11, 11);
 
@@ -52,6 +72,9 @@ TEST(CharacterTest, getNextPositionTest)
 TEST(CharacterTest, updatePositionTest)
 {
     Character person(0, 10);
+
+    person.init();
+
     person.setPosition(10, 10);
 
     person.goTo(20, 20);

@@ -106,7 +106,7 @@ void GameServerService::sendCharacterPositionData()
         uiCharacterX = m_pGameModule->getCharacterByID(index)->getCurrentGridX();
         uiCharacterY = m_pGameModule->getCharacterByID(index)->getCurrentGridY();
 
-        blockControl << id << uiCharacterX << uiCharacterY;
+        blockControl << index << uiCharacterX << uiCharacterY;
     }
 
     blockControl.device()->seek(0);

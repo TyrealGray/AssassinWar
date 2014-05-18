@@ -32,6 +32,7 @@ public:
     unsigned int getNumberOfCharacter();
 
 private:
+    QReadWriteLock* m_pLock;
     unsigned int m_uiNumberOfCharacter;
     std::map<QString, int> m_name2IDMap;
     std::vector<std::shared_ptr<Character>> m_charactersVec;

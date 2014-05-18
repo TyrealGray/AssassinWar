@@ -1,17 +1,23 @@
+#include <QReadWriteLock>
+
 #include "UnderGrid.h"
 
 
 UnderGrid::UnderGrid(void)
-    : m_bIsSizeSetted(false),
+    : m_pLock(NULL),
+      m_bIsSizeSetted(false),
       m_uiAllGridTotalRow(0),
       m_uiAllGridTotalColumn(0)
 {
+    m_pLock = new QReadWriteLock();
     m_vecGridGroup.reserve(800);
 }
 
 
 UnderGrid::~UnderGrid(void)
 {
+    delete m_pLock;
+    m_pLock = NULL;
 }
 
 void UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight)
@@ -37,9 +43,12 @@ void UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &ui
 std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigned int &uiY)
 {
     std::shared_ptr<Grid> pGrid = NULL;
+
     if(m_vecGridGroup.size() > (uiY * m_uiAllGridTotalColumn) + uiX)
     {
+        m_pLock->lockForRead();
         pGrid = m_vecGridGroup[(uiY * m_uiAllGridTotalColumn) + uiX ];
+        m_pLock->unlock();
     }
     else
     {
@@ -48,26 +57,25 @@ std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigne
     return pGrid;
 }
 
-bool UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
+void UnderGrid::disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
                              const unsigned int &uiRightBottomGridX, const unsigned int &uiRightBottomGridY)
 {
-    bool bDisableGridsSuccessed = false;
-
     for(unsigned int uiColumnIndex = uiLeftTopGridY; uiColumnIndex <= uiRightBottomGridY; ++uiColumnIndex)
     {
         for(unsigned int uiRowIndex = uiLeftTopGridX; uiRowIndex <= uiRightBottomGridX; ++uiRowIndex)
         {
+            m_pLock->lockForRead();
             std::shared_ptr<Grid> pGrid = getGrid(uiRowIndex, uiColumnIndex);
+            m_pLock->unlock();
+
             if(NULL != pGrid)
             {
+                m_pLock->lockForWrite();
                 pGrid->setAble(false);
+                m_pLock->unlock();
             }
         }
     }
-
-    bDisableGridsSuccessed = true;
-
-    return bDisableGridsSuccessed;
 }
 
 std::shared_ptr<Grid> UnderGrid::createNewGrid(const unsigned int &uiX, const  unsigned int &uiY)

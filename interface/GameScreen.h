@@ -18,9 +18,12 @@ public:
     ~GameScreen();
 
     void initScreen();
+
     void initServer();
 
-    void openScreen(const QString& strPlayerName, const QString& strCurrntMapName);
+    void openScreen(const QString& strCurrntMapName);
+
+    void connectRoom(const QString& strPlayerName, const QString& ipAddress);
 
     void closeScreen();
 
@@ -32,13 +35,17 @@ public:
 
 signals:
 
-    void screenOpened(bool isOpened);
+    void screenOpened();
+
+    void screenClosed();
 
 protected:
 
     void mouseReleaseEvent(QMouseEvent *mouseEvent);
 
     void mouseMoveEvent(QMouseEvent *mouseEvent);
+
+    void keyPressEvent(QKeyEvent * keyEvent);
 
 private slots:
 
@@ -53,6 +60,8 @@ private:
     int m_iScreenHeight;
 
     void initGameModule();
+    void closeRoomConnect();
+    void closeServer();
     bool loadGameMap(const QString& strCurrntMapName);
     void onMouseClick(QMouseEvent *mouseEvent);
     void onMouseLeft(QMouseEvent *mouseEvent);

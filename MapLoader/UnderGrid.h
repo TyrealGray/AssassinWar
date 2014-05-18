@@ -17,10 +17,11 @@ public:
     //return Null if Grid doesn't exist
     std::shared_ptr<Grid> getGrid(const unsigned int &uiX, const  unsigned int &uiY);
 
-    bool disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
+    void disableGrids(const unsigned int &uiLeftTopGridX, const unsigned int &uiLeftTopGridY,
                       const unsigned int &uiRightBottomGridX, const unsigned int &uiRightBottomGridY);
 
 private:
+    QReadWriteLock* m_pLock;
     bool m_bIsSizeSetted;
     unsigned int m_uiAllGridTotalRow;
     unsigned int m_uiAllGridTotalColumn;

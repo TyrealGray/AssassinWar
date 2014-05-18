@@ -89,17 +89,12 @@ void AssassinWar::initMap()
 
     m_pGameScreen->initServer();
 
-    m_pGameScreen->openScreen(m_pGameSettingDlg->getPlayerName(), m_pGameSettingDlg->getCurrentMap());
+    m_pGameScreen->openScreen(m_pGameSettingDlg->getCurrentMap());
+
+    m_pGameScreen->connectRoom(m_pGameSettingDlg->getPlayerName(), "127.0.0.1");
 }
 
-void AssassinWar::gameRun(bool isRun)
-{
-    setWindowState(Qt::WindowFullScreen);
 
-    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
-
-    m_bIsAWRun = isRun;
-}
 
 void AssassinWar::initMainWin()
 {
@@ -174,7 +169,26 @@ void AssassinWar::initGameScreen()
 
     setCentralWidget(m_pGameScreen);
 
-    connect(m_pGameScreen, SIGNAL(screenOpened(bool)), this, SLOT(gameRun(bool)));
+    connect(m_pGameScreen, SIGNAL(screenOpened()), this, SLOT(gameRun()));
+    connect(m_pGameScreen, SIGNAL(screenClosed()), this, SLOT(gameClose()));
+}
+
+void AssassinWar::gameRun()
+{
+    setWindowState(Qt::WindowFullScreen);
+
+    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
+
+    m_bIsAWRun = true;
+}
+
+void AssassinWar::gameClose()
+{
+    m_pGameScreen->closeScreen();
+
+    showMainWin();
+
+    m_bIsAWRun = false;
 }
 
 void AssassinWar::showMainWin()

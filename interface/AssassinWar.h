@@ -30,7 +30,9 @@ protected:
 
 private slots:
 
-    void gameRun(bool isRun);
+    void gameRun();
+
+    void gameClose();
 
     void onButttonHost();
 

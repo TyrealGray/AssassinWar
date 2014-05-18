@@ -55,6 +55,18 @@ void GameScreen::mouseMoveEvent(QMouseEvent *mouseEvent)
     }
 }
 
+void GameScreen::keyPressEvent(QKeyEvent * keyEvent)
+{
+    if(m_bIsScreenOpen && Qt::Key_Escape == keyEvent->key())
+    {
+        emit screenClosed();
+    }
+    else
+    {
+        QScrollArea::keyPressEvent(keyEvent);
+    }
+}
+
 void GameScreen::initScreen()
 {
     setMouseTracking(true);
@@ -82,24 +94,31 @@ void GameScreen::initGameModule()
     m_pGameModule->init();
 }
 
-void GameScreen::openScreen(const QString& strPlayerName, const QString& strCurrntMapName)
+void GameScreen::openScreen(const QString& strCurrntMapName)
 {
     m_bIsScreenOpen = loadGameMap(strCurrntMapName);
+}
 
+void GameScreen::connectRoom(const QString& strPlayerName, const QString& ipAddress)
+{
     m_pGameNetwork = new GameNetwork(strPlayerName, m_pGameModule, this);
 
-    m_pGameNetwork->connectRoomIP("127.0.0.1");
-
     connect(m_pGameNetwork, SIGNAL(networkConnected()), this, SLOT(gameRoomConnected()));
+
+    m_pGameNetwork->connectRoomIP(ipAddress);
 }
 
 void GameScreen::gameRoomConnected()
 {
-    emit screenOpened(m_bIsScreenOpen);
+    emit screenOpened();
 }
 
 void GameScreen::closeScreen()
 {
+    closeRoomConnect();
+
+    closeServer();
+
     QWidget* pCurrentWid = this->widget();
 
     this->setWidget(NULL);
@@ -112,6 +131,24 @@ void GameScreen::closeScreen()
     }
 
     m_bIsScreenOpen = false;
+}
+
+void GameScreen::closeRoomConnect()
+{
+    m_pGameNetwork->close();
+
+    m_pGameNetwork->deleteLater();
+
+    m_pGameNetwork = NULL;
+}
+
+void GameScreen::closeServer()
+{
+    m_pGameServer->close();
+
+    m_pGameServer->deleteLater();
+
+    m_pGameServer = NULL;
 }
 
 int GameScreen::getScreenOffsetX()const

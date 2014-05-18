@@ -1,4 +1,6 @@
 #pragma once
+
+class QReadWriteLock;
 class Grid
 {
 public:
@@ -20,6 +22,7 @@ public:
     unsigned int getY();
 
 private:
+    QReadWriteLock* m_pLock;
     bool m_bAble;
     unsigned int m_uiX;
     unsigned int m_uiY;
