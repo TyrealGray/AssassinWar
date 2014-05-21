@@ -1,6 +1,9 @@
 #pragma once
 #include <QTcpServer>
 
+
+class QTimer;
+class QThread;
 class GameModule;
 class GameServer : public QTcpServer
 {
@@ -15,6 +18,10 @@ protected:
     void incomingConnection(int socketID);
 
 private:
+    QTimer* m_pGameUpdateTimer;
     GameModule* m_pGameModule;
+    QThread* m_pGameUpdateThread;
+    void initGameUpdateThread();
+    void initGameModuleDataUpdateTimer();
 };
 

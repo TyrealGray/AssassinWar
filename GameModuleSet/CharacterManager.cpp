@@ -104,6 +104,18 @@ unsigned int CharacterManager::getNumberOfCharacter()
     return m_charactersVec.size();
 }
 
+void CharacterManager::updateCharactersStatus()
+{
+    m_pLock->lockForWrite();
+
+    for(unsigned int index = 0 ; index < m_charactersVec.size(); ++index)
+    {
+        m_charactersVec[index]->updateNextPosition();
+    }
+
+    m_pLock->unlock();
+}
+
 std::shared_ptr<Character> CharacterManager::newCharacter(int iCharacterType)
 {
     Character* pCharacter = NULL;

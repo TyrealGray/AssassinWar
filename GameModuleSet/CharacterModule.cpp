@@ -42,12 +42,37 @@ std::shared_ptr<Character> CharacterModule::getPlayer(const QString& name)
     return m_pCharacterManager->getPlayer(name);
 }
 
-void CharacterModule::setCharacterPos(const int id, const unsigned int uiX, const unsigned int uiY)
+void CharacterModule::setCharacterPos(const int &id, const unsigned int &uiX, const unsigned int &uiY)
 {
     m_pCharacterManager->getCharacter(id)->setPosition(uiX, uiY);
 }
 
-void CharacterModule::setCharacterPos(const QString &name, const unsigned int uiX, const unsigned int uiY)
+void CharacterModule::setCharacterPos(const QString &name, const unsigned int &uiX, const unsigned int &uiY)
 {
     m_pCharacterManager->getPlayer(name)->setPosition(uiX, uiY);
+}
+
+void CharacterModule::setCharacterTargetPos(const int &id, const unsigned int &uiX, const unsigned int &uiY)
+{
+    m_pCharacterManager->getCharacter(id)->goTo(uiX, uiY);
+}
+
+void CharacterModule::setCharacterTargetPos(const QString &name, const unsigned int &uiX, const unsigned int &uiY)
+{
+    m_pCharacterManager->getPlayer(name)->goTo(uiX, uiY);
+}
+
+void CharacterModule::setCharacterPosture(const int &id, const int &iDirection, const int &iStep)
+{
+    m_pCharacterManager->getCharacter(id)->setPosture(iDirection, iStep);
+}
+
+void CharacterModule::setCharacterPosture(const QString &name, const int &iDirection, const int &iStep)
+{
+    m_pCharacterManager->getPlayer(name)->setPosture(iDirection, iStep);
+}
+
+void CharacterModule::updateCharactersStatus()
+{
+    m_pCharacterManager->updateCharactersStatus();
 }

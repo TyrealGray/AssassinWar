@@ -111,19 +111,21 @@ void GameNetwork::updateGame()
 
         serverBlock >> blockType;
 
-        if(UPDATA_POSITION == blockType)
+        if(UPDATA_STATUS == blockType)
         {
             qint32 iNumberOfCharacter = 0;
             qint32 characterID = 0;
             quint32 uiCharacterX = 0;
             quint32 uiCharacterY = 0;
+            quint32 uiDirection = 0;
+            quint32 uiStep = 0;
 
             serverBlock >> iNumberOfCharacter;
 
             for(int index = 0 ; index < iNumberOfCharacter; ++index)
             {
-                serverBlock >> characterID >> uiCharacterX >> uiCharacterY;
-                m_pGameModule->setCharacterPos(characterID, uiCharacterX, uiCharacterY);
+                serverBlock >> characterID >> uiCharacterX >> uiCharacterY >> uiDirection >> uiStep;
+                m_pGameModule->setCharacterStatus(index, uiCharacterX, uiCharacterY, uiDirection, uiStep);
             }
         }
         else
@@ -147,7 +149,7 @@ void GameNetwork::sendUpdatePositionRequest()
     blockControl.setVersion(QDataStream::Qt_4_8);
     unsigned short blockSize = 0;
 
-    blockControl << quint16(0) << quint8(UPDATA_POSITION);
+    blockControl << quint16(0) << quint8(UPDATA_STATUS);
 
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));

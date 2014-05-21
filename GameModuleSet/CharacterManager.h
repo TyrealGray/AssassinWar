@@ -4,7 +4,6 @@
 #include <map>
 #include <vector>
 #include <memory>
-#include <QString>
 
 #include "Character.h"
 
@@ -30,6 +29,8 @@ public:
     std::shared_ptr<Character> getPlayer(const QString& playerName);
 
     unsigned int getNumberOfCharacter();
+
+    void updateCharactersStatus();
 
 private:
     QReadWriteLock* m_pLock;

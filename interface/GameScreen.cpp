@@ -144,11 +144,14 @@ void GameScreen::closeRoomConnect()
 
 void GameScreen::closeServer()
 {
-    m_pGameServer->close();
+    if(NULL != m_pGameServer)
+    {
+        m_pGameServer->close();
 
-    m_pGameServer->deleteLater();
+        m_pGameServer->deleteLater();
 
-    m_pGameServer = NULL;
+        m_pGameServer = NULL;
+    }
 }
 
 int GameScreen::getScreenOffsetX()const

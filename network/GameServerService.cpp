@@ -68,9 +68,9 @@ void GameServerService::readInComeRequest()
         quint32 uiCharacterY = 0;
 
         inComeRequest >> name >> uiCharacterX >> uiCharacterY;
-        m_pGameModule->setCharacterPos(name, uiCharacterX, uiCharacterY);
+        m_pGameModule->setCharacterTargetPos(name, uiCharacterX, uiCharacterY);
     }
-    else if(UPDATA_POSITION == blockType)
+    else if(UPDATA_STATUS == blockType)
     {
         sendCharacterPositionData();
     }
@@ -91,13 +91,14 @@ void GameServerService::sendCharacterPositionData()
     QDataStream blockControl(&block, QIODevice::WriteOnly);
     blockControl.setVersion(QDataStream::Qt_4_8);
 
-    blockControl << quint16(0) << quint8(UPDATA_POSITION);
+    blockControl << quint16(0) << quint8(UPDATA_STATUS);
 
     int iNumberOfCharacter = m_pGameModule->getNumberOfCharacter();
 
-    qint32 id = 0;
     quint32 uiCharacterX = 0;
     quint32 uiCharacterY = 0;
+    quint32 uiDirection = 0;
+    quint32 uiStep = 0;
 
     blockControl << qint32(iNumberOfCharacter);
 
@@ -105,8 +106,10 @@ void GameServerService::sendCharacterPositionData()
     {
         uiCharacterX = m_pGameModule->getCharacterByID(index)->getCurrentGridX();
         uiCharacterY = m_pGameModule->getCharacterByID(index)->getCurrentGridY();
+        uiDirection = m_pGameModule->getCharacterByID(index)->getDirection();
+        uiStep = m_pGameModule->getCharacterByID(index)->getStep();
 
-        blockControl << index << uiCharacterX << uiCharacterY;
+        blockControl << index << uiCharacterX << uiCharacterY << uiDirection << uiStep;
     }
 
     blockControl.device()->seek(0);
