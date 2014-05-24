@@ -18,7 +18,7 @@ GameServerService::GameServerService(int iSicketID, GameModule* gameModule, QObj
 
 GameServerService::~GameServerService(void)
 {
-    exit();
+    quit();
     wait();
 }
 

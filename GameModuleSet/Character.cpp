@@ -59,7 +59,7 @@ void Character::setPosition(const unsigned int &uiX, const unsigned int &uiY)
     setCurrentY(PixelCoordinateTransfer::toPixel(uiY));
 }
 
-void Character::updateNextPosition()
+void Character::updateNextPosture()
 {
     bool isMoved = false;
 

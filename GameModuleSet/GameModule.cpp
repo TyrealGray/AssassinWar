@@ -51,7 +51,38 @@ void GameModule::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 
 void GameModule::updateCharactersStatus()
 {
-    m_pCharacterModule->updateCharactersStatus();
+    //m_pCharacterModule->updateCharactersStatus();
+
+    unsigned int uiGridX = 0;
+    unsigned int uiGridY = 0;
+    unsigned int curGridX = 0;
+    unsigned int curGridY = 0;
+    std::shared_ptr<Character> pCharacter = NULL;
+
+    for(unsigned int index = 0 ; index < m_pCharacterModule->getNumberOfCharacter(); ++index)
+    {
+        pCharacter = m_pCharacterModule->getCharacter(index);
+
+        curGridX = pCharacter->getCurrentGridX();
+        curGridY = pCharacter->getCurrentGridY();
+
+        m_pMapModule->setGrid(curGridX, curGridY, true);
+
+        uiGridX = pCharacter->getNextStepGridX();
+        uiGridY = pCharacter->getNextStepGridY();
+
+        if(m_pMapModule->getGrid(uiGridX, uiGridY))
+        {
+            m_pCharacterModule->getCharacter(index)->updateNextPosture();
+            m_pMapModule->setGrid(uiGridX, uiGridY, false);
+        }
+
+        curGridX = pCharacter->getCurrentGridX();
+        curGridY = pCharacter->getCurrentGridY();
+
+        m_pMapModule->setGrid(curGridX, curGridY, true);
+
+    }
 }
 
 void GameModule::setMapSize(const unsigned int &uiGridWidth, const unsigned int &uiGridheight)

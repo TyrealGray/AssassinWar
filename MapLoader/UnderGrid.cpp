@@ -40,6 +40,14 @@ void UnderGrid::setSize(const unsigned int &uiGridWidth, const  unsigned int &ui
     m_bIsSizeSetted = true;
 }
 
+void UnderGrid::setGrid(const unsigned int &uiX, const unsigned int &uiY, bool isAble)
+{
+    std::shared_ptr<Grid> pGrid = getGrid(uiX, uiY);
+    m_pLock->lockForWrite();
+    pGrid->setAble(isAble);
+    m_pLock->unlock();
+}
+
 std::shared_ptr<Grid> UnderGrid::getGrid(const unsigned int &uiX, const  unsigned int &uiY)
 {
     std::shared_ptr<Grid> pGrid = NULL;

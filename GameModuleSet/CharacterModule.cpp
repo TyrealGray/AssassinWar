@@ -71,8 +71,3 @@ void CharacterModule::setCharacterPosture(const QString &name, const int &iDirec
 {
     m_pCharacterManager->getPlayer(name)->setPosture(iDirection, iStep);
 }
-
-void CharacterModule::updateCharactersStatus()
-{
-    m_pCharacterManager->updateCharactersStatus();
-}

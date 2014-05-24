@@ -62,9 +62,9 @@ TEST(CharacterTest, getNextPositionTest)
 
     person.goTo(20, 20);
 
-    person.updateNextPosition();
+    person.updateNextPosture();
 
-    person.updateNextPosition();
+    person.updateNextPosture();
 
     EXPECT_EQ(12, person.getCurrentGridX());
 }
@@ -85,7 +85,7 @@ TEST(CharacterTest, updatePositionTest)
 
     for(int index = 0; index < 14 ; ++index)
     {
-        person.updateNextPosition();
+        person.updateNextPosture();
     }
 
     EXPECT_EQ(19, person.getCurrentGridX());

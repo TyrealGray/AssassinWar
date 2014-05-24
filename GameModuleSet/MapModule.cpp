@@ -28,11 +28,14 @@ QWidget* MapModule::loadMap(const QString& strMapPath)
     return m_pMapWidget;
 }
 
+void MapModule::setGrid(const unsigned int& uiX, const unsigned int& uiY, bool isAble)
+{
+    m_pUnderGrid->setGrid(uiX, uiY, isAble);
+}
+
 bool MapModule::getGrid(const unsigned int& uiX, const unsigned int& uiY)
 {
-    std::shared_ptr<Grid> pGrid = m_pUnderGrid->getGrid(uiX, uiY);
-
-    return ((NULL == pGrid) ? false : pGrid->isAble());
+    return ((NULL == m_pUnderGrid->getGrid(uiX, uiY)) ? false : m_pUnderGrid->getGrid(uiX, uiY)->isAble());
 }
 
 void MapModule::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight)

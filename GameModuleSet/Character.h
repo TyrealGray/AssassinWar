@@ -25,7 +25,7 @@ public:
 
     void setPosition(const unsigned int &uiX, const unsigned int &uiY);
 
-    void updateNextPosition();
+    void updateNextPosture();
 
     void updateNextCharacterImg();
 

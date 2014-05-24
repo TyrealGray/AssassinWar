@@ -30,8 +30,6 @@ public:
 
     unsigned int getNumberOfCharacter();
 
-    void updateCharactersStatus();
-
 private:
     QReadWriteLock* m_pLock;
     unsigned int m_uiNumberOfCharacter;

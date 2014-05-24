@@ -14,6 +14,7 @@ GameServer::GameServer(GameModule* gameModule, QObject * parent /* = 0*/)
 
 GameServer::~GameServer(void)
 {
+    close();
     m_pGameUpdateThread->quit();
     m_pGameUpdateThread->wait();
 }

@@ -30,8 +30,6 @@ public:
     void setCharacterPosture(const int &id, const int &iDirection, const int &iStep);
     void setCharacterPosture(const QString &name, const int &iDirection, const int &iStep);
 
-    void updateCharactersStatus();
-
 private:
     CharacterManager* m_pCharacterManager;
 };
