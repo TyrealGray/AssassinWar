@@ -10,18 +10,30 @@ const unsigned short PACKAGE_END = 0x55aa;
 GameNetwork::GameNetwork(const QString& name, GameModule* gameModule, QObject *parent /* = 0*/)
     : QTcpSocket(parent),
       m_pUpdateTimer(NULL), m_pGameModule(gameModule),
-      m_bIsInit(false), m_name(name), m_nextBlockSize(0)
+      m_bIsInit(false), m_bIsConnectLocal(false), m_name(name), m_nextBlockSize(0)
 {
 }
 
 
 GameNetwork::~GameNetwork(void)
 {
-    m_pUpdateTimer->stop();
+    if(NULL != m_pUpdateTimer)
+    {
+        m_pUpdateTimer->stop();
+    }
 }
 
 void GameNetwork::connectRoomIP(const QString& ipAddress)
 {
+    if("127.0.0.1" == ipAddress)
+    {
+        setConnectLocal(true);
+    }
+    else
+    {
+        setConnectLocal(false);
+    }
+
     connectToServer(ipAddress);
 
     connect(this, SIGNAL(connected()), this, SLOT(initNetworkRequest()));
@@ -46,6 +58,11 @@ void GameNetwork::initNetworkRequest()
 void GameNetwork::connectToServer(const QString& ipAddress)
 {
     this->connectToHost(ipAddress, 8126);
+}
+
+void GameNetwork::setConnectLocal(bool bIsConnectLocal)
+{
+    m_bIsConnectLocal = bIsConnectLocal;
 }
 
 void GameNetwork::joinRequest()
@@ -109,6 +126,12 @@ void GameNetwork::updateGame()
 
         if(PACKAGE_END == m_nextBlockSize)
         {
+
+            if(!isConnectLocal())
+            {
+                m_nextBlockSize = 0;
+            }
+
             break;
         }
 
@@ -182,8 +205,22 @@ void GameNetwork::updateCharacter(QDataStream& serverBlock)
     for(int index = 0 ; index < iNumberOfCharacter; ++index)
     {
         serverBlock >> characterID >> uiCharacterX >> uiCharacterY >> uiDirection >> uiStep;
-        m_pGameModule->setCharacterStatus(index, uiCharacterX, uiCharacterY, uiDirection, uiStep);
+
+        if(!isConnectLocal())
+        {
+            m_pGameModule->setCharacterTargetPos(index, uiCharacterX, uiCharacterY);
+            m_pGameModule->setCharacterPosture(index, uiDirection, uiStep);
+        }
+        else
+        {
+            m_pGameModule->setCharacterStatus(index, uiCharacterX, uiCharacterY, uiDirection, uiStep);
+        }
     }
+}
+
+bool GameNetwork::isConnectLocal()
+{
+    return m_bIsConnectLocal;
 }
 
 void GameNetwork::updateMapName(QDataStream& serverBlock)

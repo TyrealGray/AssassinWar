@@ -93,6 +93,7 @@ void GameModule::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
     m_pCharacterModule->drawAllCharacter(painter, iOffsetX, iOffsetY);
 }
+
 void GameModule::setGameIsRun(bool bIsRun)
 {
     m_bIsGameRun = bIsRun;
@@ -134,11 +135,6 @@ void GameModule::updateCharactersStatus()
             m_pMapModule->setGrid(uiGridX, uiGridY, false);
         }
 
-        curGridX = pCharacter->getCurrentGridX();
-        curGridY = pCharacter->getCurrentGridY();
-
-        m_pMapModule->setGrid(curGridX, curGridY, true);
-
     }
 }
 
@@ -149,13 +145,15 @@ void GameModule::setMapSize(const unsigned int &uiGridWidth, const unsigned int 
 
 void GameModule::setCharacterStatus(const int &id , const unsigned int uiX, const unsigned int uiY, const int iDirection, const int iStep)
 {
-    setCharacterTargetPos(id, uiX, uiY);
+    setCharacterPos(id, uiX, uiY);
+
     setCharacterPosture(id, iDirection, iStep);
 }
 
 void GameModule::setCharacterStatus(const QString &name , const unsigned int uiX, const unsigned int uiY, const int iDirection, const int iStep)
 {
-    setCharacterTargetPos(name, uiX, uiY);
+    setCharacterPos(name, uiX, uiY);
+
     setCharacterPosture(name, iDirection, iStep);
 }
 

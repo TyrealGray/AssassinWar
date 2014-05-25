@@ -203,8 +203,6 @@ bool GameScreen::loadGameMap(const QString& currntMapName)
     QWidget* pMapWidget =  m_pGameModule->loadMap(MapManager::instance().getMapPath(currntMapName));
     if(NULL != pMapWidget)
     {
-        setWidget(pMapWidget);
-
         int iMapWidth = (pMapWidget->size().width() > size().width()) ? pMapWidget->size().width() : m_iScreenWidth;
         int iMapHeight = (pMapWidget->size().height() > size().height()) ? pMapWidget->size().height() : m_iScreenHeight;
 
@@ -213,6 +211,9 @@ bool GameScreen::loadGameMap(const QString& currntMapName)
 
         if(GRID_NUMBER_IS_ZERO != iBottomRightGridRowIndex && GRID_NUMBER_IS_ZERO != iBottomRightGridColumnIndex)
         {
+            setWidget(pMapWidget);
+
+            setMapName(currntMapName);
 
             m_pGameModule->setMapSize(iBottomRightGridColumnIndex + 1, iBottomRightGridRowIndex + 1);
 
@@ -229,6 +230,16 @@ bool GameScreen::loadGameMap(const QString& currntMapName)
     }
 
     return bLoadGameMapSuccessed;
+}
+
+void GameScreen::setMapName(const QString& mapName)
+{
+    m_mapName = mapName;
+}
+
+QString GameScreen::getMapName()
+{
+    return m_mapName;
 }
 
 void GameScreen::onMouseClick(QMouseEvent *mouseEvent)

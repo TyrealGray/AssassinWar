@@ -2,10 +2,7 @@
 #include <QObject>
 #include <memory>
 
-
-
 #include "Character.h"
-
 
 class QWidget;
 class QPainter;
@@ -32,6 +29,8 @@ public:
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
 
     void setGameIsRun(bool bIsRun);
+
+    void setMirror(bool bIsMirror);
 
     void setPlayerName(const QString& name);
 

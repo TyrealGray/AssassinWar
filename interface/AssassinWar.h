@@ -6,6 +6,7 @@
 class QTimer;
 class GameScreen;
 class ToolbarManager;
+class JoinGameDlg;
 class GameSettingDlg;
 class AssassinWar : public QMainWindow
 {
@@ -36,7 +37,11 @@ private slots:
 
     void onButttonHost();
 
+    void onButtonJoin();
+
     void hostGame();
+
+    void joinGame();
 
     void showMainWin();
 
@@ -46,6 +51,7 @@ private:
     GameScreen* m_pGameScreen;
     ToolbarManager* m_pToolbarManager;
     GameSettingDlg* m_pGameSettingDlg;
+    JoinGameDlg* m_pJoinGameDlg;
     bool m_bIsAWRun;
     unsigned int m_iScreenWidth;
     unsigned int m_iScreenHeight;
@@ -53,7 +59,8 @@ private:
 
     void initGameScreen();
     void initToolbarManager();
-    void initChoosingMapDlg();
+    void initJoinGameDlg();
+    void initGameSettingDlg();
     void initBackground(const QString& strBackgroundImagePath);
     void initToolbar();
     void initRepainter();

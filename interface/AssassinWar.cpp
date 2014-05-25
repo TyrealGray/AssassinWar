@@ -11,6 +11,7 @@
 #include "MapManager.h"
 #include "ToolbarManager.h"
 #include "GameSettingDlg.h"
+#include "JoinGameDlg.h"
 
 const int ICON_SIZE = 45;
 const int MAIN_WIN_WIDTH = 850;
@@ -20,7 +21,7 @@ AssassinWar::AssassinWar(const int &iWidth, const int &iHeight,
                          QWidget *parent, Qt::WFlags flags)
     : QMainWindow(parent, flags),
       m_pRepaintTimer(NULL), m_pToolbar(NULL), m_pGameScreen(NULL),
-      m_pToolbarManager(NULL), m_pGameSettingDlg(NULL),
+      m_pToolbarManager(NULL), m_pGameSettingDlg(NULL), m_pJoinGameDlg(NULL),
       m_bIsAWRun(false),
       m_iScreenWidth(iWidth), m_iScreenHeight(iHeight)
 {
@@ -79,7 +80,14 @@ void AssassinWar::onButttonHost()
 
     m_pGameSettingDlg->updateMapList(MapManager::instance().getMapList());
     m_pGameSettingDlg->show();
+}
 
+void AssassinWar::onButtonJoin()
+{
+    setMouseTracking(false);
+    m_pToolbar->setVisible(false);
+
+    m_pJoinGameDlg->show();
 }
 
 void AssassinWar::hostGame()
@@ -91,6 +99,13 @@ void AssassinWar::hostGame()
     m_pGameScreen->connectRoom(m_pGameSettingDlg->getPlayerName(), "127.0.0.1");
 }
 
+void AssassinWar::joinGame()
+{
+    m_pJoinGameDlg->hide();
+
+    m_pGameScreen->connectRoom(m_pJoinGameDlg->getPlayerName(), m_pJoinGameDlg->getHostServerIPAddress());
+}
+
 void AssassinWar::initMainWin()
 {
     setWindowFlags(Qt::FramelessWindowHint);
@@ -99,7 +114,9 @@ void AssassinWar::initMainWin()
 
     initToolbarManager();
 
-    initChoosingMapDlg();
+    initGameSettingDlg();
+
+    initJoinGameDlg();
 
     initToolbar();
 
@@ -123,6 +140,7 @@ void AssassinWar::initToolbar()
     m_pToolbar->setVisible(false);
 
     connect(m_pToolbarManager->getButtonHost(), SIGNAL(triggered()), this, SLOT(onButttonHost()));
+    connect(m_pToolbarManager->getButtonJoin(), SIGNAL(triggered()), this, SLOT(onButtonJoin()));
     connect(m_pToolbarManager->getButtonQuit(), SIGNAL(triggered()), this, SLOT(close()));
 }
 
@@ -146,12 +164,20 @@ void AssassinWar::initRepainter()
     m_pRepaintTimer->start(200);
 }
 
-void AssassinWar::initChoosingMapDlg()
+void AssassinWar::initGameSettingDlg()
 {
     m_pGameSettingDlg = new GameSettingDlg(this);
     m_pGameSettingDlg->initialize();
     connect(m_pGameSettingDlg, SIGNAL(createGame()), this, SLOT(hostGame()));
     connect(m_pGameSettingDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin()));
+}
+
+void AssassinWar::initJoinGameDlg()
+{
+    m_pJoinGameDlg = new JoinGameDlg(this);
+    m_pJoinGameDlg->initialize();
+    connect(m_pJoinGameDlg, SIGNAL(joinGame()), this, SLOT(joinGame()));
+    connect(m_pJoinGameDlg, SIGNAL(cancelJoinGame()), this, SLOT(showMainWin()));
 }
 
 void AssassinWar::initGameScreen()
@@ -174,7 +200,7 @@ void AssassinWar::gameRun()
 {
     setWindowState(Qt::WindowFullScreen);
 
-    initBackground(MapManager::instance().getMapBackground(m_pGameSettingDlg->getCurrentMap()));
+    initBackground(MapManager::instance().getMapBackground(m_pGameScreen->getMapName()));
 
     m_bIsAWRun = true;
 }

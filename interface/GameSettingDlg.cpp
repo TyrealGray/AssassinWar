@@ -21,26 +21,24 @@ GameSettingDlg::~GameSettingDlg()
     m_pGameSetting = NULL;
 }
 
-bool GameSettingDlg::initialize()
+void GameSettingDlg::initialize()
 {
-    bool bInitDlgSuccessed = true;
-
     QVBoxLayout* pDlgLayout = new QVBoxLayout;
 
     QHBoxLayout* pDlgBtnLayout = new QHBoxLayout;
     QHBoxLayout* pPlayerNameEditLayout = new QHBoxLayout;
     QHBoxLayout* pComboLayout = new QHBoxLayout;
 
-    QLabel* pMapListLabel = new QLabel(tr("select a map to create a game"));
-    m_pMapList = new QComboBox;
-    pComboLayout->addWidget(pMapListLabel);
-    pComboLayout->addWidget(m_pMapList);
-
     QLabel* pPlayerEditLabel = new QLabel(tr("Name: "));
     m_pPlayerNameEdit = new QLineEdit();
     pPlayerNameEditLayout->addWidget(pPlayerEditLabel);
     pPlayerNameEditLayout->addWidget(m_pPlayerNameEdit);
     pPlayerNameEditLayout->addStretch();
+
+    QLabel* pMapListLabel = new QLabel(tr("select a map to create a game"));
+    m_pMapList = new QComboBox;
+    pComboLayout->addWidget(pMapListLabel);
+    pComboLayout->addWidget(m_pMapList);
 
     QPushButton* pCreateGameBtn = new QPushButton(tr("Create Game"));
 
@@ -56,25 +54,13 @@ bool GameSettingDlg::initialize()
 
     connect(pCreateGameBtn, SIGNAL(clicked()), this, SLOT(onBtnCreateGame()));
 
-    return bInitDlgSuccessed;
 }
 
-bool GameSettingDlg::updateMapList(const QStringList& mapList)
+void GameSettingDlg::updateMapList(const QStringList& mapList)
 {
-    bool bUpdateMapSuceessed = true;
-
     m_pMapList->clear();
 
-    if(0 == mapList.size())
-    {
-        bUpdateMapSuceessed = false;
-    }
-    else
-    {
-        m_pMapList->addItems(mapList);
-    }
-
-    return bUpdateMapSuceessed;
+    m_pMapList->addItems(mapList);
 }
 
 QString GameSettingDlg::getCurrentMap()

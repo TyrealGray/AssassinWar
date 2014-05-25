@@ -16,9 +16,9 @@ public:
     GameSettingDlg(QWidget *parent = 0);
     ~GameSettingDlg();
 
-    bool initialize();
+    void initialize();
 
-    bool updateMapList(const QStringList& mapList);
+    void updateMapList(const QStringList& mapList);
 
     QString getPlayerName();
 
@@ -30,8 +30,10 @@ protected:
 signals:
     void createGame();
     void cancelCreateGame();
+
 private slots:
     void onBtnCreateGame();
+
 private:
     QLineEdit* m_pPlayerNameEdit;
     QComboBox* m_pMapList;

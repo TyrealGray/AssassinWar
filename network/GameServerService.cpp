@@ -138,7 +138,7 @@ void GameServerService::sendMapName()
 
     blockControl << quint16(0) << quint8(CURRENT_MAP);
 
-    blockControl << m_mapName ;
+    blockControl << m_mapName;
 
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));

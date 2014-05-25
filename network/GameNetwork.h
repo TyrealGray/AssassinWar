@@ -11,6 +11,8 @@ public:
     GameNetwork(const QString& name, GameModule* gameModule, QObject *parent = 0);
     ~GameNetwork(void);
 
+    bool isConnectLocal();
+
     void connectRoomIP(const QString& ipAddress);
 
     void addPlayer();
@@ -18,6 +20,8 @@ public:
     void joinRequest();
 
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);
+
+    void setConnectLocal(bool bIsConnectLocal);
 
 signals:
 
@@ -37,6 +41,7 @@ private:
     QTimer* m_pUpdateTimer;
     GameModule* m_pGameModule;
     bool m_bIsInit;
+    bool m_bIsConnectLocal;
     QString m_name;
     quint16 m_nextBlockSize;
 

@@ -35,6 +35,10 @@ public:
 
     void drawAllGameScreen(QPainter& painter);
 
+    void setMapName(const QString& mapName);
+
+    QString getMapName();
+
 signals:
 
     void screenOpened();
@@ -60,6 +64,7 @@ private:
     bool m_bIsScreenOpen;
     int m_iScreenWidth;
     int m_iScreenHeight;
+    QString m_mapName;
 
     void closeRoomConnect();
     void closeServer();
