@@ -9,7 +9,7 @@ class GameServer : public QTcpServer
 {
     Q_OBJECT
 public:
-    GameServer(GameModule* gameModule, QObject * parent = 0);
+    GameServer(GameModule* gameModule, const QString& strCurrntMapName, QObject * parent = 0);
     ~GameServer(void);
 
     bool hostServer();
@@ -21,6 +21,8 @@ private:
     QTimer* m_pGameUpdateTimer;
     GameModule* m_pGameModule;
     QThread* m_pGameUpdateThread;
+    QString m_mapName;
+
     void initGameUpdateThread();
     void initGameModuleDataUpdateTimer();
 };

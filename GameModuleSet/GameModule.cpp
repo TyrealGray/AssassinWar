@@ -1,23 +1,24 @@
+#include <stdlib.h>
+#include <time.h>
+
 #include <QPainter>
 
 #include "GameModule.h"
 #include "MapModule.h"
 #include "CharacterModule.h"
 
+const int NUMBER_OF_CLASSES = 1;
 GameModule::GameModule(QObject * parent /*= 0*/)
     : QObject(parent),
-      m_pMapModule(NULL), m_pCharacterModule(NULL)
+      m_pMapModule(NULL), m_pCharacterModule(NULL),
+      m_bIsGameRun(false), m_playerName("")
 {
 }
 
 
 GameModule::~GameModule(void)
 {
-    delete m_pMapModule;
-    m_pMapModule = NULL;
-
-    delete m_pCharacterModule;
-    m_pCharacterModule = NULL;
+    release();
 }
 
 void GameModule::init()
@@ -28,6 +29,7 @@ void GameModule::init()
     m_pCharacterModule = new CharacterModule();
     m_pCharacterModule->init();
 }
+
 
 QWidget* GameModule::loadMap(const QString& strMapPath)
 {
@@ -41,17 +43,72 @@ void GameModule::loadMapTerrain()
 
 void GameModule::addNewPlayer(const QString& name)
 {
-    m_pCharacterModule->addNewPlayer(name);
+    srand((unsigned)time(NULL));
+
+    unsigned int uiType = (rand() % NUMBER_OF_CLASSES) + 1;
+
+    m_pCharacterModule->addNewPlayer(name, uiType);
+
+    unsigned int uiX = 0;
+    unsigned int uiY = 0;
+
+    do
+    {
+        uiX = (rand() % m_pMapModule->getWidth()) + 1;
+        uiY = (rand() % m_pMapModule->getHeight()) + 1;
+    }
+    while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+
+    m_pCharacterModule->setCharacterPos(name, uiX, uiY);
+
+    m_pMapModule->setGrid(uiX, uiY, false);
+}
+
+void GameModule::addNewCharacter(unsigned int number /* = 1 */)
+{
+    srand((unsigned)time(NULL));
+
+    unsigned int uiX = 0;
+    unsigned int uiY = 0;
+
+    for(unsigned int index = 0 ; index < number; ++index)
+    {
+        m_pCharacterModule->addCharacter();
+
+        do
+        {
+            uiX = (rand() % m_pMapModule->getWidth()) + 1;
+            uiY = (rand() % m_pMapModule->getHeight()) + 1;
+        }
+        while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+
+        m_pCharacterModule->setCharacterPos(getNumberOfCharacter() - 1 , uiX, uiY);
+
+        m_pMapModule->setGrid(uiX, uiY, false);
+    }
+
 }
 
 void GameModule::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
     m_pCharacterModule->drawAllCharacter(painter, iOffsetX, iOffsetY);
 }
+void GameModule::setGameIsRun(bool bIsRun)
+{
+    m_bIsGameRun = bIsRun;
+}
+
+void GameModule::setPlayerName(const QString& name)
+{
+    m_playerName = name;
+}
 
 void GameModule::updateCharactersStatus()
 {
-    //m_pCharacterModule->updateCharactersStatus();
+    if(!m_bIsGameRun)
+    {
+        return;
+    }
 
     unsigned int uiGridX = 0;
     unsigned int uiGridY = 0;
@@ -124,12 +181,12 @@ void GameModule::setCharacterPosture(const QString &name, const int &iDirection,
 
 unsigned int GameModule::getPlayerGridX()
 {
-    return 0;
+    return NULL != getCharacterByName(m_playerName) ? getCharacterByName(m_playerName)->getCurrentGridX() : 1;
 }
 
 unsigned int GameModule::getPlayerGridY()
 {
-    return 0;
+    return NULL != getCharacterByName(m_playerName) ? getCharacterByName(m_playerName)->getCurrentGridY() : 1;
 }
 
 std::shared_ptr<Character> GameModule::getCharacterByID(const int id)
@@ -155,4 +212,24 @@ void GameModule::setCharacterTargetPos(const int &id, const unsigned int uiX, co
 void GameModule::setCharacterTargetPos(const QString &name, const unsigned int uiX, const unsigned int uiY)
 {
     m_pCharacterModule->setCharacterTargetPos(name, uiX, uiY);
+}
+
+bool GameModule::isGameRun()
+{
+    return m_bIsGameRun;
+};
+
+void GameModule::clear()
+{
+    release();
+    init();
+}
+
+void GameModule::release()
+{
+    delete m_pMapModule;
+    m_pMapModule = NULL;
+
+    delete m_pCharacterModule;
+    m_pCharacterModule = NULL;
 }

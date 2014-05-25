@@ -28,7 +28,7 @@ MapManager& MapManager::instance()
 
 QString MapManager::getMapPath(const QString& strMapName)
 {
-    return "./map/" +  strMapName + ".ui";
+    return "./Map/" +  strMapName + ".ui";
 }
 
 QString MapManager::getMapBackground(const QString& strMapName)

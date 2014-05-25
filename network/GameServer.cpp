@@ -5,9 +5,10 @@
 #include "GameModule.h"
 #include "GameServerService.h"
 
-GameServer::GameServer(GameModule* gameModule, QObject * parent /* = 0*/)
+GameServer::GameServer(GameModule* gameModule, const QString& strCurrntMapName, QObject * parent /* = 0*/)
     : QTcpServer(parent),
-      m_pGameUpdateTimer(NULL), m_pGameModule(gameModule), m_pGameUpdateThread(NULL)
+      m_pGameUpdateTimer(NULL), m_pGameModule(gameModule), m_pGameUpdateThread(NULL),
+      m_mapName(strCurrntMapName)
 {
 }
 
@@ -28,7 +29,7 @@ bool GameServer::hostServer()
 
 void GameServer::incomingConnection(int socketID)
 {
-    GameServerService * pThread = new GameServerService(socketID, m_pGameModule, this);
+    GameServerService * pThread = new GameServerService(socketID, m_pGameModule, m_mapName, this);
     connect(pThread, SIGNAL(finished()), pThread, SLOT(deleteLater()));
     pThread->start();
 }

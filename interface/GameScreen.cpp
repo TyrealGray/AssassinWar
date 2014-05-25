@@ -75,14 +75,9 @@ void GameScreen::initScreen()
     verticalScrollBar()->setVisible(false);
 }
 
-void GameScreen::initServer()
+void GameScreen::initServer(const QString& strCurrntMapName)
 {
-    if(NULL == m_pGameModule)
-    {
-        initGameModule();
-    }
-
-    m_pGameServer = new GameServer(m_pGameModule, this);
+    m_pGameServer = new GameServer(m_pGameModule, strCurrntMapName, this);
 
     m_pGameServer->hostServer();
 }
@@ -94,23 +89,38 @@ void GameScreen::initGameModule()
     m_pGameModule->init();
 }
 
-void GameScreen::openScreen(const QString& strCurrntMapName)
+void GameScreen::openScreen(const QString& currntMapName)
 {
-    m_bIsScreenOpen = loadGameMap(strCurrntMapName);
+    m_bIsScreenOpen = loadGameMap(currntMapName);
 }
 
-void GameScreen::connectRoom(const QString& strPlayerName, const QString& ipAddress)
+void GameScreen::connectRoom(const QString& playerName, const QString& ipAddress)
 {
-    m_pGameNetwork = new GameNetwork(strPlayerName, m_pGameModule, this);
+    m_pGameNetwork = new GameNetwork(playerName, m_pGameModule, this);
 
-    connect(m_pGameNetwork, SIGNAL(networkConnected()), this, SLOT(gameRoomConnected()));
+    m_pGameModule->setPlayerName(playerName);
+
+    connect(m_pGameNetwork, SIGNAL(mapNameUpdate(QString)), this, SLOT(gameRoomConnected(QString)));
 
     m_pGameNetwork->connectRoomIP(ipAddress);
 }
 
-void GameScreen::gameRoomConnected()
+void GameScreen::gameRoomConnected(QString mapName)
 {
-    emit screenOpened();
+    m_bIsScreenOpen = loadGameMap(mapName);
+
+    m_pGameModule->setGameIsRun(m_bIsScreenOpen);
+
+    if(m_bIsScreenOpen)
+    {
+        m_pGameNetwork->addPlayer();
+
+        emit screenOpened();
+    }
+    else
+    {
+        emit screenClosed();
+    }
 }
 
 void GameScreen::closeScreen()
@@ -118,6 +128,8 @@ void GameScreen::closeScreen()
     closeRoomConnect();
 
     closeServer();
+
+    clearGameModule();
 
     QWidget* pCurrentWid = this->widget();
 
@@ -154,6 +166,14 @@ void GameScreen::closeServer()
     }
 }
 
+void GameScreen::clearGameModule()
+{
+    if(NULL != m_pGameModule)
+    {
+        m_pGameModule->clear();
+    }
+}
+
 int GameScreen::getScreenOffsetX()const
 {
     return horizontalScrollBar()->value();
@@ -166,17 +186,21 @@ int GameScreen::getScreenOffsetY()const
 
 void GameScreen::drawAllGameScreen(QPainter& painter)
 {
-    //int iPlayerX = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridX());
-    //int iPlayerY = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridY());
-    //ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+    if(m_pGameModule->isGameRun())
+    {
+        int iPlayerX = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridX());
+        int iPlayerY = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridY());
+        ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+    }
+
     m_pGameModule->drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
 
-bool GameScreen::loadGameMap(const QString& strCurrntMapName)
+bool GameScreen::loadGameMap(const QString& currntMapName)
 {
     bool bLoadGameMapSuccessed = false;
 
-    QWidget* pMapWidget =  m_pGameModule->loadMap(MapManager::instance().getMapPath(strCurrntMapName));
+    QWidget* pMapWidget =  m_pGameModule->loadMap(MapManager::instance().getMapPath(currntMapName));
     if(NULL != pMapWidget)
     {
         setWidget(pMapWidget);

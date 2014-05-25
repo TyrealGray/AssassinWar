@@ -40,16 +40,26 @@ void GameNetwork::initNetworkRequest()
 {
     disconnect(this, SIGNAL(connected()), this, SLOT(initNetworkRequest()));
 
-    addPlayer();
-
-    initUpdateTimer();
-
-    emit networkConnected();
+    joinRequest();
 }
 
 void GameNetwork::connectToServer(const QString& ipAddress)
 {
     this->connectToHost(ipAddress, 8126);
+}
+
+void GameNetwork::joinRequest()
+{
+    QByteArray block;
+    QDataStream blockControl(&block, QIODevice::WriteOnly);
+    blockControl.setVersion(QDataStream::Qt_4_8);
+
+    blockControl << quint16(0) << quint8(JOIN_REQUEST) ;
+
+    blockControl.device()->seek(0);
+    blockControl << quint16(block.size() - sizeof(quint16));
+
+    this->write(block);
 }
 
 void GameNetwork::addPlayer()
@@ -111,22 +121,13 @@ void GameNetwork::updateGame()
 
         serverBlock >> blockType;
 
-        if(UPDATA_STATUS == blockType)
+        if(UPDATA_CHARACTER == blockType)
         {
-            qint32 iNumberOfCharacter = 0;
-            qint32 characterID = 0;
-            quint32 uiCharacterX = 0;
-            quint32 uiCharacterY = 0;
-            quint32 uiDirection = 0;
-            quint32 uiStep = 0;
-
-            serverBlock >> iNumberOfCharacter;
-
-            for(int index = 0 ; index < iNumberOfCharacter; ++index)
-            {
-                serverBlock >> characterID >> uiCharacterX >> uiCharacterY >> uiDirection >> uiStep;
-                m_pGameModule->setCharacterStatus(index, uiCharacterX, uiCharacterY, uiDirection, uiStep);
-            }
+            updateCharacter(serverBlock);
+        }
+        else if(CURRENT_MAP == blockType)
+        {
+            updateMapName(serverBlock);
         }
         else
         {
@@ -149,7 +150,7 @@ void GameNetwork::sendUpdatePositionRequest()
     blockControl.setVersion(QDataStream::Qt_4_8);
     unsigned short blockSize = 0;
 
-    blockControl << quint16(0) << quint8(UPDATA_STATUS);
+    blockControl << quint16(0) << quint8(UPDATA_CHARACTER);
 
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));
@@ -160,4 +161,38 @@ void GameNetwork::sendUpdatePositionRequest()
 bool GameNetwork::isAvailablePackageSizeSmallThan(quint16 size)
 {
     return (this->bytesAvailable() < size);
+}
+
+void GameNetwork::updateCharacter(QDataStream& serverBlock)
+{
+    qint32 iNumberOfCharacter = 0;
+    qint32 characterID = 0;
+    quint32 uiCharacterX = 0;
+    quint32 uiCharacterY = 0;
+    quint32 uiDirection = 0;
+    quint32 uiStep = 0;
+
+    serverBlock >> iNumberOfCharacter;
+
+    if(iNumberOfCharacter > m_pGameModule->getNumberOfCharacter())
+    {
+        m_pGameModule->addNewCharacter(iNumberOfCharacter - m_pGameModule->getNumberOfCharacter());
+    }
+
+    for(int index = 0 ; index < iNumberOfCharacter; ++index)
+    {
+        serverBlock >> characterID >> uiCharacterX >> uiCharacterY >> uiDirection >> uiStep;
+        m_pGameModule->setCharacterStatus(index, uiCharacterX, uiCharacterY, uiDirection, uiStep);
+    }
+}
+
+void GameNetwork::updateMapName(QDataStream& serverBlock)
+{
+    QString mapName;
+
+    serverBlock >> mapName;
+
+    initUpdateTimer();
+
+    emit mapNameUpdate(mapName);
 }

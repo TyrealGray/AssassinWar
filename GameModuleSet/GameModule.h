@@ -27,7 +27,13 @@ public:
 
     void addNewPlayer(const QString& name);
 
+    void addNewCharacter(unsigned int number = 1);
+
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
+
+    void setGameIsRun(bool bIsRun);
+
+    void setPlayerName(const QString& name);
 
     void setMapSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);
 
@@ -51,6 +57,10 @@ public:
 
     int getNumberOfCharacter();
 
+    bool isGameRun();
+
+    void clear();
+
 private slots:
 
     void updateCharactersStatus();
@@ -58,5 +68,8 @@ private slots:
 private:
     MapModule* m_pMapModule;
     CharacterModule* m_pCharacterModule;
+    bool m_bIsGameRun;
+    QString m_playerName;
+    void release();
 };
 

@@ -13,7 +13,6 @@ Character::Character(int id, unsigned int uiSpeed)
       m_iDirection(GO_DOWN), m_iLastTimeDirection(GO_DOWN),
       m_iStep(0), m_iFpsStep(0), m_imgPathBegin("")
 {
-    m_pLock = new QReadWriteLock();
 }
 
 Character::~Character(void)
@@ -27,13 +26,14 @@ Character::~Character(void)
 
 void Character::init()
 {
+    m_pLock = new QReadWriteLock();
+
     m_pCharacter = new QImage();
 
     setImgPathBegin("./Resources/Character/CivilianGrandPa");
 
     updateNextCharacterImg();
 
-    m_pLock = new QReadWriteLock();
 }
 
 void Character::die()
@@ -57,6 +57,7 @@ void Character::setPosition(const unsigned int &uiX, const unsigned int &uiY)
 {
     setCurrentX(PixelCoordinateTransfer::toPixel(uiX));
     setCurrentY(PixelCoordinateTransfer::toPixel(uiY));
+    goTo(uiX, uiY);
 }
 
 void Character::updateNextPosture()

@@ -11,20 +11,28 @@ CharacterModule::CharacterModule(void)
 
 CharacterModule::~CharacterModule(void)
 {
+    delete m_pCharacterManager;
+    m_pCharacterManager = NULL;
 }
 
 void CharacterModule::init()
 {
     m_pCharacterManager = new CharacterManager();
+    m_pCharacterManager->init();
 }
 void CharacterModule::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
     m_pCharacterManager->drawAllCharacter(painter, iOffsetX, iOffsetY);
 }
 
-void CharacterModule::addNewPlayer(const QString& name)
+void CharacterModule::addNewPlayer(const QString& name, unsigned int uiType)
 {
-    m_pCharacterManager->addPlayer(name);
+    m_pCharacterManager->addPlayer(name, uiType);
+}
+
+void CharacterModule::addCharacter()
+{
+    m_pCharacterManager->addCivilian();
 }
 
 int CharacterModule::getNumberOfCharacter()

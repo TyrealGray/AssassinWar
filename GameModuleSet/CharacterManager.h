@@ -18,9 +18,11 @@ public:
     CharacterManager();
     ~CharacterManager();
 
+    void init();
+
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
 
-    void addPlayer(const QString& playerName);
+    void addPlayer(const QString& playerName, unsigned int uiType);
 
     void addCivilian();
 

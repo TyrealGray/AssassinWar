@@ -15,11 +15,15 @@ public:
 
     void addPlayer();
 
+    void joinRequest();
+
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);
 
 signals:
 
     void networkConnected();
+
+    void mapNameUpdate(QString mapName);
 
 private slots:
 
@@ -43,5 +47,9 @@ private:
     void connectToServer(const QString& ipAddress);
 
     bool isAvailablePackageSizeSmallThan(quint16 size);
+
+    void updateCharacter(QDataStream& serverBlock);
+
+    void updateMapName(QDataStream& serverBlock);
 
 };

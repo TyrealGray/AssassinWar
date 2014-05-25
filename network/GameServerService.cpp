@@ -5,11 +5,12 @@
 #include "Character.h"
 
 const unsigned short PACKAGE_END = 0x55aa;
-GameServerService::GameServerService(int iSicketID, GameModule* gameModule, QObject *parent)
+GameServerService::GameServerService(int iSicketID, GameModule* gameModule, const QString& currntMapName, QObject *parent)
     : QThread(parent),
       m_pTcpSocket(NULL),
       m_pGameModule(gameModule),
       m_iSocketID(iSicketID),
+      m_mapName(currntMapName),
       m_nextBlockSize(0)
 {
 
@@ -70,7 +71,7 @@ void GameServerService::readInComeRequest()
         inComeRequest >> name >> uiCharacterX >> uiCharacterY;
         m_pGameModule->setCharacterTargetPos(name, uiCharacterX, uiCharacterY);
     }
-    else if(UPDATA_STATUS == blockType)
+    else if(UPDATA_CHARACTER == blockType)
     {
         sendCharacterPositionData();
     }
@@ -80,6 +81,14 @@ void GameServerService::readInComeRequest()
 
         inComeRequest >> name ;
         m_pGameModule->addNewPlayer(name);
+    }
+    else if(JOIN_REQUEST == blockType)
+    {
+        sendMapName();
+    }
+    else
+    {
+
     }
 
     m_nextBlockSize = 0;
@@ -91,7 +100,7 @@ void GameServerService::sendCharacterPositionData()
     QDataStream blockControl(&block, QIODevice::WriteOnly);
     blockControl.setVersion(QDataStream::Qt_4_8);
 
-    blockControl << quint16(0) << quint8(UPDATA_STATUS);
+    blockControl << quint16(0) << quint8(UPDATA_CHARACTER);
 
     int iNumberOfCharacter = m_pGameModule->getNumberOfCharacter();
 
@@ -111,6 +120,25 @@ void GameServerService::sendCharacterPositionData()
 
         blockControl << index << uiCharacterX << uiCharacterY << uiDirection << uiStep;
     }
+
+    blockControl.device()->seek(0);
+    blockControl << quint16(block.size() - sizeof(quint16));
+
+    m_pTcpSocket->write(block);
+
+    QDataStream end(m_pTcpSocket);
+    end << quint16(PACKAGE_END);
+}
+
+void GameServerService::sendMapName()
+{
+    QByteArray block;
+    QDataStream blockControl(&block, QIODevice::WriteOnly);
+    blockControl.setVersion(QDataStream::Qt_4_8);
+
+    blockControl << quint16(0) << quint8(CURRENT_MAP);
+
+    blockControl << m_mapName ;
 
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));

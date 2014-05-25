@@ -7,9 +7,11 @@ TEST(CharacterManagerTest, getNumberOfCharacterTest)
 {
     CharacterManager manager;
 
+    manager.init();
+
     EXPECT_EQ(0, manager.getNumberOfCharacter());
 
-    manager.addPlayer("test1");
+    manager.addPlayer("test1", 1);
 
     EXPECT_EQ(1, manager.getNumberOfCharacter());
 
@@ -17,11 +19,11 @@ TEST(CharacterManagerTest, getNumberOfCharacterTest)
 
     EXPECT_EQ(2, manager.getNumberOfCharacter());
 
-    manager.addPlayer("test1");
+    manager.addPlayer("test1", 1);
 
     EXPECT_EQ(2, manager.getNumberOfCharacter());
 
-    manager.addPlayer("test2");
+    manager.addPlayer("test2", 1);
 
     EXPECT_EQ(3, manager.getNumberOfCharacter());
 }

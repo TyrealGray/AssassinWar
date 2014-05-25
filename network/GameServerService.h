@@ -9,7 +9,7 @@ class GameServerService : public QThread
     Q_OBJECT
 
 public:
-    GameServerService(int iSocketID, GameModule* gameModule, QObject *parent);
+    GameServerService(int iSocketID, GameModule* gameModule, const QString& currntMapName, QObject *parent);
     ~GameServerService(void);
 
 protected:
@@ -25,9 +25,12 @@ private:
     QTcpSocket* m_pTcpSocket;
     GameModule* m_pGameModule;
     int m_iSocketID;
+    QString m_mapName;
     quint16 m_nextBlockSize;
 
     void sendCharacterPositionData();
+
+    void sendMapName();
 
     bool isAvailablePackageSizeSmallThan(quint16 size);
 };

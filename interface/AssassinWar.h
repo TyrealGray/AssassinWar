@@ -36,7 +36,7 @@ private slots:
 
     void onButttonHost();
 
-    void initMap();
+    void hostGame();
 
     void showMainWin();
 

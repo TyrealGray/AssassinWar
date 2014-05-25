@@ -1,6 +1,3 @@
-#include <stdlib.h>
-#include <time.h>
-
 #include <QReadWriteLock>
 
 #include "CharacterManager.h"
@@ -10,18 +7,23 @@
 
 
 const int NORMAL_SPEED = 10;
-const int NumberOfClass = 1;
+
 CharacterManager::CharacterManager()
     : m_pLock(NULL), m_uiNumberOfCharacter(0)
 {
-    m_pLock = new QReadWriteLock();
-    m_charactersVec.reserve(50);
+
 }
 
 CharacterManager::~CharacterManager()
 {
     delete m_pLock;
     m_pLock = NULL;
+}
+
+void CharacterManager::init()
+{
+    m_pLock = new QReadWriteLock();
+    m_charactersVec.reserve(50);
 }
 
 void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
@@ -36,14 +38,15 @@ void CharacterManager::drawAllCharacter(QPainter &painter, int iOffsetX, int iOf
     m_pLock->unlock();
 }
 
-void CharacterManager::addPlayer(const QString& playerName)
+void CharacterManager::addPlayer(const QString& playerName, unsigned int uiType)
 {
     if(m_name2IDMap.end() == m_name2IDMap.find(playerName))
     {
-        srand((unsigned)time(NULL));
-        unsigned int uiType = (rand() % NumberOfClass) + 1;
+        m_pLock->lockForWrite();
 
         m_name2IDMap.insert(std::make_pair(playerName, m_uiNumberOfCharacter));
+
+        m_pLock->unlock();
 
         addCharacter(uiType);
     }

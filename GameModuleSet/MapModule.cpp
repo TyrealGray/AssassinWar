@@ -13,6 +13,11 @@ MapModule::MapModule(void)
 
 MapModule::~MapModule(void)
 {
+    delete m_pUnderGrid;
+    m_pUnderGrid = NULL;
+
+    delete m_pMapLoader;
+    m_pMapLoader = NULL;
 }
 
 void MapModule::init()
@@ -38,9 +43,11 @@ bool MapModule::getGrid(const unsigned int& uiX, const unsigned int& uiY)
     return ((NULL == m_pUnderGrid->getGrid(uiX, uiY)) ? false : m_pUnderGrid->getGrid(uiX, uiY)->isAble());
 }
 
-void MapModule::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight)
+void MapModule::setSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridHeight)
 {
-    m_pUnderGrid->setSize(uiGridWidth, uiGridheight);
+    m_uiWidth = uiGridWidth;
+    m_uiHeight = uiGridHeight;
+    m_pUnderGrid->setSize(uiGridWidth, uiGridHeight);
 }
 
 void MapModule::loadTerrain()
@@ -62,4 +69,14 @@ void MapModule::loadTerrain()
             iTerrainBottomRY
         );
     }
+}
+
+unsigned int MapModule::getWidth()
+{
+    return m_uiWidth;
+}
+
+unsigned int MapModule::getHeight()
+{
+    return m_uiHeight;
 }

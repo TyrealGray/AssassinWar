@@ -72,7 +72,6 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
     }
 }
 
-
 void AssassinWar::onButttonHost()
 {
     setMouseTracking(false);
@@ -83,18 +82,14 @@ void AssassinWar::onButttonHost()
 
 }
 
-void AssassinWar::initMap()
+void AssassinWar::hostGame()
 {
     m_pGameSettingDlg->hide();
 
-    m_pGameScreen->initServer();
-
-    m_pGameScreen->openScreen(m_pGameSettingDlg->getCurrentMap());
+    m_pGameScreen->initServer(m_pGameSettingDlg->getCurrentMap());
 
     m_pGameScreen->connectRoom(m_pGameSettingDlg->getPlayerName(), "127.0.0.1");
 }
-
-
 
 void AssassinWar::initMainWin()
 {
@@ -155,7 +150,7 @@ void AssassinWar::initChoosingMapDlg()
 {
     m_pGameSettingDlg = new GameSettingDlg(this);
     m_pGameSettingDlg->initialize();
-    connect(m_pGameSettingDlg, SIGNAL(createGame()), this, SLOT(initMap()));
+    connect(m_pGameSettingDlg, SIGNAL(createGame()), this, SLOT(hostGame()));
     connect(m_pGameSettingDlg, SIGNAL(cancelCreateGame()), this, SLOT(showMainWin()));
 }
 
@@ -164,6 +159,8 @@ void AssassinWar::initGameScreen()
     m_pGameScreen = new GameScreen(m_iScreenWidth, m_iScreenHeight);
 
     m_pGameScreen->initScreen();
+
+    m_pGameScreen->initGameModule();
 
     m_pGameScreen->setStyleSheet("background-color:transparent;");
 

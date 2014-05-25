@@ -19,11 +19,13 @@ public:
 
     void initScreen();
 
-    void initServer();
+    void initGameModule();
 
-    void openScreen(const QString& strCurrntMapName);
+    void initServer(const QString& currntMapName);
 
-    void connectRoom(const QString& strPlayerName, const QString& ipAddress);
+    void openScreen(const QString& currntMapName);
+
+    void connectRoom(const QString& playerName, const QString& ipAddress);
 
     void closeScreen();
 
@@ -49,7 +51,7 @@ protected:
 
 private slots:
 
-    void gameRoomConnected();
+    void gameRoomConnected(QString mapName);
 
 private:
     GameModule* m_pGameModule;
@@ -59,9 +61,9 @@ private:
     int m_iScreenWidth;
     int m_iScreenHeight;
 
-    void initGameModule();
     void closeRoomConnect();
     void closeServer();
+    void clearGameModule();
     bool loadGameMap(const QString& strCurrntMapName);
     void onMouseClick(QMouseEvent *mouseEvent);
     void onMouseLeft(QMouseEvent *mouseEvent);

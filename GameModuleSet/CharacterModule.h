@@ -14,7 +14,9 @@ public:
 
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
 
-    void addNewPlayer(const QString& name);
+    void addNewPlayer(const QString& name, unsigned int uiType);
+
+    void addCharacter();
 
     int getNumberOfCharacter();
 
