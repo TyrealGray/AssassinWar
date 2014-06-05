@@ -13,7 +13,7 @@ class Character
 {
 public:
 
-    Character(int id, unsigned int uiSpeed);
+    Character(int id, unsigned int uiSpeed, unsigned int uiType);
 
     virtual ~Character(void);
 
@@ -60,6 +60,7 @@ private:
     QReadWriteLock* m_pLock;
     int m_id;
     unsigned int m_uiSpeed;
+    unsigned int m_uiType;
     unsigned int m_uiCurrentX;
     unsigned int m_uiCurrentY;
     unsigned int m_uiTargetGridX;

@@ -14,7 +14,6 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="CharacterManager.cpp" />
     <ClCompile Include="CharacterModule.cpp" />
-    <ClCompile Include="Civilian.cpp" />
     <ClCompile Include="GameModule.cpp" />
     <ClCompile Include="GameSetting.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_GameModule.cpp">
@@ -25,14 +24,11 @@
     </ClCompile>
     <ClCompile Include="MapModule.cpp" />
     <ClCompile Include="PixelCoordinateTransfer.cpp" />
-    <ClCompile Include="Ranger.cpp" />
-    <ClCompile Include="Warrior.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterManager.h" />
     <ClInclude Include="CharacterModule.h" />
-    <ClInclude Include="Civilian.h" />
     <CustomBuild Include="GameModule.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing GameModule.h...</Message>
@@ -46,8 +42,6 @@
     <ClInclude Include="GameSetting.h" />
     <ClInclude Include="MapModule.h" />
     <ClInclude Include="PixelCoordinateTransfer.h" />
-    <ClInclude Include="Ranger.h" />
-    <ClInclude Include="Warrior.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{949D72A1-F7A2-489A-BEAA-309A9157ABB9}</ProjectGuid>

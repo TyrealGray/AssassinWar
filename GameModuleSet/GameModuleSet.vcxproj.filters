@@ -44,9 +44,6 @@
     <ClCompile Include="CharacterModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Civilian.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GameModule.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,12 +54,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PixelCoordinateTransfer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ranger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Warrior.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_GameModule.cpp">
@@ -82,9 +73,6 @@
     <ClInclude Include="CharacterModule.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Civilian.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameSetting.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -92,12 +80,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PixelCoordinateTransfer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ranger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Warrior.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

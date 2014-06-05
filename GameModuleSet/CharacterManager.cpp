@@ -1,9 +1,6 @@
 #include <QReadWriteLock>
 
 #include "CharacterManager.h"
-#include "Civilian.h"
-#include "Warrior.h"
-#include "Ranger.h"
 
 
 const int NORMAL_SPEED = 10;
@@ -109,26 +106,9 @@ unsigned int CharacterManager::getNumberOfCharacter()
 
 std::shared_ptr<Character> CharacterManager::newCharacter(int iCharacterType)
 {
-    Character* pCharacter = NULL;
-    switch(iCharacterType)
-    {
-    case  CIVILIAN:
-        pCharacter = new Civilian(m_uiNumberOfCharacter, NORMAL_SPEED);
-        break;
-    case  WARRIOR:
-        pCharacter = new Warrior(m_uiNumberOfCharacter, NORMAL_SPEED);
-        break;
-    case RANGER:
-        pCharacter = new Ranger(m_uiNumberOfCharacter, NORMAL_SPEED);
-        break;
-    default:
-        break;
-    }
+    Character* pCharacter = new Character(m_uiNumberOfCharacter, NORMAL_SPEED, iCharacterType);
 
-    if(NULL != pCharacter)
-    {
-        pCharacter->init();
-    }
+    pCharacter->init();
 
     std::shared_ptr<Character> pNewCharacter(pCharacter);
     return pNewCharacter;

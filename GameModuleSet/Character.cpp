@@ -6,9 +6,9 @@
 
 
 const int FOOTAGE_IMG_CHANGE_STEP = 1;
-Character::Character(int id, unsigned int uiSpeed)
+Character::Character(int id, unsigned int uiSpeed, unsigned int uiType)
     : m_pCharacter(NULL), m_pLock(NULL),
-      m_id(id), m_uiSpeed(uiSpeed),
+      m_id(id), m_uiSpeed(uiSpeed), m_uiType(uiType),
       m_uiCurrentX(0), m_uiCurrentY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
       m_iDirection(GO_DOWN), m_iLastTimeDirection(GO_DOWN),
       m_iStep(0), m_iFpsStep(0), m_imgPathBegin("")

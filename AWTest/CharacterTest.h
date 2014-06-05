@@ -5,7 +5,7 @@
 
 TEST(CharacterTest, setPositionTest)
 {
-    Character person(0, 10);
+    Character person(0, 10, 0);
 
     person.init();
 
@@ -37,7 +37,7 @@ TEST(CharacterTest, setPositionTest)
 
 TEST(CharacterTest, setTargetPositionTest)
 {
-    Character person(0, 10);
+    Character person(0, 10, 0);
 
     person.init();
 
@@ -54,7 +54,7 @@ TEST(CharacterTest, setTargetPositionTest)
 
 TEST(CharacterTest, getNextPositionTest)
 {
-    Character person(0, 10);
+    Character person(0, 10, 0);
 
     person.init();
 
@@ -71,7 +71,7 @@ TEST(CharacterTest, getNextPositionTest)
 
 TEST(CharacterTest, updatePositionTest)
 {
-    Character person(0, 10);
+    Character person(0, 10, 0);
 
     person.init();
 
