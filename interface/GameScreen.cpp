@@ -115,6 +115,8 @@ void GameScreen::gameRoomConnected(QString mapName)
     {
         m_pGameNetwork->addPlayer();
 
+        m_pGameNetwork->randomNpcOnMap(20);
+
         emit screenOpened();
     }
     else

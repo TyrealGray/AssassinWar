@@ -29,10 +29,6 @@ void GameNetwork::connectRoomIP(const QString& ipAddress)
     {
         setConnectLocal(true);
     }
-    else
-    {
-        setConnectLocal(false);
-    }
 
     connectToServer(ipAddress);
 
@@ -93,13 +89,27 @@ void GameNetwork::addPlayer()
     this->write(block);
 }
 
+void GameNetwork::randomNpcOnMap(unsigned int numberOfNpc)
+{
+    QByteArray block;
+    QDataStream blockControl(&block, QIODevice::WriteOnly);
+    blockControl.setVersion(QDataStream::Qt_4_8);
+
+    blockControl << quint16(0) << quint8(ADD_NPC) << quint32(numberOfNpc) ;
+
+    blockControl.device()->seek(0);
+    blockControl << quint16(block.size() - sizeof(quint16));
+
+    this->write(block);
+}
+
 void GameNetwork::setPlayerPos(const unsigned int &uiX, const unsigned int &uiY)
 {
     QByteArray block;
     QDataStream blockControl(&block, QIODevice::WriteOnly);
     blockControl.setVersion(QDataStream::Qt_4_8);
 
-    blockControl << quint16(0) << quint8(SET_PLAY_POSITION) << m_name << quint32(uiX) << quint32(uiY);
+    blockControl << quint16(0) << quint8(SET_PLAYER_POSITION) << m_name << quint32(uiX) << quint32(uiY);
 
     blockControl.device()->seek(0);
     blockControl << quint16(block.size() - sizeof(quint16));
@@ -148,7 +158,7 @@ void GameNetwork::updateGame()
         {
             updateCharacter(serverBlock);
         }
-        else if(CURRENT_MAP == blockType)
+        else if(UPDATE_CURRENT_MAP == blockType)
         {
             updateMapName(serverBlock);
         }

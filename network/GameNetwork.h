@@ -17,6 +17,8 @@ public:
 
     void addPlayer();
 
+    void randomNpcOnMap(unsigned int numberOfNpc);
+
     void joinRequest();
 
     void setPlayerPos(const unsigned int &uiX, const unsigned int &uiY);

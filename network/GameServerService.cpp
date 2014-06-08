@@ -62,7 +62,7 @@ void GameServerService::readInComeRequest()
 
     inComeRequest >> blockType;
 
-    if(SET_PLAY_POSITION == blockType)
+    if(SET_PLAYER_POSITION == blockType)
     {
         QString name;
         quint32 uiCharacterX = 0;
@@ -81,6 +81,12 @@ void GameServerService::readInComeRequest()
 
         inComeRequest >> name ;
         m_pGameModule->addNewPlayer(name);
+    }
+    else if(ADD_NPC == blockType)
+    {
+        quint32 numberOfNpc = 0;
+        inComeRequest >> numberOfNpc;
+        m_pGameModule->addNewCharacter(numberOfNpc);
     }
     else if(JOIN_REQUEST == blockType)
     {
@@ -108,15 +114,18 @@ void GameServerService::sendCharacterPositionData()
     quint32 uiCharacterY = 0;
     quint32 uiDirection = 0;
     quint32 uiStep = 0;
+    std::shared_ptr<Character> pCharacter = NULL;
 
     blockControl << qint32(iNumberOfCharacter);
 
     for(int index = 0; index < iNumberOfCharacter; ++index)
     {
-        uiCharacterX = m_pGameModule->getCharacterByID(index)->getCurrentGridX();
-        uiCharacterY = m_pGameModule->getCharacterByID(index)->getCurrentGridY();
-        uiDirection = m_pGameModule->getCharacterByID(index)->getDirection();
-        uiStep = m_pGameModule->getCharacterByID(index)->getStep();
+        pCharacter = m_pGameModule->getCharacterByID(index);
+
+        uiCharacterX = pCharacter->getCurrentGridX();
+        uiCharacterY = pCharacter->getCurrentGridY();
+        uiDirection = pCharacter->getDirection();
+        uiStep = pCharacter->getStep();
 
         blockControl << index << uiCharacterX << uiCharacterY << uiDirection << uiStep;
     }
@@ -136,7 +145,7 @@ void GameServerService::sendMapName()
     QDataStream blockControl(&block, QIODevice::WriteOnly);
     blockControl.setVersion(QDataStream::Qt_4_8);
 
-    blockControl << quint16(0) << quint8(CURRENT_MAP);
+    blockControl << quint16(0) << quint8(UPDATE_CURRENT_MAP);
 
     blockControl << m_mapName;
 

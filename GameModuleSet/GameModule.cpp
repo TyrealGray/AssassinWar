@@ -66,8 +66,6 @@ void GameModule::addNewPlayer(const QString& name)
 
 void GameModule::addNewCharacter(unsigned int number /* = 1 */)
 {
-    srand((unsigned)time(NULL));
-
     unsigned int uiX = 0;
     unsigned int uiY = 0;
 
@@ -121,10 +119,7 @@ void GameModule::updateCharactersStatus()
     {
         pCharacter = m_pCharacterModule->getCharacter(index);
 
-        curGridX = pCharacter->getCurrentGridX();
-        curGridY = pCharacter->getCurrentGridY();
-
-        m_pMapModule->setGrid(curGridX, curGridY, true);
+        m_pMapModule->setGrid(pCharacter->getCurrentGridX(), pCharacter->getCurrentGridY(), true);
 
         uiGridX = pCharacter->getNextStepGridX();
         uiGridY = pCharacter->getNextStepGridY();
@@ -134,7 +129,10 @@ void GameModule::updateCharactersStatus()
             m_pCharacterModule->getCharacter(index)->updateNextPosture();
             m_pMapModule->setGrid(uiGridX, uiGridY, false);
         }
-
+        else
+        {
+            m_pMapModule->setGrid(pCharacter->getCurrentGridX(), pCharacter->getCurrentGridY(), false);
+        }
     }
 }
 

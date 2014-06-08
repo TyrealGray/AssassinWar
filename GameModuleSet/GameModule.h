@@ -30,8 +30,6 @@ public:
 
     void setGameIsRun(bool bIsRun);
 
-    void setMirror(bool bIsMirror);
-
     void setPlayerName(const QString& name);
 
     void setMapSize(const unsigned int &uiGridWidth, const  unsigned int &uiGridheight);

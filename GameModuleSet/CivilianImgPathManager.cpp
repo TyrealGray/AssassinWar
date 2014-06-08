@@ -17,8 +17,6 @@ const char* CivilianImgPathManager::getRandomCivilianImgPathBegin()
 {
     char* pImgPathBegin = "";
 
-    srand((unsigned)time(NULL));
-
     unsigned int uiType = rand() % NUMBER_OF_CIVILIAN_IMG_CLASS;
 
     switch(uiType)
