@@ -7,10 +7,6 @@
 
 #include "Character.h"
 
-const unsigned int CIVILIAN = 0;
-const unsigned int WARRIOR = 1;
-const unsigned int RANGER = 2;
-
 class CharacterManager
 {
 

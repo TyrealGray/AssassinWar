@@ -17,7 +17,8 @@
 > * QT4.8.5
 > * GTest 1.7.0
 
-**make sure your already set environment variable : $(GTest) for GTest 1.7.0**
+**make sure your already set environment variable :**
+**$(GTest) for GTest 1.7.0 and $(QTDIR) for QT4.8.5**
 
 **if you want to comment a lib, just write in** `commentlib.h` **in AW project flie such like:**
 

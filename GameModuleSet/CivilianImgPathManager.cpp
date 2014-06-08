@@ -3,7 +3,7 @@
 
 #include "CivilianImgPathManager.h"
 
-const int NUMBER_OF_CIVILIAN_IMG_CLASS = 2;
+const int NUMBER_OF_CIVILIAN_IMG_CLASS = 3;
 CivilianImgPathManager::CivilianImgPathManager(void)
 {
 }
@@ -15,7 +15,7 @@ CivilianImgPathManager::~CivilianImgPathManager(void)
 
 const char* CivilianImgPathManager::getRandomCivilianImgPathBegin()
 {
-    char* pImgPathBegin = "";
+    char* pImgPathBegin = "./Resources/Character/CivilianGrandPa";
 
     unsigned int uiType = rand() % NUMBER_OF_CIVILIAN_IMG_CLASS;
 
@@ -27,8 +27,11 @@ const char* CivilianImgPathManager::getRandomCivilianImgPathBegin()
     case 1:
         pImgPathBegin = "./Resources/Character/CivilianGrandMa";
         break;
+    case 2:
+        pImgPathBegin = "./Resources/Character/CivilianGrandHe";
+        break;
     default:
-        pImgPathBegin = "./Resources/Character/CivilianGrandPa";
+        break;
     }
 
     return pImgPathBegin;
