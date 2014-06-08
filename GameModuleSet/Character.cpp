@@ -3,9 +3,11 @@
 
 #include "Character.h"
 #include "PixelCoordinateTransfer.h"
+#include "CivilianImgPathManager.h"
 
 
 const int FOOTAGE_IMG_CHANGE_STEP = 1;
+const int NUMBER_OF_CIVILIAN_IMG_CLASS = 2;
 Character::Character(int id, unsigned int uiSpeed, unsigned int uiType)
     : m_pCharacter(NULL), m_pLock(NULL),
       m_id(id), m_uiSpeed(uiSpeed), m_uiType(uiType),
@@ -30,10 +32,9 @@ void Character::init()
 
     m_pCharacter = new QImage();
 
-    setImgPathBegin("./Resources/Character/CivilianGrandPa");
+    setImgPathBegin(CivilianImgPathManager::getRandomCivilianImgPathBegin());
 
     updateNextCharacterImg();
-
 }
 
 void Character::die()
