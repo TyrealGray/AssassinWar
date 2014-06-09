@@ -13,7 +13,8 @@ Character::Character(int id, unsigned int uiSpeed, unsigned int uiType)
       m_id(id), m_uiSpeed(uiSpeed), m_uiType(uiType),
       m_uiCurrentX(0), m_uiCurrentY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
       m_iDirection(GO_DOWN), m_iLastTimeDirection(GO_DOWN),
-      m_iStep(0), m_iFpsStep(0), m_imgPathBegin("")
+      m_iStep(0), m_iFpsStep(0), m_imgPathBegin(""),
+      m_uiNextTimeRandomWalkRemain(0)
 {
 }
 
@@ -139,6 +140,16 @@ void Character::setPosture(const int &iDirection, const int &iStep)
     m_pCharacter->load(getImgPathBegin() + QString("-%1%2.png").arg(getDirection()).arg(getStep()));
     m_pLock->unlock();
 }
+
+void Character::setNextTimeRandomWalkRemain(unsigned int uiSeconds)
+{
+    m_pLock->lockForWrite();
+
+    m_uiNextTimeRandomWalkRemain = uiSeconds;
+
+    m_pLock->unlock();
+}
+
 unsigned int Character::getNextStepGridX()
 {
     return PixelCoordinateTransfer::toGrid(getNextStepX());
@@ -232,6 +243,15 @@ unsigned int Character::getCurrentY()
 {
     return m_uiCurrentY;
 }
+unsigned int Character::getNextTimeWalkRemain()
+{
+    return m_uiNextTimeRandomWalkRemain;
+}
+
+unsigned int Character::getType()
+{
+    return m_uiType;
+}
 
 int Character::getDirection()
 {
@@ -246,6 +266,11 @@ int Character::getStep()
 QString Character::getImgPathBegin()
 {
     return m_imgPathBegin;
+}
+
+bool Character::isReachInTargetPosition()
+{
+    return getCurrentGridX() == getTargetGridX() && getCurrentGridY() == getTargetGridY();
 }
 
 void Character::setCurrentX(int iX)

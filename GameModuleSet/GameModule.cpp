@@ -8,6 +8,8 @@
 #include "CharacterModule.h"
 
 const int NUMBER_OF_CLASSES = 1;
+const int NPC = 0;
+const int NPC_MAX_WAIT_REMAIN_TIME = 4;
 GameModule::GameModule(QObject * parent /*= 0*/)
     : QObject(parent),
       m_pMapModule(NULL), m_pCharacterModule(NULL),
@@ -132,6 +134,59 @@ void GameModule::updateCharactersStatus()
         else
         {
             m_pMapModule->setGrid(pCharacter->getCurrentGridX(), pCharacter->getCurrentGridY(), false);
+        }
+    }
+}
+
+void GameModule::randomNpcTargetPosition()
+{
+    if(!m_bIsGameRun)
+    {
+        return;
+    }
+
+    srand((unsigned)time(NULL));
+
+    std::shared_ptr<Character> pCharacter = NULL;
+
+    for(unsigned int index = 0 ; index < m_pCharacterModule->getNumberOfCharacter(); ++index)
+    {
+        pCharacter = m_pCharacterModule->getCharacter(index);
+
+        if(pCharacter->getType() != NPC)
+        {
+            continue;
+        }
+
+        if(0 == pCharacter->getNextTimeWalkRemain()
+                || !m_pMapModule->getGrid(pCharacter->getNextStepGridX(), pCharacter->getNextStepGridY()))
+        {
+            unsigned int uiX = 0;
+            unsigned int uiY = 0;
+            unsigned int uiCurrentX = pCharacter->getCurrentGridX();
+            unsigned int uiCurrentY = pCharacter->getCurrentGridY();
+
+            do
+            {
+                uiX = (rand() % m_pMapModule->getWidth()) + 1;
+                uiY = (rand() % m_pMapModule->getHeight()) + 1;
+            }
+            while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+
+            pCharacter->goTo(uiX , uiY);
+
+
+            if(0 == pCharacter->getNextTimeWalkRemain())
+            {
+                pCharacter->setNextTimeRandomWalkRemain(rand() % NPC_MAX_WAIT_REMAIN_TIME);
+            }
+        }
+        else
+        {
+            if(pCharacter->isReachInTargetPosition())
+            {
+                pCharacter->setNextTimeRandomWalkRemain(pCharacter->getNextTimeWalkRemain() - 1);
+            }
         }
     }
 }

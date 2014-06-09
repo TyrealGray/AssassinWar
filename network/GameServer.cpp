@@ -7,7 +7,8 @@
 
 GameServer::GameServer(GameModule* gameModule, const QString& strCurrntMapName, QObject * parent /* = 0*/)
     : QTcpServer(parent),
-      m_pGameUpdateTimer(NULL), m_pGameModule(gameModule), m_pGameUpdateThread(NULL),
+      m_pGameUpdateTimer(NULL), m_pNpcRandomWalkTimer(NULL),
+      m_pGameModule(gameModule), m_pGameUpdateThread(NULL),
       m_mapName(strCurrntMapName)
 {
 }
@@ -50,4 +51,15 @@ void GameServer::initGameModuleDataUpdateTimer()
 
     connect(m_pGameUpdateThread, SIGNAL(finished()), m_pGameUpdateTimer, SLOT(stop()));
     connect(m_pGameUpdateThread, SIGNAL(finished()), m_pGameUpdateTimer, SLOT(deleteLater()));
+
+    m_pNpcRandomWalkTimer = new QTimer();
+    connect(m_pNpcRandomWalkTimer, SIGNAL(timeout()), m_pGameModule, SLOT(randomNpcTargetPosition()));
+
+    m_pNpcRandomWalkTimer->start(3000);
+
+    m_pNpcRandomWalkTimer->moveToThread(m_pGameUpdateThread);
+
+    connect(m_pGameUpdateThread, SIGNAL(finished()), m_pNpcRandomWalkTimer, SLOT(stop()));
+    connect(m_pGameUpdateThread, SIGNAL(finished()), m_pNpcRandomWalkTimer, SLOT(deleteLater()));
+
 }

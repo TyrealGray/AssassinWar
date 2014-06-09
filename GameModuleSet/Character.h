@@ -41,6 +41,8 @@ public:
 
     void setPosture(const int &iDirection, const int &iStep);
 
+    void setNextTimeRandomWalkRemain(unsigned int uiSeconds);
+
     unsigned int getSpeed();
 
     unsigned int getCurrentGridX();
@@ -51,9 +53,15 @@ public:
 
     unsigned int getTargetGridY();
 
+    unsigned int getNextTimeWalkRemain();
+
+    unsigned int getType();
+
     int getDirection();
 
     int getStep();
+
+    bool isReachInTargetPosition();
 
 private:
     QImage* m_pCharacter;
@@ -70,6 +78,7 @@ private:
     int m_iStep;
     int m_iFpsStep;
     QString m_imgPathBegin;
+    unsigned int m_uiNextTimeRandomWalkRemain;
 
     void setCurrentX(int iX);
     void setCurrentY(int iY);

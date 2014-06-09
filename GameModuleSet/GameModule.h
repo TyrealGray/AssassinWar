@@ -62,6 +62,8 @@ private slots:
 
     void updateCharactersStatus();
 
+    void randomNpcTargetPosition();
+
 private:
     MapModule* m_pMapModule;
     CharacterModule* m_pCharacterModule;

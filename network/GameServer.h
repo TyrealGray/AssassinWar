@@ -19,6 +19,7 @@ protected:
 
 private:
     QTimer* m_pGameUpdateTimer;
+    QTimer* m_pNpcRandomWalkTimer;
     GameModule* m_pGameModule;
     QThread* m_pGameUpdateThread;
     QString m_mapName;
