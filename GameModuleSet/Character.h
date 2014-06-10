@@ -61,7 +61,7 @@ public:
 
     int getStep();
 
-    bool isReachInTargetPosition();
+    bool isWayBlocked();
 
 private:
     QImage* m_pCharacter;
@@ -71,6 +71,8 @@ private:
     unsigned int m_uiType;
     unsigned int m_uiCurrentX;
     unsigned int m_uiCurrentY;
+    unsigned int m_uiLastTimeX;
+    unsigned int m_uiLastTimeY;
     unsigned int m_uiTargetGridX;
     unsigned int m_uiTargetGridY;
     int m_iDirection;

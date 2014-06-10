@@ -55,7 +55,7 @@ void GameServer::initGameModuleDataUpdateTimer()
     m_pNpcRandomWalkTimer = new QTimer();
     connect(m_pNpcRandomWalkTimer, SIGNAL(timeout()), m_pGameModule, SLOT(randomNpcTargetPosition()));
 
-    m_pNpcRandomWalkTimer->start(3000);
+    m_pNpcRandomWalkTimer->start(1000);
 
     m_pNpcRandomWalkTimer->moveToThread(m_pGameUpdateThread);
 

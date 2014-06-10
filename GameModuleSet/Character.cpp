@@ -11,7 +11,7 @@ const int NUMBER_OF_CIVILIAN_IMG_CLASS = 2;
 Character::Character(int id, unsigned int uiSpeed, unsigned int uiType)
     : m_pCharacter(NULL), m_pLock(NULL),
       m_id(id), m_uiSpeed(uiSpeed), m_uiType(uiType),
-      m_uiCurrentX(0), m_uiCurrentY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
+      m_uiCurrentX(0), m_uiCurrentY(0), m_uiLastTimeX(0), m_uiLastTimeY(0), m_uiTargetGridX(1), m_uiTargetGridY(1),
       m_iDirection(GO_DOWN), m_iLastTimeDirection(GO_DOWN),
       m_iStep(0), m_iFpsStep(0), m_imgPathBegin(""),
       m_uiNextTimeRandomWalkRemain(0)
@@ -268,10 +268,17 @@ QString Character::getImgPathBegin()
     return m_imgPathBegin;
 }
 
-bool Character::isReachInTargetPosition()
+bool Character::isWayBlocked()
 {
-    return getCurrentGridX() == getTargetGridX() && getCurrentGridY() == getTargetGridY();
+    bool bIsWayBlocked = (m_uiLastTimeX == m_uiCurrentX && m_uiLastTimeY == m_uiCurrentY);
+
+    m_uiLastTimeX = m_uiCurrentX;
+    m_uiLastTimeY = m_uiCurrentY;
+
+    return bIsWayBlocked;
 }
+
+
 
 void Character::setCurrentX(int iX)
 {

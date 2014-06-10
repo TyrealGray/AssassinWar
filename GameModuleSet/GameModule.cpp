@@ -9,7 +9,8 @@
 
 const int NUMBER_OF_CLASSES = 1;
 const int NPC = 0;
-const int NPC_MAX_WAIT_REMAIN_TIME = 4;
+const int NPC_MAX_WAIT_REMAIN_TIME = 3;
+const int NPC_MAX_RANDOM_STEP = 15;
 GameModule::GameModule(QObject * parent /*= 0*/)
     : QObject(parent),
       m_pMapModule(NULL), m_pCharacterModule(NULL),
@@ -51,25 +52,25 @@ void GameModule::addNewPlayer(const QString& name)
 
     m_pCharacterModule->addNewPlayer(name, uiType);
 
-    unsigned int uiX = 0;
-    unsigned int uiY = 0;
+    unsigned int uiGridX = 0;
+    unsigned int uiGridY = 0;
 
     do
     {
-        uiX = (rand() % m_pMapModule->getWidth()) + 1;
-        uiY = (rand() % m_pMapModule->getHeight()) + 1;
+        uiGridX = (rand() % m_pMapModule->getWidth()) + 1;
+        uiGridY = (rand() % m_pMapModule->getHeight()) + 1;
     }
-    while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+    while(0 == uiGridX || 0 == uiGridY || !m_pMapModule->getGrid(uiGridX, uiGridY));
 
-    m_pCharacterModule->setCharacterPos(name, uiX, uiY);
+    m_pCharacterModule->setCharacterPos(name, uiGridX, uiGridY);
 
-    m_pMapModule->setGrid(uiX, uiY, false);
+    m_pMapModule->setGrid(uiGridX, uiGridY, false);
 }
 
 void GameModule::addNewCharacter(unsigned int number /* = 1 */)
 {
-    unsigned int uiX = 0;
-    unsigned int uiY = 0;
+    unsigned int uiGridX = 0;
+    unsigned int uiGridY = 0;
 
     for(unsigned int index = 0 ; index < number; ++index)
     {
@@ -77,14 +78,14 @@ void GameModule::addNewCharacter(unsigned int number /* = 1 */)
 
         do
         {
-            uiX = (rand() % m_pMapModule->getWidth()) + 1;
-            uiY = (rand() % m_pMapModule->getHeight()) + 1;
+            uiGridX = (rand() % m_pMapModule->getWidth()) + 1;
+            uiGridY = (rand() % m_pMapModule->getHeight()) + 1;
         }
-        while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+        while(0 == uiGridX || 0 == uiGridY || !m_pMapModule->getGrid(uiGridX, uiGridY));
 
-        m_pCharacterModule->setCharacterPos(getNumberOfCharacter() - 1 , uiX, uiY);
+        m_pCharacterModule->setCharacterPos(getNumberOfCharacter() - 1 , uiGridX, uiGridY);
 
-        m_pMapModule->setGrid(uiX, uiY, false);
+        m_pMapModule->setGrid(uiGridX, uiGridY, false);
     }
 
 }
@@ -158,32 +159,30 @@ void GameModule::randomNpcTargetPosition()
             continue;
         }
 
-        if(0 == pCharacter->getNextTimeWalkRemain()
-                || !m_pMapModule->getGrid(pCharacter->getNextStepGridX(), pCharacter->getNextStepGridY()))
+        if(0 == pCharacter->getNextTimeWalkRemain())
         {
-            unsigned int uiX = 0;
-            unsigned int uiY = 0;
-            unsigned int uiCurrentX = pCharacter->getCurrentGridX();
-            unsigned int uiCurrentY = pCharacter->getCurrentGridY();
+            unsigned int uiGridX = 0;
+            unsigned int uGridiY = 0;
+            unsigned int uiCurGridX = pCharacter->getCurrentGridX();
+            unsigned int uiCurGridY = pCharacter->getCurrentGridY();
 
             do
             {
-                uiX = (rand() % m_pMapModule->getWidth()) + 1;
-                uiY = (rand() % m_pMapModule->getHeight()) + 1;
+                uiGridX = ((rand() % (NPC_MAX_RANDOM_STEP * 2)) - NPC_MAX_RANDOM_STEP) + uiCurGridX;
+                uGridiY = ((rand() % (NPC_MAX_RANDOM_STEP * 2)) - NPC_MAX_RANDOM_STEP) + uiCurGridY;
             }
-            while(0 == uiX || 0 == uiY || !m_pMapModule->getGrid(uiX, uiY));
+            while(0 == uiGridX || 0 == uGridiY || !m_pMapModule->getGrid(uiGridX, uGridiY));
 
-            pCharacter->goTo(uiX , uiY);
-
+            pCharacter->goTo(uiGridX , uGridiY);
 
             if(0 == pCharacter->getNextTimeWalkRemain())
             {
-                pCharacter->setNextTimeRandomWalkRemain(rand() % NPC_MAX_WAIT_REMAIN_TIME);
+                pCharacter->setNextTimeRandomWalkRemain(rand() % NPC_MAX_WAIT_REMAIN_TIME + NPC_MAX_WAIT_REMAIN_TIME);
             }
         }
         else
         {
-            if(pCharacter->isReachInTargetPosition())
+            if(pCharacter->isWayBlocked())
             {
                 pCharacter->setNextTimeRandomWalkRemain(pCharacter->getNextTimeWalkRemain() - 1);
             }
