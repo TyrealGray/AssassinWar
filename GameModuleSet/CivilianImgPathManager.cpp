@@ -3,7 +3,7 @@
 
 #include "CivilianImgPathManager.h"
 
-const int NUMBER_OF_CIVILIAN_IMG_CLASS = 3;
+const int NUMBER_OF_CIVILIAN_IMG_CLASS = 4;
 CivilianImgPathManager::CivilianImgPathManager(void)
 {
 }
@@ -29,6 +29,9 @@ const char* CivilianImgPathManager::getRandomCivilianImgPathBegin()
         break;
     case 2:
         pImgPathBegin = "./Resources/Character/CivilianGrandHe";
+        break;
+    case 3:
+        pImgPathBegin = "./Resources/Character/CivilianGrandShe";
         break;
     default:
         break;
