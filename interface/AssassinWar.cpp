@@ -69,7 +69,7 @@ void AssassinWar::paintEvent(QPaintEvent *paintEvent)
 
     if(m_bIsAWRun && NULL != m_pGameScreen)
     {
-        m_pGameScreen->drawAllGameScreen(painter);
+        m_pGameScreen->drawGameScreen(painter);
     }
 }
 

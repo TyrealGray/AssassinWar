@@ -33,7 +33,7 @@ public:
 
     int getScreenOffsetY()const;
 
-    void drawAllGameScreen(QPainter& painter);
+    void drawGameScreen(QPainter& painter);
 
     void setMapName(const QString& mapName);
 

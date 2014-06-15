@@ -186,16 +186,16 @@ int GameScreen::getScreenOffsetY()const
     return verticalScrollBar()->value();
 }
 
-void GameScreen::drawAllGameScreen(QPainter& painter)
+void GameScreen::drawGameScreen(QPainter& painter)
 {
     if(m_pGameModule->isGameRun())
     {
         int iPlayerX = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridX());
         int iPlayerY = PixelCoordinateTransfer::toPixel(m_pGameModule->getPlayerGridY());
         ensureVisible(iPlayerX, iPlayerY, ENSURE_VISIBLE_BOUNDARY_DISTANCE, ENSURE_VISIBLE_BOUNDARY_DISTANCE);
+        m_pGameModule->drawPlayerMarker(painter, iPlayerX + 5, iPlayerY - 10);
+        m_pGameModule->drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
     }
-
-    m_pGameModule->drawAllCharacter(painter, getScreenOffsetX(), getScreenOffsetY());
 }
 
 bool GameScreen::loadGameMap(const QString& currntMapName)

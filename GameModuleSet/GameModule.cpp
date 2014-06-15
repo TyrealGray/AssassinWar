@@ -13,6 +13,7 @@ const int NPC_MAX_WAIT_REMAIN_TIME = 3;
 const int NPC_MAX_RANDOM_STEP = 15;
 GameModule::GameModule(QObject * parent /*= 0*/)
     : QObject(parent),
+      m_pPlayerMarker(NULL),
       m_pMapModule(NULL), m_pCharacterModule(NULL),
       m_bIsGameRun(false), m_playerName("")
 {
@@ -26,6 +27,9 @@ GameModule::~GameModule(void)
 
 void GameModule::init()
 {
+    m_pPlayerMarker = new QImage();
+    m_pPlayerMarker->load("./Resources/Character/PlayerMarker.png");
+
     m_pMapModule = new MapModule();
     m_pMapModule->init();
 
@@ -93,6 +97,11 @@ void GameModule::addNewCharacter(unsigned int number /* = 1 */)
 void GameModule::drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY)
 {
     m_pCharacterModule->drawAllCharacter(painter, iOffsetX, iOffsetY);
+}
+
+void GameModule::drawPlayerMarker(QPainter &painter, int iOffsetX, int iOffsetY)
+{
+    painter.drawImage(iOffsetX, iOffsetY, (*m_pPlayerMarker));
 }
 
 void GameModule::setGameIsRun(bool bIsRun)
@@ -277,6 +286,9 @@ void GameModule::clear()
 
 void GameModule::release()
 {
+    delete m_pPlayerMarker;
+    m_pPlayerMarker = NULL;
+
     delete m_pMapModule;
     m_pMapModule = NULL;
 

@@ -4,6 +4,7 @@
 
 #include "Character.h"
 
+class QImage;
 class QWidget;
 class QPainter;
 class MapModule;
@@ -27,6 +28,8 @@ public:
     void addNewCharacter(unsigned int number = 1);
 
     void drawAllCharacter(QPainter &painter, int iOffsetX, int iOffsetY);
+
+    void drawPlayerMarker(QPainter &painter, int iOffsetX, int iOffsetY);
 
     void setGameIsRun(bool bIsRun);
 
@@ -65,6 +68,7 @@ private slots:
     void randomNpcTargetPosition();
 
 private:
+    QImage* m_pPlayerMarker;
     MapModule* m_pMapModule;
     CharacterModule* m_pCharacterModule;
     bool m_bIsGameRun;
