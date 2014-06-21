@@ -218,7 +218,7 @@ void GameNetwork::updateCharacter(QDataStream& serverBlock)
 
         if(!isConnectLocal())
         {
-            m_pGameModule->setCharacterTargetPos(index, uiCharacterX, uiCharacterY);
+            m_pGameModule->setCharacterPos(index, uiCharacterX, uiCharacterY);
             m_pGameModule->setCharacterPosture(index, uiDirection, uiStep);
         }
         else
