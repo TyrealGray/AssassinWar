@@ -85,6 +85,7 @@ void AssassinWar::onButttonHost()
 void AssassinWar::onButtonJoin()
 {
     setMouseTracking(false);
+	
     m_pToolbar->setVisible(false);
 
     m_pJoinGameDlg->show();
