@@ -1,7 +1,7 @@
-####**this project is temporarily stop,here is a 3d-version of AssassinWar**`https://github.com/TyrealGray/HMIYC`
-
 #AssassinWar
-
+---
+**this project stoped temporarily,here is a 3d-version of AssassinWar`https://github.com/TyrealGray/HMIYC`**
+---
 ###This is a 2D-Game that based on QT 4.8.5
 
 ###The Inspiration came form a RPG-map of Warcraft3 in China
