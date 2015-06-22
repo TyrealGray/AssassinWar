@@ -1,3 +1,5 @@
+**this project is temporarily stop,here is a 3d-version of AssassinWar**`https://github.com/TyrealGray/HMIYC`
+---
 #AssassinWar
 
 ###This is a 2D-Game that based on QT 4.8.5
