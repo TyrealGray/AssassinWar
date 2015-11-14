@@ -29,19 +29,62 @@
       </header>
       <section>
         <h1>
-<a name="assassinwar" class="anchor" href="#assassinwar"><span class="octicon octicon-link"></span></a>AssassinWar</h1>
+<a id="assassinwar" class="anchor" href="#assassinwar" aria-hidden="true"><span class="octicon octicon-link"></span></a>AssassinWar</h1>
+
+<blockquote>
+<ul>
+<li><strong>this project stoped temporarily,here is a 3d-version of AssassinWar[<a href="https://github.com/TyrealGray/HMIYC">https://github.com/TyrealGray/HMIYC</a>]</strong></li>
+</ul>
+</blockquote>
+
+<h3>
+<a id="this-is-a-2d-game-that-based-on-qt-485" class="anchor" href="#this-is-a-2d-game-that-based-on-qt-485" aria-hidden="true"><span class="octicon octicon-link"></span></a>This is a 2D-Game that based on QT 4.8.5</h3>
+
+<h3>
+<a id="the-inspiration-came-form-a-rpg-map-of-warcraft3-in-china" class="anchor" href="#the-inspiration-came-form-a-rpg-map-of-warcraft3-in-china" aria-hidden="true"><span class="octicon octicon-link"></span></a>The Inspiration came form a RPG-map of Warcraft3 in China</h3>
+
+<h3>
+<a id="each-players-control-one-assassin-that-looks-like-normal-people" class="anchor" href="#each-players-control-one-assassin-that-looks-like-normal-people" aria-hidden="true"><span class="octicon octicon-link"></span></a>Each players control one Assassin that looks like normal people</h3>
+
+<h3>
+<a id="the-whole-game-is-about-finding-other-assassins-and-kill" class="anchor" href="#the-whole-game-is-about-finding-other-assassins-and-kill" aria-hidden="true"><span class="octicon octicon-link"></span></a>The whole game is about finding other Assassins and kill</h3>
+
+<h3>
+<a id="be-sure-that-you-only-kill-assassinother-players" class="anchor" href="#be-sure-that-you-only-kill-assassinother-players" aria-hidden="true"><span class="octicon octicon-link"></span></a>Be sure that you only kill Assassin(other players)</h3>
+
+<h3>
+<a id="becuase-you-will-get-punishment-if-you-kill-the-innocence-npcs" class="anchor" href="#becuase-you-will-get-punishment-if-you-kill-the-innocence-npcs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Becuase you will get Punishment if you kill the innocence NPCs</h3>
 
 <h2>
-<a name="this-is-a-2d-game-that-based-on-qt-485" class="anchor" href="#this-is-a-2d-game-that-based-on-qt-485"><span class="octicon octicon-link"></span></a>This is a 2D-Game that based on QT 4.8.5</h2>
+<a id="to-open-this-project-you-need" class="anchor" href="#to-open-this-project-you-need" aria-hidden="true"><span class="octicon octicon-link"></span></a>To open this project you need:</h2>
 
-<h2>
-<a name="the-inspiration-came-form-a-rpg-map-of-warcraft3-in-china" class="anchor" href="#the-inspiration-came-form-a-rpg-map-of-warcraft3-in-china"><span class="octicon octicon-link"></span></a>The Inspiration came form a RPG-map of Warcraft3 in China</h2>
+<blockquote>
+<ul>
+<li>vs2010 sp1</li>
+<li>QT4.8.5</li>
+<li>GTest 1.7.0</li>
+</ul>
+</blockquote>
 
-<h2>
-<a name="each-players-control-one-assassin-that-looks-like-normal-peopleand-the-whole-game-is-about-finding-other-assassins-and-kill" class="anchor" href="#each-players-control-one-assassin-that-looks-like-normal-peopleand-the-whole-game-is-about-finding-other-assassins-and-kill"><span class="octicon octicon-link"></span></a>Each players control one Assassin that looks like normal people,and the whole game is about finding other Assassins and kill</h2>
+<p><strong>make sure your already set environment variable :</strong>
+<strong>$(GTest) for GTest 1.7.0 and $(QTDIR) for QT4.8.5</strong></p>
 
-<h2>
-<a name="be-sure-that-you-only-kill-assassinother-playersbecuase-you-will-get-punishment-if-you-kill-the-innocence-npcs" class="anchor" href="#be-sure-that-you-only-kill-assassinother-playersbecuase-you-will-get-punishment-if-you-kill-the-innocence-npcs"><span class="octicon octicon-link"></span></a>Be sure that you only kill Assassin(other players),becuase you will get Punishment if you kill the innocence NPCs</h2>
+<p><strong>if you want to comment a lib, just write in</strong> <code>commentlib.h</code> <strong>in AW project flie such like:</strong></p>
+
+<pre><code>#ifdef _DEBUG
+#pragma comment(lib,"QtUiToolsd.lib")
+#pragma comment(lib,"MapLoaderd.lib")
+#pragma comment(lib,"GameModuleSetd.lib")
+#else
+#pragma comment(lib,"QtUiTools.lib")
+#pragma comment(lib,"MapLoader.lib")
+#pragma comment(lib,"GameModuleSet.lib")
+#endif // _DEBUG
+</code></pre>
+
+<p><strong>Every project path setting should begin with</strong> <code>$(ProjectDir)</code><strong>,do not use</strong> <code>$(SolutionDir)</code><strong>!!!</strong></p>
+
+<p><code>other project link</code><a href="https://code.google.com/p/googletest/downloads/detail?name=gtest-1.7.0.zip">GTest 1.7.0</a> <strong>And</strong> <a href="http://download.qt-project.org/official_releases/qt/4.8/4.8.5/">QT 4.8.5 GUI</a></p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/TyrealGray">TyrealGray</a></p>
